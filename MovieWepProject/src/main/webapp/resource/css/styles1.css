@@ -1,0 +1,263 @@
+@charset "EUC-KR";
+
+/* 로고 이미지 스타일 */
+header {
+	background-color: #ffffff;
+	background-size: cover;
+	background-position: center;
+	text-align: center;
+	padding: 20px 1;
+}
+
+/* 로고 이미지 스타일 */
+/*header {
+	background-color: #f8f9fa;
+	padding: 10px 0;
+}*/
+.container-with-box {
+
+        btn-border-width : 100px
+    }
+/* 로고 이미지 스타일 */
+header img {
+	max-width: 300px;
+	height: auto;
+	display: block;
+	margin: 1px auto;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+/* 전체 페이지 스타일 */
+body {
+	font-family: Arial, sans-serif;
+	background-color: #ffffff; /* 전체 페이지 배경 색상을 흰색 (#ffffff)으로 설정 */
+	margin: 0;
+	padding: 0;
+}
+
+/* 로고 스타일 */
+.logo {
+	text-align: center;
+}
+
+.navbar-right-align {
+	margin-left: auto; /* 자동 여백을 추가하여 우측으로 정렬 */
+}
+
+.logo img {
+	max-width: 20%;
+	height: auto;
+	display: block;
+	margin: 0 auto;
+	/* 로고 이미지 크기 및 가운데 정렬 */
+}
+
+/* 로그인 폼 크기 조정 */
+.card {
+	width: 160px; /* 폼의 너비 조정 */
+	margin: 0 auto; /* 가운데 정렬 */
+	min-width: 0px;
+}
+
+
+/* 영화 제목 스타일 */
+.card-title {
+	font-size: 14px; /* 글자 크기 조정 */
+	margin-left: 10px; /* 왼쪽 여백을 추가하여 제목을 왼쪽으로 이동 */
+}
+
+/* 인기 영화 포스터 호버 효과 */
+.card:hover .card-img-top {
+	transform: scale(1.2); /* 이미지 크기를 1.1배 확대 */
+	transition: transform 0.3s ease; /* 부드러운 확대 애니메이션 적용 */
+}
+
+/* 인기 영화 및 추천 영화 스타일 */
+.popular-movie, .recommended-movie {
+	margin-left: 10px; /* 오른쪽 여백을 추가하여 포스터를 왼쪽으로 이동 */
+}
+
+
+/* 하위 메뉴 스타일 */
+.submenu {
+	display: none;
+	position: absolute;
+	background-color: #0a0a0a;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	z-index: 1;
+	min-width: 0px;
+	min-height: 0px;
+	padding: 10px;
+	left: 0; /* 이 부분을 수정하여 하위 메뉴가 왼쪽에서 나오는 것을 조절합니다. */
+	top: 100%; /* 상위 메뉴 아래에 표시되도록 합니다. */
+}
+
+/* 드롭다운 메뉴 항목 스타일 */
+.submenu a {
+	color: #fff;
+	text-decoration: none;
+	display: block;
+	margin: 5px 0;
+}
+
+/* 드롭다운 메뉴 항목 호버 효과 */
+.submenu a:hover {
+	color: #ff5733;
+}
+
+/* 드롭다운 메뉴를 가로로 펼치기 */
+/*.nav-item:hover .submenu {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	background-color: #fff; /* 드롭다운 메뉴 배경색 설정 
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	z-index: 1;
+	min-width: 160px;
+	padding: 10px;
+}*/
+
+/* 드롭다운 메뉴를 가로로 펼치기 */
+.nav-item .submenu {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	background-color: #fff;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	z-index: 1;
+	min-width: 160px;
+	padding: 10px;
+}
+
+
+/* 로고 이미지 스타일 */
+.navbar-brand img {
+	width: 120px;
+	height: auto;
+}
+
+/* 네비게이션 바 스타일 */
+.navbar {
+	background-color: #0a0a0a; /* 검정색 배경 */
+	padding: 10px 0;
+	color: #fff; /* 흰색 글자색 */
+}
+
+ /* 네비게이션 바의 메뉴 항목들을 가로로 나열 */
+.navbar-nav {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+/* 네비게이션 바 스타일 */
+/*.navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #fff;
+	padding: 10px 20px;
+}*/
+.nav-link {
+	  top: 100%;
+	left: 0;
+}
+
+/* 메뉴 항목 스타일 (하얀 글자색) */
+.navbar-nav .nav-link .nav-item {
+	color: #fff; /* 흰색 글자색 */
+}
+
+
+/* 네비게이션 바의 메뉴 항목 간격 조정 */
+	.navbar-nav .nav-item {
+		margin-left: 20px; /* 메뉴 항목 간격을 조절할 수 있습니다. */
+	}
+
+/* 로그인과 회원가입 버튼 스타일 */
+.navbar-nav.ml-auto {
+	display: flex;
+	align-items: center; /* 버튼을 수직으로 가운데 정렬 */
+	margin-right: 20px; /* 오른쪽 여백 추가 (조정 가능) */
+}
+
+.navbar-nav.ml-auto .nav-item {
+	margin-left: 20px;
+}
+
+
+
+/* 내비게이션 메뉴 스타일링 */
+nav {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+	background-color: #0a0a0a; /* 검정색 배경 */
+	padding: 10px 0;
+	color: #fff; /* 흰색 글자색 */
+	text-align: center;
+}
+
+
+
+
+nav ul {
+	list-style: none;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+nav li {
+	margin-right: 20px;
+}
+
+/* 메뉴 항목 간격 설정 */
+nav ul li {
+	margin-right: 20px; /* 간격을 조절할 수 있는 값 */
+}
+
+nav ul li:hover .submenu ul {
+	display: block;
+}
+
+nav a {
+	text-decoration: none;
+	color: #fff;
+	font-weight: bold;
+	transition: color 0.3s;
+}
+
+nav a:hover {
+	color: #ff5733; /* 호버 효과에 다른 색상 적용 예시 */
+}
+
+
+header h1 {
+	margin: 0;
+}
+
+
+
+/* 검색 창 스타일 */
+#searchInput {
+	width: 250px;
+}
+
+
+/* 푸터 스타일 수정 예시 */
+footer {
+	background-color: #222; /* 배경색 변경 예시 */
+	color: #fff;
+	text-align: center;
+	padding: 20px 0;
+}
+
+footer i {
+	margin-right: 5px;
+	font-size: 18px;
+}

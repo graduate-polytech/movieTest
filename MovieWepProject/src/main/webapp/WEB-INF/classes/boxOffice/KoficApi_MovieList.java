@@ -24,6 +24,8 @@ public class KoficApi_MovieList {
 //&detail=Y&director=김지훈"
 //        urlBuilder.append("&" + URLEncoder.encode("detail","UTF-8") + "=" + "N");
         urlBuilder.append("&" + URLEncoder.encode("directorNm","UTF-8") + "=" + URLEncoder.encode("김지훈","UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("itemPerPage","UTF-8") + "=" + URLEncoder.encode("30","UTF-8"));
+        
         // Append other parameters as needed
 
         System.out.println("전체 URL : " + urlBuilder.toString());

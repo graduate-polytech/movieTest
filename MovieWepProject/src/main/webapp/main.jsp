@@ -58,7 +58,7 @@
 
 					<div class="row" id="recommendedMoviesContainer"></div>
 
-				</div>
+				</div> 
 
 				<h2 class="text-center">나의 영화관</h2>
 				<div id="map" style="width: 80%; height: 250px; margin: 0 auto;">

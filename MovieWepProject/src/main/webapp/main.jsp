@@ -22,124 +22,73 @@
 
 	 <!-- 로고 이미지 -->
 	<header>
-		<a class="navbar-brand" href="index.html"><img src="resource/images/컬러로고.png" alt="로고 이미지"  width="100px;" height="200px;"></a>
+		<div id="top">
+			<jsp:include page="loadFile/top.jsp"/>
+			<jsp:include page="loadFile/menuBar.jsp"/>
+		</div>
 	</header>
 
-	  <!-- 네비게이션 바 위쪽의 오른쪽에 로그인 및 회원가입 버튼 추가 -->
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12 text-right"> <!-- 오른쪽 정렬 클래스 추가 -->
-				<a class="btn btn-outline-primary" href="login.html">로그인</a>
-				<a class="btn btn-primary" href="register.html">회원가입</a>
-			</div>
-		</div>
-	</div>
-
-	<!-- 네비게이션 바 -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light" >
-		<div class="container">
-		  <div class="container-fluid">
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			  <span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				<li class="nav-item dropdown">
-				  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					영화
-				  </a>
-				  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<li><a class="dropdown-item" href="#">영화 검색</a></li>
-					<li><a class="dropdown-item" href="#">영화추천</a></li>
-				  </ul>
-				</li>
-				<li class="nav-item dropdown">
-				  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					박스오피스
-				  </a>
-				  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<li><a class="dropdown-item" href="#">일별 박스오피스</a></li>
-					<li><a class="dropdown-item" href="#">주간 박스오피스</a></li>
-				  </ul>
-				</li>
-				<li class="nav-item dropdown">
-				  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					극장
-				  </a>
-				  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<li><a class="dropdown-item" href="#">주변 영화관</a></li>
-					<li><a class="dropdown-item" href="#">지역별 영화관</a></li>
-				  </ul>
-				</li>
-				<li class="nav-item dropdown">
-				  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					마이 페이지
-				  </a>
-				  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<li><a class="dropdown-item" href="#">내 정보</a></li>
-					<li><a class="dropdown-item" href="#">내 리뷰</a></li>
-				  </ul>
-				</li>
-			  </ul>
-			  <div class="navbar-nav ml-auto">
-				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> <button class="btn btn-outline-success" type="submit">Search</button>
-			  </div>
-			</div>
-		  </div>
-		</div>
-	</nav>
-
 	<!-- 인기 영화 목록 -->
-	<div class="container mt-5">
-		<h2 class="text-center">인기 영화</h2>
-		<div class="row" id="popularMoviesContainer">
-		 <!-- 여기에 랜덤한 10개의 인기 영화 포스터가 추가됩니다. -->
-		</div>
+	<div class="side-left">
+		<div class="box-container">
+			<jsp:include page="mini_userInfo.jsp"/>
+	    </div>
 	</div>
-			
+	<div id="side-center">
 	<div class="container mt-5">
-		<h2 class="text-center">추천 영화</h2>
-		<div class="row" id="recommendedMoviesContainer">
-			  
+	    <h2 class="text-center">인기 영화</h2>
+	    <div class="row" id="popularMoviesContainer">
+	        <!-- 여기에 랜덤한 10개의 인기 영화 포스터가 추가됩니다. -->
+	    </div>
+	</div>
+	
+		
+		<div class="container mt-5">
+			<h2 class="text-center">추천 영화</h2>
+	
+			<div class="row" id="recommendedMoviesContainer"></div>
+	
 		</div>
+	
+		<h2 class="text-center">나의 영화관</h2>
+			<div id="map" style="width: 80%; height: 250px; margin: 0 auto;">
+			</div>
+	
+		<!-- CGV 영화관 사진 및 링크 -->
+			<div class="container text-center mt-5">
+				<h2>지금 당장 영화관으로</h2>
+					<a href="https://www.cgv.co.kr/" target="_blank">
+					<img src="cgv_movie_theater.jpg" alt="CGV 영화관 사진" style="width: 80%; max-width: 800px; height: auto; margin: 0 auto;">
+					</a>
+			</div>
+
+		 <script src="resource/js/script1.js"></script>  <!-- JavaScript 파일 링크  -->
+	
+		<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			// 로그인 버튼 클릭 시 login.html로 이동
+			const loginButton = document.querySelector("#loginButton");
+			loginButton.addEventListener("click", function() {
+				window.location.href = "login.html";
+			});
+	
+			// 회원가입 버튼 클릭 시 register.html로 이동
+			const registerButton = document.querySelector("#registerButton");
+			registerButton.addEventListener("click", function() {
+				window.location.href = "register.html";
+			});
+		});
+	</script>
 	</div>
 
-	<h2 class="text-center">나의 영화관</h2>
-		<div id="map" style="width: 80%; height: 250px; margin: 0 auto;">
-			
-
-		</div>
-
-	<!-- CGV 영화관 사진 및 링크 -->
-		<div class="container text-center mt-5">
-			<h2>지금 당장 영화관으로</h2>
-				<a href="https://www.cgv.co.kr/" target="_blank">
-				<img src="cgv_movie_theater.jpg" alt="CGV 영화관 사진" style="width: 80%; max-width: 800px; height: auto; margin: 0 auto;">
-				</a>
-		</div>
-
-
-
-	 <footer>
-		<p>&copy; 시네마 위키</p>
-	</footer>
-
-	 <script src="resource/js/script1.js"></script>  <!-- JavaScript 파일 링크  -->
-
-	<script>
-	document.addEventListener("DOMContentLoaded", function() {
-		// 로그인 버튼 클릭 시 login.html로 이동
-		const loginButton = document.querySelector("#loginButton");
-		loginButton.addEventListener("click", function() {
-			window.location.href = "login.html";
-		});
-
-		// 회원가입 버튼 클릭 시 register.html로 이동
-		const registerButton = document.querySelector("#registerButton");
-		registerButton.addEventListener("click", function() {
-			window.location.href = "register.html";
-		});
-	});
-</script>
+	<div id="side-right">
+		<div class="box-container">
+			<jsp:include page="mini_userInfo.jsp"/>
+	    </div>
+	</div>
+		<footer>
+			<p>&copy; 시네마 위키</p>
+		</footer>
 	</body>
+	
 </html>

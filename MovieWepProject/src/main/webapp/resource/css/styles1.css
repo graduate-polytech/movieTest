@@ -39,22 +39,22 @@ body {
 	margin: 0;
 	padding: 0;
 }
-.side-left {
-    width: 200px;
-    padding:10px;
-    float: left;
+.mainContents{
+	
+	display: flex;
+	justify-content: space-between;
+    background-color: #00ffff;
+}
+.side-left, .side-center {
+	flex: 1;
+    width: 20%;
     background-color: #000000;
 }
-.side-right {
-    width: 200px;
-    padding:10px;
-    float: left;
-    background-color: red;
-}
+
 .side-center {
-    width: 600px;
-    padding:10px;
-    float: left;
+	display: flex;
+    width: 60%;
+    background-color: #0f0f0f;
 }
 	
 

@@ -42,7 +42,6 @@ body {
 }
 
 .box-container {
-
 	width: 200PX;
 	height: 500PX;
 	border: 2px solid #000000; /* 외각선 스타일 및 색상 설정 */
@@ -50,6 +49,38 @@ body {
 	text-align: center;
 	background-color: #ffffff; /* 전체 페이지 배경 색상을 흰색 (#ffffff)으로 설정 */
 	margin-top: 100px;
+}
+
+#login-grid{
+	text-align: center;
+	
+}
+
+.login-box {
+	width: 600PX;
+	height: 500PX;
+	border: 2px solid #000000; /* 외각선 스타일 및 색상 설정 */
+	padding: 10px; /* 컨테이너 내부 여백 설정 */
+	text-align: center;
+	background-color: #ffffff; /* 전체 페이지 배경 색상을 흰색 (#ffffff)으로 설정 */
+	margin: 100px auto;
+	
+}
+
+.contents {
+	padding: 10px; /* 컨테이너 내부 여백 설정 */
+	background-color: #000000; /* 전체 페이지 배경 색상을 흰색 (#ffffff)으로 설정 */
+	height: 800px; /* 높이를 500px로 설정 */
+}
+
+.custom-input {
+	width: 300px; /* 너비 설정 */
+	height: 40px; /* 높이 설정 */
+	font-size: 20px; /* 글꼴 크기 설정 */
+	padding: 5px; /* 내부 여백 설정 */
+	background-color: white; 
+	margin : 20px;
+	
 }
 
 .external-content {
@@ -68,6 +99,7 @@ body {
 .content-container {
 	width: 100%;
 }
+
 
 #popularMoviesContainer {
 	background-color: #f0f0f0; /* 배경색 설정 (선택사항) */

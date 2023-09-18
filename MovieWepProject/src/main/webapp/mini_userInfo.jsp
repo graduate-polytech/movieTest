@@ -11,7 +11,20 @@
 </style>
 -->
 
-    <P><button type="button" class="btn btn-primary">로그인</button> </P>
+    	<P><button id="login-btn" type="button" class="btn btn-primary">로그인</button> </P>
     
-     <P><button type="button" class="btn btn-outline-primary">회원가입</button> </P>
+     <P><button id="signup-btn" type="button" class="btn btn-outline-primary">회원가입</button> </P>
+     <script>
+        // 버튼 요소를 가져오기
+        var moveButton = document.getElementById("login-btn");
+
+        // 버튼 클릭 이벤트 리스너 추가
+        moveButton.addEventListener("click", function() {
+            // 이동할 페이지 URL을 설정
+            var targetPageUrl = "login.jsp"; // 이동할 페이지 URL을 여기에 입력하세요
+
+            // 페이지 이동
+            window.location.href = targetPageUrl;
+        });
+    </script>
    

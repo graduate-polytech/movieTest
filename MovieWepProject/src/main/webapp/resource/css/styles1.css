@@ -8,7 +8,10 @@ header {
 	text-align: center;
 	padding: 20px 1;
 }
-
+.mini-login-text-box{
+	padding: 10px auto;
+	align-content: center;
+}
 mini_userInfo {
 	left: 900px;
 }
@@ -40,10 +43,29 @@ body {
 	margin: 0;
 	padding: 0;
 }
+.login-help-text{
+	text-align: center;
+	font-size: 12px;
+	color: #adadad;
+}
+.signup-layout{
+	display: flex;
+	justify-content: center;
+	height:600px;
+	align-items: center;
+	
+}
+.signup-box{
+	width: 500px;
+	height: 400px;
+	display: flex;
+	justify-content: center;
+	border: 2px solid #000000;
+}
 
-.box-container {
-	width: 200PX;
-	height: 500PX;
+.mini-login-box {
+	width: 250px;
+	height:200px;
 	border: 2px solid #000000; /* 외각선 스타일 및 색상 설정 */
 	padding: 10px; /* 컨테이너 내부 여백 설정 */
 	text-align: center;
@@ -59,11 +81,12 @@ body {
 .login-box {
 	width: 600PX;
 	height: 500PX;
-	border: 2px solid #000000; /* 외각선 스타일 및 색상 설정 */
+	border: 1px solid black; /* 외각선 스타일 및 색상 설정 */
 	padding: 10px; /* 컨테이너 내부 여백 설정 */
 	text-align: center;
 	background-color: #ffffff; /* 전체 페이지 배경 색상을 흰색 (#ffffff)으로 설정 */
 	margin: 100px auto;
+	box-shadow: 2px 3px 5px 0px black;
 	
 }
 
@@ -73,13 +96,14 @@ body {
 	height: 800px; /* 높이를 500px로 설정 */
 }
 
-.custom-input {
-	width: 300px; /* 너비 설정 */
-	height: 40px; /* 높이 설정 */
-	font-size: 20px; /* 글꼴 크기 설정 */
+.form-control {
+	form-floating-height: 100px;
+	max-width: 80%; /* 너비 설정 */
+	height: 60px; /* 높이 설정 */
+	font-size: 80px; /* 글꼴 크기 설정 */
 	padding: 5px; /* 내부 여백 설정 */
 	background-color: white; 
-	margin : 20px;
+	margin : 20px auto;
 	
 }
 

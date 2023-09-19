@@ -50,7 +50,7 @@
 				</div>
 
 
-				<div class="container mt-5">
+				<div class="container mt-5 ">
 					<h2 class="text-center">추천 영화</h2>
 
 					<div class="row" id="recommendedMoviesContainer"></div>
@@ -94,7 +94,7 @@
 		</div>
 		<div class="col">
 			<div class="side-right">
-				<div class="box-container">
+				<div class="mini-login-box">
 					<jsp:include page="mini_userInfo.jsp" />
 				</div>
 			</div>

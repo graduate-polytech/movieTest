@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,31 +26,29 @@
 <link rel="stylesheet" href="resource/css/styles1.css" type="text/css">
 </head>
 <body>
-	<header>
-		<div id="top">
-			<jsp:include page="loadFile/top.jsp" />
-			<jsp:include page="loadFile/menuBar.jsp" />
-		</div>
-	</header>
+
 
 	<div class="login-box">
-		<img src="resource/images/Title.png" alt="·Î°í ÀÌ¹ÌÁö"
+		<img src="resource/images/Title.png" alt="ë¡œê³  ì´ë¯¸ì§€"
 			style="max-width: 80%; height: auto; margin: 10px;">
-		<div style="margin-top: 30px;">
-			<input type="text" id="input-Id" class="custom-input" placeholder="¾ÆÀÌµð">
-			<input type="text" id="input-pw" class="custom-input" placeholder="ÆÐ½º¿öµå">
+		<div>
+		ë¡œê·¸ì¸
+		</div>
+		<div style="margin-top: 50px;">
+			<div class="form-floating mb-3" style="margin-top: 50px;">
+				<input type="text" class="form-control" id="floatingInput" placeholder="ID" style="height: 40px; font-size: 20px; padding: 5px;">
+				<input type="password" class="form-control" id="floatingPassword" placeholder="Password" style="height: 40px; font-size: 20px; padding: 5px;">
+			</div>
 			
 			<br>
-			<a href="#">
-				<button id="login-btn" type="button" class="btn btn-outline-primary" style="margin: 30px">È¸¿ø°¡ÀÔ</button>
-			</a>
-			<button id="login-btn" type="button" class="btn btn-primary" style="margin: 30px">·Î±×ÀÎ</button>
+			
+			<button id="login-btn" type="button" class="btn btn-outline-primary" style="margin: 30px; height: 50px; width: 120px;">íšŒì›ê°€ìž…</button>
+			
+			<button id="login-btn" type="button" class="btn btn-primary" style="margin: 30px; height: 50px; width: 120px;" onclick="location.href='main.jsp'">ë¡œê·¸ì¸</button>
 		</div>
 	
 	</div>
 
-	<footer>
-		<p>&copy; ½Ã³×¸¶ À§Å°</p>
-	</footer>
+
 </body>
 </html>

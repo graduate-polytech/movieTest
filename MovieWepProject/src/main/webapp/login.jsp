@@ -26,15 +26,19 @@
 <link rel="stylesheet" href="resource/css/styles1.css" type="text/css">
 </head>
 <body>
-
-
-	<div class="login-box">
-		<img src="resource/images/Title.png" alt="로고 이미지"
-			style="max-width: 80%; height: auto; margin: 10px;">
-		<div>
-		로그인
+	<header>
+		<div id="top">
+			<jsp:include page="loadFile/top.jsp" />
+			<jsp:include page="loadFile/menuBar.jsp" />
 		</div>
+	</header>
+
+	<div class="login-box" style="margin-top:50px auto;">
+		<img src="resource/images/Title.png" alt="로고 이미지"
+			style="max-width: 80%; height: auto; margin: 30px auto;">
+
 		<div style="margin-top: 50px;">
+		로그인
 			<div class="form-floating mb-3" style="margin-top: 50px;">
 				<input type="text" class="form-control" id="floatingInput" placeholder="ID" style="height: 40px; font-size: 20px; padding: 5px;">
 				<input type="password" class="form-control" id="floatingPassword" placeholder="Password" style="height: 40px; font-size: 20px; padding: 5px;">
@@ -48,7 +52,9 @@
 		</div>
 	
 	</div>
-
+	<footer>
+		<p>&copy; 시네마 위키</p>
+	</footer>
 
 </body>
 </html>

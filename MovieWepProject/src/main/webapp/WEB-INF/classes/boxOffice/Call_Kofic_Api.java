@@ -17,7 +17,7 @@ import org.json.simple.parser.ParseException;
 public class Call_Kofic_Api {
 
 	public String getJsonData_Kofic(char Day_Week/*D or W*/,String Date) {
-		String result = "";
+		String result = ""; 
 		try {
 			URL url = new URL(call(Day_Week, Date));
 	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();

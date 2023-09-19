@@ -32,7 +32,8 @@
 	<!-- 로고 이미지 -->
 	<header>
 		<div id="top">
-			<jsp:include page="loadFile/top.jsp" />
+		<!-- 다운후 변경 -->
+			<jsp:include page="loadFile/top.jsp" /> 
 			<jsp:include page="loadFile/menuBar.jsp" />
 		</div>
 	</header>

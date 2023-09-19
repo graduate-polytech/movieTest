@@ -37,7 +37,7 @@
 			<jsp:include page="loadFile/menuBar.jsp" />
 		</div>
 	</header>
-
+testtesttesttest
 	<div class="row">
 		<!-- 인기 영화 목록 -->
 		<div class="col"></div>

@@ -1,3 +1,4 @@
+<!-- ajax 추가 전 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <% request.setCharacterEncoding("utf-8"); %>
@@ -23,6 +24,8 @@
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+	
+	
 function sample4_execDaumPostcode() {
 	new daum.Postcode(
 			{
@@ -145,18 +148,18 @@ function sample4_execDaumPostcode() {
 	<div class="signup-layout">
 		<div class="signup-box" style="width: 500px;">
 			<h1>회원가입</h1>
-			<form id="signupForm" method="post" action="<%= request.getRequestURI() %>">
+			<form id="signupForm" method="post" action="#"> <!-- <%= request.getRequestURI() %> -->
 				<table border="1">
 					<tbody>
 						<tr height="50">
 							<td class="p5" width="120px">이름</td>
 							<td class="p5"><input type="text" id="userName" name="userName" width="20"></td>
 						</tr>
-	
+						<%boolean checkIdOverlap = false; %>
 						<tr height="50" class="p5">
 							<td class="p5">아이디</td>
-							<td class="p5"><input type="text" id="userId" name="userId" width="20"> <input
-								type="button" value="중복확인"></td>
+							<td class="p5"><input type="text" id="userId" name="userId" width="20">
+								<input id="idCheck_btn" type="button" value="중복확인"></td>
 						</tr>
 						<tr height="50" class="p5">
 							<td class="p5">패스워드</td>
@@ -164,7 +167,10 @@ function sample4_execDaumPostcode() {
 						</tr>
 						<tr height="50" class="p5">
 							<td class="p5">패스워드 확인</td>
-							<td class="p5"><input type="password" width="20"></td>
+							<td class="p5">
+								<input id="checkPassword" type="password" width="20">
+								<span id="passwordGuide" style="color: red; display: none;"> </span>
+							</td>
 						</tr>
 						<tr height="50">
 							<td class="p5">주소</td>
@@ -199,6 +205,11 @@ function sample4_execDaumPostcode() {
 			</form>
 			<%
         if (request.getMethod().equalsIgnoreCase("post")) {
+        	
+        	if(checkIdOverlap == false){
+        		return;
+        	}
+        	
             String name = request.getParameter("userName");
             String id = request.getParameter("userId");
             String pw = request.getParameter("userPw");
@@ -266,7 +277,14 @@ function sample4_execDaumPostcode() {
 			// 원하는 작업을 수행하세요.
 		}
 	});
-	
+	document.getElementById('userId').addEventListener('keydown', function (e) {
+		if (e.key === 'Enter') {
+			idcheck_f();
+			// 원하는 작업을 수행하세요.
+		}
+	});
+	document.getElementById('Genre_1').addEventListener('change', idcheck_f);
+	    
 	function updateGenreList() {
 	    const datalist = document.getElementById('genre');
 
@@ -299,8 +317,35 @@ function sample4_execDaumPostcode() {
 	document.getElementById('Genre_2').addEventListener('change', updateGenreList);
 	document.getElementById('Genre_3').addEventListener('change', updateGenreList);
 	document.getElementById('Genre_4').addEventListener('change', updateGenreList);
-
-	    
+	
+	function idcheck_f() {
+		const button = document.getElementById('idCheck_btn');
+		const input = document.getElementById("userId");
+		button.style.backgroundColor = "blue"; // 색상 변경
+		button.style.color = "white"; // 글자색 변경
+		button.style.borderRadius = "5px";
+		input.disabled = true;
+		<%checkIdOverlap = true; %>
+	}
+	document.getElementById('idCheck_btn').addEventListener('click', idcheck_f);
+	
+	function checkPassword_f(){
+		var guideTextBox = document.getElementById("passwordGuide");
+		var userPw = document.getElementById('userPw').value;
+		var checkPassword = document.getElementById('checkPassword').value;
+        // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+		if(userPw !== checkPassword){
+	        guideTextBox.innerHTML = '패스워드가 일치하지 않습니다.';
+	        guideTextBox.style.display = 'block';
+	        guideTextBox.style.color = "red";
+        }else{
+        	guideTextBox.innerHTML = '패스워드가 일치합니다.';
+	        guideTextBox.style.display = 'none';
+	        guideTextBox.style.color = "blue";
+        }
+	}
+	document.getElementById('userPw').addEventListener('input', checkPassword_f);
+	document.getElementById('checkPassword').addEventListener('input', checkPassword_f);
 });
 	</script>
 </body>

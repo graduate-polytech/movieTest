@@ -23,6 +23,8 @@
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+	
+	
 function sample4_execDaumPostcode() {
 	new daum.Postcode(
 			{
@@ -145,18 +147,18 @@ function sample4_execDaumPostcode() {
 	<div class="signup-layout">
 		<div class="signup-box" style="width: 500px;">
 			<h1>회원가입</h1>
-			<form id="signupForm" method="post" action="<%= request.getRequestURI() %>">
+			<form id="signupForm" method="post" action="#"> <!-- <%= request.getRequestURI() %> -->
 				<table border="1">
 					<tbody>
 						<tr height="50">
 							<td class="p5" width="120px">이름</td>
 							<td class="p5"><input type="text" id="userName" name="userName" width="20"></td>
 						</tr>
-	
+						<%boolean checkIdOverlap = false; %>
 						<tr height="50" class="p5">
 							<td class="p5">아이디</td>
-							<td class="p5"><input type="text" id="userId" name="userId" width="20"> <input
-								type="button" value="중복확인"></td>
+							<td class="p5"><input type="text" id="userId" name="userId" width="20">
+								<input id="idCheck_btn" type="button" value="중복확인"></td>
 						</tr>
 						<tr height="50" class="p5">
 							<td class="p5">패스워드</td>
@@ -164,7 +166,10 @@ function sample4_execDaumPostcode() {
 						</tr>
 						<tr height="50" class="p5">
 							<td class="p5">패스워드 확인</td>
-							<td class="p5"><input type="password" width="20"></td>
+							<td class="p5">
+								<input id="checkPassword" type="password" width="20">
+								<span id="passwordGuide" style="color: red; display: none;"> </span>
+							</td>
 						</tr>
 						<tr height="50">
 							<td class="p5">주소</td>
@@ -191,7 +196,7 @@ function sample4_execDaumPostcode() {
 				</table>
 			
 				<div style="display: flex; width: 100%; flex-direction: row-reverse;">
-					<button id="login-btn" type="submit" class="btn btn-primary"
+					<button id="login-btn" type="button" class="btn btn-primary"
 						style="margin: 10px auto; margin-right: 0px;">
 						<h5>회원가입</h5>
 					</button>
@@ -199,6 +204,11 @@ function sample4_execDaumPostcode() {
 			</form>
 			<%
         if (request.getMethod().equalsIgnoreCase("post")) {
+        	
+        	if(checkIdOverlap == false){
+        		return;
+        	}
+        	
             String name = request.getParameter("userName");
             String id = request.getParameter("userId");
             String pw = request.getParameter("userPw");
@@ -258,15 +268,64 @@ function sample4_execDaumPostcode() {
 	</footer>
 	<script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', function () {
-	    // 스크립트 내용을 이곳에 넣으세요.
-	// 텍스트 상자에서 입력된 값을 제외하고 나머지 상자에서 리스트를 보여주는 함수
+		
+		
+		function submitSignUpForm() {
+		
+		    var userName = document.getElementById('userName').value;
+		    var userId = document.getElementById('userId').value;
+		    var userPw = document.getElementById('userPw').value;
+		    var userAddress = document.getElementById('userAddress').value;
+		    var Genre_1 = document.getElementById('Genre_1').value;
+		    var Genre_2 = document.getElementById('Genre_2').value;
+		    var Genre_3 = document.getElementById('Genre_3').value;
+		    var Genre_4 = document.getElementById('Genre_4').value;
+
+		    var xhr = new XMLHttpRequest();
+		    var url = "SignUpServlet"; // 회원가입 서블릿 URL
+
+		    xhr.open("POST", url, true);
+		    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+		    xhr.onreadystatechange = function () {
+		        if (xhr.readyState === 4 && xhr.status === 200) {
+		            var response = xhr.responseText;
+		            if (response === "success") {
+		                alert("회원가입이 완료되었습니다.");
+		                window.location.href = "main.jsp"; // 회원가입이 성공한 경우 메인 페이지로 이동
+		            } else if (response === "duplicate") {
+		                alert("이미 사용 중인 아이디입니다.");
+		            } else {
+		                alert("회원가입 실패");
+		            }
+		        }
+		    };
+
+		    var data = "userName=" + userName + "&userId=" + userId + "&userPw=" + userPw +
+		               "&userAddress=" + userAddress + "&Genre_1=" + Genre_1 +
+		               "&Genre_2=" + Genre_2 + "&Genre_3=" + Genre_3 + "&Genre_4=" + Genre_4;
+
+		    xhr.send(data);
+		}
+
+		document.getElementById('login-btn').addEventListener('click', submitSignUpForm);
+		
+		
+		
 	document.getElementById('signupForm').addEventListener('keydown', function (e) {
 		if (e.key === 'Enter') {
 			e.preventDefault();
 			// 원하는 작업을 수행하세요.
 		}
 	});
-	
+	document.getElementById('userId').addEventListener('keydown', function (e) {
+		if (e.key === 'Enter') {
+			idcheck_f();
+			// 원하는 작업을 수행하세요.
+		}
+	});
+	document.getElementById('Genre_1').addEventListener('change', idcheck_f);
+	    
 	function updateGenreList() {
 	    const datalist = document.getElementById('genre');
 
@@ -299,8 +358,35 @@ function sample4_execDaumPostcode() {
 	document.getElementById('Genre_2').addEventListener('change', updateGenreList);
 	document.getElementById('Genre_3').addEventListener('change', updateGenreList);
 	document.getElementById('Genre_4').addEventListener('change', updateGenreList);
-
-	    
+	
+	function idcheck_f() {
+		const button = document.getElementById('idCheck_btn');
+		const input = document.getElementById("userId");
+		button.style.backgroundColor = "blue"; // 색상 변경
+		button.style.color = "white"; // 글자색 변경
+		button.style.borderRadius = "5px";
+		input.disabled = true;
+		<%checkIdOverlap = true; %>
+	}
+	document.getElementById('idCheck_btn').addEventListener('click', idcheck_f);
+	
+	function checkPassword_f(){
+		var guideTextBox = document.getElementById("passwordGuide");
+		var userPw = document.getElementById('userPw').value;
+		var checkPassword = document.getElementById('checkPassword').value;
+        // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+		if(userPw !== checkPassword){
+	        guideTextBox.innerHTML = '패스워드가 일치하지 않습니다.';
+	        guideTextBox.style.display = 'block';
+	        guideTextBox.style.color = "red";
+        }else{
+        	guideTextBox.innerHTML = '패스워드가 일치합니다.';
+	        guideTextBox.style.display = 'none';
+	        guideTextBox.style.color = "blue";
+        }
+	}
+	document.getElementById('userPw').addEventListener('input', checkPassword_f);
+	document.getElementById('checkPassword').addEventListener('input', checkPassword_f);
 });
 	</script>
 </body>

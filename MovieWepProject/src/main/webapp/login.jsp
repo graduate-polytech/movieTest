@@ -34,8 +34,7 @@
 	</header>
 
 	<div class="login-box" style="margin-top: 50px auto;">
-		<img src="resource/images/Title.png" alt="로고 이미지"
-			style="max-width: 80%; height: auto; margin: 30px auto;">
+		<img  class="logo-title" src="resource/images/Title.png" alt="로고 이미지">
 
 		<div style="margin-top: 20px auto;">
 			<div class="form-floating mb-3" style="margin: 40px auto;">
@@ -52,7 +51,7 @@
 			<button id="login-btn" type="button" class="btn btn-outline-primary"
 				style="margin: 30px; margin-bottom: 5px; height: 50px; width: 60%; margin:5px;"
 				onclick="location.href='main.jsp'">로그인</button>
-			<br> <a href="#"
+			<br> <a href="signup.jsp"
 				style="text-align: end; width: 80%; display: flex; flex-direction: row-reverse;">회원가입</a>
 		</div>
 

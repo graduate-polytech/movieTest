@@ -51,8 +51,7 @@
 			<button id="login-btn" type="button" class="btn btn-outline-primary"
 				style="margin: 30px; margin-bottom: 5px; height: 50px; width: 60%; margin:5px;"
 				onclick="location.href='main.jsp'">로그인</button>
-			<br> <a href="signup.jsp"
-				style="text-align: end; width: 80%; display: flex; flex-direction: row-reverse;">회원가입</a>
+			<br> <a href="signup.jsp" style="text-align: end; width: 80%; display: flex; flex-direction: row-reverse;">회원가입</a>
 		</div>
 
 	</div>

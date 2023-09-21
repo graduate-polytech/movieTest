@@ -28,7 +28,7 @@
 
 </head>
 <body>
-ㅕㅕㅕㅇㄴ
+
 	<!-- 로고 이미지 -->
 	<header>
 		<div id="top">

@@ -27,7 +27,7 @@
 				</li>
 				<li class="nav-item dropdown">
 				  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					박스오피스
+					박스오피스 
 				  </a>
 				  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<li><a class="dropdown-item" href="DayBoxoffice.jsp">일별 박스오피스</a></li>

@@ -12,7 +12,7 @@
         }
     </style> 
 </head> 
-<body>  
+<body>   
     <h1>지도</h1>
     
     <div id="map"></div> 

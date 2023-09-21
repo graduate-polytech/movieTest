@@ -43,7 +43,7 @@
         <%-- 여기에 KMDB API를 호출하여 검색 결과를 화면에 표시하는 코드를 추가합니다. --%>
         <div class="row" id="movieResults">
             <%-- 검색 결과를 반복해서 표시합니다. --%>
-        </div>
+        </div> 
     </div>
 
     <!-- 필요한 JavaScript 라이브러리 및 스크립트 추가 -->

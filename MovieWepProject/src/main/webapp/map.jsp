@@ -11,7 +11,7 @@
             width: 100%;
         }
     </style>
-</head>
+</head> 
 <body> 
     <h1>지도</h1>
     

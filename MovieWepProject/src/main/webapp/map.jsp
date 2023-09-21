@@ -15,7 +15,7 @@
 <body>
     <h1>지도</h1>
     
-    <div id="map"></div>
+    <div id="map"></div> 
     
     <script>
         // Google Maps API 키를 설정

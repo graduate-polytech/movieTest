@@ -33,7 +33,7 @@
             ">
      <label for="searchQuery"></label>
      <input type="text" class="form-control1" id="searchQuery" name="query" placeholder="영화 제목을 입력하세요" style= "
-    	width: 80%;
+    	width: 80%; 
     	
                 ">
     <button type="submit" class="btn btn-primary">검색</button>

@@ -29,10 +29,12 @@ public class InsertDataServlet extends HttpServlet {
         String genres = request.getParameter("genres");
 
         // MySQL 데이터베이스 연결 정보
-        String url = "jdbc:mysql://localhost:3306/moviedb";
-        String username = "root";
-        String password = "0000";
-
+//        String url = "jdbc:mysql://localhost:3306/moviedb";
+//        String username = "root";
+//        String password = "0000";
+        String url = "jdbc:mysql://121.130.132.95:3306/moviedb"; // 데이터베이스 URL
+        String username = "outlineuser"; // 데이터베이스 사용자 이름
+        String password = "outline0000"; // 데이터베이스 암호
         try {
             // JDBC 드라이버 로드
             Class.forName("com.mysql.jdbc.Driver");

@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="../resource/css/styles1.css"> <!-- 기존 CSS 스타일 시트 링크 -->
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light"">
+<nav class="navbar navbar-expand-lg navbar-light bg-light"">  
 		<div class="container">
 		  <div class="container-fluid">
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

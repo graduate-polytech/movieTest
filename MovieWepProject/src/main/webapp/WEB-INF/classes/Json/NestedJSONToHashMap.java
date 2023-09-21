@@ -3,7 +3,6 @@ package Json;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import boxOffice.Call_Kofic_Api;
 import KMDB.KMDBTest;
 
 import java.net.URL;

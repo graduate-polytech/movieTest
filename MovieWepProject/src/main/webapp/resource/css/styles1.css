@@ -25,13 +25,6 @@ mini_userInfo {
 .container-with-box {
 	btn-border-width: 100px
 }
-
-#top{
-	display: flex;
-    flex-direction: column;
-    align-items: stretch;
-}
-
 /* 로고 이미지 스타일 */
 header img {
 	max-width: 300px;

@@ -102,7 +102,9 @@
 		</div>
 	</div>
 	<footer>
-		<p>&copy; 시네마 위키</p>
+		<div id="bottom">
+			<jsp:include page="loadFile/bottom.jsp" />
+		</div>
 	</footer>
 </body>
 

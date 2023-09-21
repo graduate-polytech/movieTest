@@ -14,6 +14,12 @@ header {
 	align-content: center;
 }
 
+#top{
+	display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
 mini_userInfo {
 	left: 900px;
 }

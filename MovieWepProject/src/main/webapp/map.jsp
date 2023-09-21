@@ -11,12 +11,31 @@
             width: 100%;
         }
     </style> 
+    
+    <link rel="stylesheet" href="resource/css/styles1.css">
+    
 </head> 
-<body>   
+<body>
+
+	<header>
+		<div id="top">
+		<!-- 다운후 변경 -->
+			<jsp:include page="loadFile/top.jsp" /> 
+			<jsp:include page="loadFile/menuBar.jsp" />
+		</div>
+	</header>
+
     <h1>지도</h1>
     
-    <div id="map"></div> 
-     
+    <div id="map">
+    
+    </div> 
+    
+	<footer>
+		<div id="bottom">
+			<jsp:include page="loadFile/bottom.jsp" />
+		</div>
+	</footer>
     <script>
         // Google Maps API 키를 설정
         const apiKey = 'AIzaSyCFWttU33_ZQvbz5cU1vdkdtcyPL2Tr53U'; // 여기에 본인의 Google Maps API 키를 넣어주세요.
@@ -102,5 +121,6 @@
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFWttU33_ZQvbz5cU1vdkdtcyPL2Tr53U&callback=initMap">
     </script>
+
 </body>
 </html>

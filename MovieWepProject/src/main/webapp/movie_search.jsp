@@ -38,7 +38,7 @@
                 ">
     <button type="submit" class="btn btn-primary">검색</button>
             </div>      
-        </form>
+        </form> 
     </div> 
 
     <!-- 하단 메뉴 및 스크립트 추가 (동일한 형식으로) -->

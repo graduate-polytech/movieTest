@@ -10,7 +10,7 @@
             height: 800px;
             width: 100%;
         }
-    </style>
+    </style> 
 </head> 
 <body>  
     <h1>지도</h1>

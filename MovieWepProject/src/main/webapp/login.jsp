@@ -33,24 +33,27 @@
 		</div>
 	</header>
 
-	<div class="login-box" style="margin-top:50px auto;">
-		<img src="resource/images/Title.png" alt="로고 이미지"
-			style="max-width: 80%; height: auto; margin: 30px auto;">
+	<div class="login-box" style="margin-top: 50px auto;">
+		<img  class="logo-title" src="resource/images/Title.png" alt="로고 이미지">
 
-		<div style="margin-top: 50px;">
-		로그인
-			<div class="form-floating mb-3" style="margin-top: 50px;">
-				<input type="text" class="form-control" id="floatingInput" placeholder="ID" style="height: 40px; font-size: 20px; padding: 5px;">
-				<input type="password" class="form-control" id="floatingPassword" placeholder="Password" style="height: 40px; font-size: 20px; padding: 5px;">
+		<div style="margin-top: 20px auto;">
+			<div class="form-floating mb-3" style="margin: 40px auto;">
+				<input type="text" class="form-control" id="floatingInput"
+					placeholder="ID"
+					style="height: 40px; font-size: 20px; padding: 5px;"> <input
+					type="password" class="form-control" id="floatingPassword"
+					placeholder="Password"
+					style="height: 40px; font-size: 20px; padding: 5px;">
 			</div>
-			
+
 			<br>
-			
-			<button id="login-btn" type="button" class="btn btn-outline-primary" style="margin: 30px; height: 50px; width: 120px;">회원가입</button>
-			
-			<button id="login-btn" type="button" class="btn btn-primary" style="margin: 30px; height: 50px; width: 120px;" onclick="location.href='main.jsp'">로그인</button>
+
+			<button id="login-btn" type="button" class="btn btn-outline-primary"
+				style="margin: 30px; margin-bottom: 5px; height: 50px; width: 60%; margin:5px;"
+				onclick="location.href='main.jsp'">로그인</button>
+			<br> <a href="signup.jsp" style="text-align: end; width: 80%; display: flex; flex-direction: row-reverse;">회원가입</a>
 		</div>
-	
+
 	</div>
 	<footer>
 		<p>&copy; 시네마 위키</p>

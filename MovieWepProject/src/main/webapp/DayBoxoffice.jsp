@@ -1,0 +1,175 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="boxOffice.*, java.util.List, java.util.ArrayList, java.time.LocalDate, java.time.format.DateTimeFormatter" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>날짜 선택 및 변환</title>
+    <style>
+        .even {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="resource/css/styles1.css">
+	
+		<div id="top">
+		<!-- 다운후 변경 -->
+			<jsp:include page="loadFile/top.jsp" /> 
+			<jsp:include page="loadFile/menuBar.jsp" />
+		</div>
+
+</head>
+<body>
+    <h1>날짜 선택 및 변환</h1>
+    
+    <form>
+        <label for="startDate"></label>
+	    <input type="date" id="startDate" name="startDate">
+	    <label for="endDate"></label>
+	    <input type="date" id="endDate" name="endDate">
+	    <input type="submit" value="조회" onclick="validateDateRange()">
+    </form>
+    
+    <%
+    String startDateParam = request.getParameter("startDate");
+    String endDateParam = request.getParameter("endDate");
+    
+    if (startDateParam != null && !startDateParam.trim().isEmpty() &&
+        endDateParam != null && !endDateParam.trim().isEmpty()) {
+        LocalDate startDate = LocalDate.parse(startDateParam);
+        LocalDate endDate = LocalDate.parse(endDateParam);
+
+        if (startDate.isBefore(endDate) || startDate.isEqual(endDate)) {
+            // Iterate through the date range and fetch data for each date
+            LocalDate currentDate = startDate;
+            while (!currentDate.isAfter(endDate)) {
+                String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+                List<datamovie> dataForDate = Dayboxoffice.fetchDataByDate(formattedDate);
+        %>
+        <h2><%= formattedDate %></h2>
+        <table border="1">
+            <tr>
+                <th scope="col">
+                순위
+                <span class="btn_updwBox">
+                    <button name="btn4_up" type="button" class="btn_up01">
+                        <span>정렬</span>
+                    </button>
+              
+                </span>
+                <th>영화명</th>
+                <th>개봉일</th>
+                <th>매출액</th>
+                <th>전일 대비 매출액 증감</th>
+                <th>매출액 점유율</th>
+                <th>관객 수</th>
+                <th>전일 대비 관객 수</th>
+                <th>누적 매출액</th>
+                <th>누적 관객수</th>
+                <th>스크린수</th>
+                <th>상영횟수</th>
+            </tr>
+            <%
+                for (datamovie cinema : dataForDate) {
+            %>
+            <tr>
+                <td><%= cinema.getRank() %></td>
+                <td><%= cinema.getMovieNm() %></td>
+                <td><%= cinema.getOpenDt() %></td>
+                <td><%= cinema.getSalesAmt() %></td>
+                <td><%= cinema.getSalesInten() %></td>
+                <td><%= cinema.getSalesShare() %></td>
+                <td><%= cinema.getAudiCnt() %></td>
+                <td><%= cinema.getAudiInten() %></td>
+                <td><%= cinema.getSalesAcc() %></td>
+                <td><%= cinema.getAudiAcc() %></td>
+                <td><%= cinema.getScrnCnt() %></td>
+                <td><%= cinema.getShowCnt() %></td>
+            </tr>
+            <%
+                }
+            %>
+        </table>
+        <%
+                currentDate = currentDate.plusDays(1); // Move to the next date
+            }
+        } 
+    } 
+    %>
+    <script>
+    
+	 	// 초기 정렬 상태
+	    var ascending = true;
+	
+	    // 정렬 버튼에 대한 이벤트 리스너 설정
+	    var upButtons = document.querySelectorAll('.btn_up01');
+	    var downButtons = document.querySelectorAll('.btn_dw01');
+	
+	    upButtons.forEach(function (button) {
+	        button.addEventListener('click', function () {
+	            sortTable(button.closest('table'), ascending);
+	            ascending = !ascending; // 정렬 상태 변경
+	        });
+	    });
+	
+	    downButtons.forEach(function (button) {
+	        button.addEventListener('click', function () {
+	            sortTable(button.closest('table'), !ascending);
+	            ascending = !ascending; // 정렬 상태 변경
+	        });
+	    });
+	
+	    // 테이블을 정렬하는 함수
+	    function sortTable(table, ascending) {
+	        var rows = table.rows;
+	        var switching = true;
+	
+	        while (switching) {
+	            switching = false;
+	
+	            for (var i = 1; i < rows.length - 1; i++) {
+	                var shouldSwitch = false;
+	                var x = rows[i].getElementsByTagName('td')[0]; // 순위 열
+	
+	                var y = rows[i + 1].getElementsByTagName('td')[0]; // 다음 행의 순위 열
+	
+	                if (ascending) {
+	                    if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+	                        shouldSwitch = true;
+	                        break;
+	                    }
+	                } else {
+	                    if (parseInt(x.innerHTML) < parseInt(y.innerHTML)) {
+	                        shouldSwitch = true;
+	                        break;
+	                    }
+	                }
+	            }
+	
+	            if (shouldSwitch) {
+	                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+	                switching = true;
+	            }
+	        }
+	    }
+	    
+        function validateDateRange() {
+            var startDate = new Date(document.getElementById('startDate').value);
+            var endDate = new Date(document.getElementById('endDate').value);
+            var oneWeek = 7 * 24 * 60 * 60 * 1000; // 1주일을 밀리초로 표현
+
+            var timeDifference = endDate - startDate;
+
+            if (timeDifference > oneWeek) {
+                alert('날짜 범위가 1주일을 넘을 수 없습니다.');
+                event.preventDefault(); // 폼 제출을 막습니다.
+            }
+        } 
+    </script>
+    <footer>
+		<p>&copy; 시네마 위키</p>
+	</footer>
+</body>
+</html>

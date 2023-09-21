@@ -87,7 +87,7 @@
 						const registerButton = document
 								.querySelector("#registerButton");
 						registerButton.addEventListener("click", function() {
-							window.location.href = "register.html";
+							window.location.href = "signup.jsp";
 						});
 					});
 				</script>

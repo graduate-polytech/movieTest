@@ -1,3 +1,4 @@
+<!-- ajax 추가 전 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <% request.setCharacterEncoding("utf-8"); %>
@@ -196,7 +197,7 @@ function sample4_execDaumPostcode() {
 				</table>
 			
 				<div style="display: flex; width: 100%; flex-direction: row-reverse;">
-					<button id="login-btn" type="button" class="btn btn-primary"
+					<button id="login-btn" type="submit" class="btn btn-primary"
 						style="margin: 10px auto; margin-right: 0px;">
 						<h5>회원가입</h5>
 					</button>
@@ -268,50 +269,8 @@ function sample4_execDaumPostcode() {
 	</footer>
 	<script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', function () {
-		
-		
-		function submitSignUpForm() {
-		
-		    var userName = document.getElementById('userName').value;
-		    var userId = document.getElementById('userId').value;
-		    var userPw = document.getElementById('userPw').value;
-		    var userAddress = document.getElementById('userAddress').value;
-		    var Genre_1 = document.getElementById('Genre_1').value;
-		    var Genre_2 = document.getElementById('Genre_2').value;
-		    var Genre_3 = document.getElementById('Genre_3').value;
-		    var Genre_4 = document.getElementById('Genre_4').value;
-
-		    var xhr = new XMLHttpRequest();
-		    var url = "SignUpServlet"; // 회원가입 서블릿 URL
-
-		    xhr.open("POST", url, true);
-		    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-		    xhr.onreadystatechange = function () {
-		        if (xhr.readyState === 4 && xhr.status === 200) {
-		            var response = xhr.responseText;
-		            if (response === "success") {
-		                alert("회원가입이 완료되었습니다.");
-		                window.location.href = "main.jsp"; // 회원가입이 성공한 경우 메인 페이지로 이동
-		            } else if (response === "duplicate") {
-		                alert("이미 사용 중인 아이디입니다.");
-		            } else {
-		                alert("회원가입 실패");
-		            }
-		        }
-		    };
-
-		    var data = "userName=" + userName + "&userId=" + userId + "&userPw=" + userPw +
-		               "&userAddress=" + userAddress + "&Genre_1=" + Genre_1 +
-		               "&Genre_2=" + Genre_2 + "&Genre_3=" + Genre_3 + "&Genre_4=" + Genre_4;
-
-		    xhr.send(data);
-		}
-
-		document.getElementById('login-btn').addEventListener('click', submitSignUpForm);
-		
-		
-		
+	    // 스크립트 내용을 이곳에 넣으세요.
+	// 텍스트 상자에서 입력된 값을 제외하고 나머지 상자에서 리스트를 보여주는 함수
 	document.getElementById('signupForm').addEventListener('keydown', function (e) {
 		if (e.key === 'Enter') {
 			e.preventDefault();

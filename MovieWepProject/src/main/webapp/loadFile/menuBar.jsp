@@ -17,11 +17,11 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item dropdown">
-				  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				  <a class="nav-link dropdown-toggle" href="movie_search.jsp" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 					영화
 				  </a>
 				  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<li><a class="dropdown-item" href="#">영화 검색</a></li>
+					<li><a class="dropdown-item" href="movie_search.jsp">영화 검색</a></li>
 					<li><a class="dropdown-item" href="#">영화추천</a></li>
 				  </ul>
 				</li>
@@ -39,8 +39,8 @@
 					극장
 				  </a>
 				  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<li><a class="dropdown-item" href="#">주변 영화관</a></li>
-					<li><a class="dropdown-item" href="#">지역별 영화관</a></li>
+					<li><a class="dropdown-item" href="map.jsp">주변 영화관</a></li>
+					<li><a class="dropdown-item" href="map.jsp">지역별 영화관</a></li>
 				  </ul>
 				</li>
 				<li class="nav-item dropdown">

@@ -98,7 +98,6 @@ body {
 }
 
 .form-control {
-	form-floating-height: 100px;
 	max-width: 60%; /* 너비 설정 */
 	height: 60px; /* 높이 설정 */
 	font-size: 80px; /* 글꼴 크기 설정 */
@@ -107,6 +106,24 @@ body {
 	margin : 20px auto;
 	
 }
+
+.form-control1 { 
+	
+	max-width: 60%; /* 너비 설정 */
+	height: 60px; /* 높이 설정 */
+	font-size: 80px; /* 글꼴 크기 설정 */
+	padding: 5px; /* 내부 여백 설정 */
+	background-color: white; 
+	margin-right : 10px;
+	
+}
+
+/* 검색 버튼 스타일 */
+button.btn-primary {
+    margin-left: 10px; /* 검색 버튼과 검색창 사이의 마진 설정 */
+}
+
+
 
 .external-content {
 	width: 200px; /* 너비를 200px로 설정 */

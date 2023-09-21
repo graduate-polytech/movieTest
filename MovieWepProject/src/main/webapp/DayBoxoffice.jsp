@@ -33,7 +33,7 @@
 		.date-header {
 		    text-align: left;
 		    font-size: 20px;
-		    color: #D92332;
+		    color: #D92332 ;
 		}
     </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">

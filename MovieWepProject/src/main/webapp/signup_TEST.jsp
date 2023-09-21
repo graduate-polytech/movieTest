@@ -28,67 +28,24 @@
 	
 function sample4_execDaumPostcode() {
 	new daum.Postcode(
-			{
-				oncomplete : function(data) {
-					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-					document.getElementById("userAddress").value = data.roadAddress;
-					// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-					/*
-					var roadAddr = data.roadAddress; // 도로명 주소 변수
-					var extraRoadAddr = ''; // 참고 항목 변수
-
-					// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-					// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-					if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-						extraRoadAddr += data.bname;
-					}
-					// 건물명이 있고, 공동주택일 경우 추가한다.
-					if (data.buildingName !== '' && data.apartment === 'Y') {
-						extraRoadAddr += (extraRoadAddr !== '' ? ', '
-								+ data.buildingName : data.buildingName);
-					}
-					// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-					if (extraRoadAddr !== '') {
-						extraRoadAddr = ' (' + extraRoadAddr + ')';
-					}
-
-					// 우편번호와 주소 정보를 해당 필드에 넣는다.
-					document.getElementById('sample4_postcode').value = data.zonecode;
-					document.getElementById("sample4_roadAddress").value = data.roadAddress;
-					document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-
-					// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-					if (roadAddr !== '') {
-						document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-					} else {
-						document.getElementById("sample4_extraAddress").value = '';
-					}
-
-					var guideTextBox = document.getElementById("guide");
-					// 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-					if (data.autoRoadAddress) {
-						var expRoadAddr = data.autoRoadAddress
-								+ extraRoadAddr;
-						guideTextBox.innerHTML = '(예상 도로명 주소 : '
-								+ expRoadAddr + ')';
-						guideTextBox.style.display = 'block';
-
-					} else if (data.autoJibunAddress) {
-						var expJibunAddr = data.autoJibunAddress;
-						guideTextBox.innerHTML = '(예상 지번 주소 : '
-								+ expJibunAddr + ')';
-						guideTextBox.style.display = 'block';
-					} else {
-						guideTextBox.innerHTML = '';
-						guideTextBox.style.display = 'none';
-					}
-					*/
-				}
-			}).open();
+		{
+			oncomplete : function(data) {
+			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+			document.getElementById("userAddress").value = data.roadAddress;
+		}
+	}).open();
 }
 
 </script>
+<style type="text/css">
+
+.rowMargin{
+margin-top: 20px;
+font-size: 20px;
+}
+
+</style>
+
 </head>
 <body>
 
@@ -146,56 +103,56 @@ function sample4_execDaumPostcode() {
 	</header>
 	
 	<div class="signup-layout">
-		<div class="signup-box" style="width: 500px;">
 			<h1>회원가입</h1>
 			<form id="signupForm" method="post" action="#"> <!-- <%= request.getRequestURI() %> -->
-				<table border="1">
-					<tbody>
-						<tr height="50">
-							<td class="p5" width="120px">이름</td>
-							<td class="p5"><input type="text" id="userName" name="userName" width="20"></td>
-						</tr>
-						<%boolean checkIdOverlap = false; %>
-						<tr height="50" class="p5">
-							<td class="p5">아이디</td>
-							<td class="p5"><input type="text" id="userId" name="userId" width="20">
-								<input id="idCheck_btn" type="button" value="중복확인"></td>
-						</tr>
-						<tr height="50" class="p5">
-							<td class="p5">패스워드</td>
-							<td class="p5"><input type="password" id="userPw" name="userPw" width="20"></td>
-						</tr>
-						<tr height="50" class="p5">
-							<td class="p5">패스워드 확인</td>
-							<td class="p5">
-								<input id="checkPassword" type="password" width="20">
-								<span id="passwordGuide" style="color: red; display: none;"> </span>
-							</td>
-						</tr>
-						<tr height="50">
-							<td class="p5">주소</td>
-							<td class="p5" width="360px">
-							<input type="button" onclick="sample4_execDaumPostcode()" value="주소 검색"><br>
-								<input type="hidden" class="w150" id="sample4_postcode" placeholder="우편번호">
-								<input type="text" id="userAddress" name="userAddress" placeholder="도로명주소" style="width: 100%">
-								<input type="hidden" class="w150" id="sample4_jibunAddress" placeholder="지번주소">
-								<span id="guide" style="color: #999; display: unset;"> </span>
-								<input type="hidden" class="w150" id="sample4_detailAddress" placeholder="상세주소">
-								<input type="hidden" class="w150" id="sample4_extraAddress" placeholder="참고항목"></td>
-						</tr>
-						<tr>
-							<td class="p5">선호 장르</td>
-							<td class="p5">
-								<input type="text" id="Genre_1" name="Genre_1" list="genre" size="14" placeholder="선로 장르 선택">
-								<input type="text" id="Genre_2" name="Genre_2" list="genre" size="14" placeholder="선로 장르 선택">
-								<input type="text" id="Genre_3" name="Genre_3" list="genre" size="14" placeholder="선로 장르 선택">
-								<input type="text" id="Genre_4" name="Genre_4" list="genre" size="14" placeholder="선로 장르 선택">
-							</td>
-						</tr>
-	
-					</tbody>
-				</table>
+			<%boolean checkIdOverlap = false; %>
 			
+				<div class="rowMargin">
+					<label for="userName">이름</label>
+					<input type="text" id="userName" name="userName" style="width: 100%">
+				</div>
+				<div class="rowMargin">
+					<label>아이디</label>
+					<input id="idCheck_btn" type="button" value="중복확인" style="font-size: 14px;">
+					<br>
+					<input type="text" id="userId" name="userId" style="width: 100%">
+				</div>
+				
+				<div class="rowMargin">
+				<label>패스워드</label>
+				<br>
+				<input type="password" id="userPw" name="userPw" style="width: 100%">
+				</div>
+				
+				<div class="rowMargin">
+					<label>패스워드 확인</label>
+					<span id="passwordGuide" style="color: red; display: none;"> </span>
+					<br>
+					<input id="checkPassword" type="password" style="width: 100%">
+				</div>
+				
+				<div class="rowMargin">
+					<label>주소</label> <input type="button" onclick="sample4_execDaumPostcode()" value="주소 검색" style="font-size: 14px;">
+					<br>
+					<div>
+						<input type="hidden" class="w150" id="sample4_postcode" placeholder="우편번호">
+						<input type="text" id="userAddress" name="userAddress" placeholder="도로명주소" style="width: 100%">
+						<input type="hidden" class="w150" id="sample4_jibunAddress" placeholder="지번주소">
+						<span id="guide" style="color: #999; display: unset;"> </span>
+						<input type="hidden" class="w150" id="sample4_detailAddress" placeholder="상세주소">
+						<input type="hidden" class="w150" id="sample4_extraAddress" placeholder="참고항목">
+					</div>
+				</div>
+				
+				<div class="rowMargin" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between;">
+					<label style="width: 100%">선호 장르</label>
+					<br>
+					<input type="text" id="Genre_1" name="Genre_1" list="genre" placeholder="선로 장르 선택" style="width: 49%">
+					<input type="text" id="Genre_2" name="Genre_2" list="genre" placeholder="선로 장르 선택" style="width: 49%">
+					<input type="text" id="Genre_3" name="Genre_3" list="genre" placeholder="선로 장르 선택" style="width: 49%">
+					<input type="text" id="Genre_4" name="Genre_4" list="genre" placeholder="선로 장르 선택" style="width: 49%">
+				</div>
+
 				<div style="display: flex; width: 100%; flex-direction: row-reverse;">
 					<button id="login-btn" type="submit" class="btn btn-primary"
 						style="margin: 10px auto; margin-right: 0px;">
@@ -262,7 +219,6 @@ function sample4_execDaumPostcode() {
     %>
 		</div>
 
-	</div>
 
 	<footer>
 		<p>&copy; 시네마 위키</p>

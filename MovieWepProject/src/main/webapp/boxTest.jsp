@@ -4,8 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-
     <title>날짜 선택 및 변환</title>
     <style>
         .even {
@@ -19,31 +17,24 @@
             margin-top: 50px;
         }
         .table-container {
-            display: flex;
-            flex-direction: column;
-            max-width: 80%; /* 테이블 너비를 80%로 변경 */
-            margin: 20px auto; /* 테이블 위 아래 여백 조정 */
-        }
-        
-        .table-container table td:nth-child(2) {
-            white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
-            overflow: hidden;
-            text-overflow: ellipsis; /* 텍스트가 너무 길 경우 생략 (...) 표시 */
-            max-width: 200px; /* 최대 너비 설정, 필요에 따라 조절하세요 */
-        }
-        .table-container table tr:nth-child(odd) {
-            background-color: #f2f2f2;
-        }
-        .table-container table tr:first-child {
-            border-top: 2px solid #000; /* 상단 가장자리 선 두꺼운 선 스타일 설정 */
-            border-bottom: 2px solid #000; /* 하단 가장자리 선 두꺼운 선 스타일 설정 */
-            background-color: #55D0FF ;
-        }
-        .date-header {
-            text-align: left;
-            font-size: 20px;
-            color: #D92332 ;
-        }
+		    display: flex;
+		    flex-direction: column;
+		    max-width: 70%; /* 테이블 너비를 100%로 변경 */
+		    margin: 20px auto; /* 테이블 위 아래 여백 조정 */
+		}
+		
+		.table-container table td:nth-child(2) {
+		    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+		    overflow: hidden;
+		    text-overflow: ellipsis; /* 텍스트가 너무 길 경우 생략 (...) 표시 */
+		    max-width: 200px; /* 최대 너비 설정, 필요에 따라 조절하세요 */
+		}
+		
+		.date-header {
+		    text-align: left;
+		    font-size: 20px;
+		    color: #D92332 ;
+		}
     </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="resource/css/styles1.css">
@@ -81,7 +72,7 @@
         %>
         <div class="table-container">
             <div class="date-header"><%= formattedDateDisplay %></div>
-            <table class="sortable-table" border="1">
+            <table border="1">
                 <tr>
                     <th scope="col">
                     순위
@@ -110,13 +101,13 @@
                     <td><%= cinema.getRank() %></td>
                     <td><%= cinema.getMovieNm() %></td>
                     <td><%= cinema.getOpenDt() %></td>
-                    <td class="salesAmt"><%= cinema.getSalesAmt() %></td>
-                    <td class="salesInten"><%= cinema.getSalesInten() %></td>
+                    <td><%= cinema.getSalesAmt() %></td>
+                    <td><%= cinema.getSalesInten() %></td>
                     <td><%= cinema.getSalesShare() %></td>
                     <td><%= cinema.getAudiCnt() %></td>
                     <td><%= cinema.getAudiInten() %></td>
-                    <td class="salesAcc"><%= cinema.getSalesAcc() %></td>
-                    <td class="audiAcc"><%= cinema.getAudiAcc() %></td>
+                    <td><%= cinema.getSalesAcc() %></td>
+                    <td><%= cinema.getAudiAcc() %></td>
                     <td><%= cinema.getScrnCnt() %></td>
                     <td><%= cinema.getShowCnt() %></td>
                 </tr>
@@ -139,73 +130,68 @@
     
         // 정렬 버튼에 대한 이벤트 리스너 설정
         var upButtons = document.querySelectorAll('.btn_up01');
+        var downButtons = document.querySelectorAll('.btn_dw01');
     
         upButtons.forEach(function (button) {
             button.addEventListener('click', function () {
-                processTable(button.closest('table'), ascending);
+                sortTable(button.closest('table'), ascending);
                 ascending = !ascending; // 정렬 상태 변경
             });
         });
     
-        // 테이블을 정렬 및 천 단위 쉼표 추가하는 함수
-        function processTable(table, ascending) {
-            var rows = Array.from(table.querySelectorAll('tbody tr'));
-    
-            // 정렬 기준 열 선택 (예: 순위 열)
-            var columnIndex = 0; // 순위 열에 해당하는 열 번호
-            var sortByColumn = (a, b) => {
-                var aValue = parseInt(a.children[columnIndex].innerText);
-                var bValue = parseInt(b.children[columnIndex].innerText);
-                return ascending ? aValue - bValue : bValue - aValue;
-            };
-    
-            // 테이블 정렬
-            rows.sort(sortByColumn);
-            rows.forEach((row) => table.querySelector('tbody').appendChild(row));
-    
-            // 천 단위 쉼표 추가 함수
-            function addCommasToData(dataElements) {
-                dataElements.forEach(function (element) {
-                    var dataValue = parseInt(element.innerText);
-                    element.innerText = dataValue.toLocaleString();
-                });
-            }
-    
-            // 정렬 버튼 클릭 이벤트 설정
-            var sortButtons = table.querySelectorAll('.btn_updwBox button');
-            sortButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    ascending = !ascending; // 정렬 상태 변경
-                    processTable(table, ascending);
-                });
+        downButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                sortTable(button.closest('table'), !ascending);
+                ascending = !ascending; // 정렬 상태 변경
             });
-    
-            // 천 단위 쉼표를 추가할 열 선택 및 처리
-            var columnsToAddCommas = table.querySelectorAll('.salesAmt, .salesInten, .salesAcc, .audiAcc');
-            addCommasToData(columnsToAddCommas);
-        }
-    
-        // 초기 페이지 로드 시 모든 테이블에 대해 정렬 함수 호출
-        var sortableTables = document.querySelectorAll('.sortable-table');
-        sortableTables.forEach(function (table) {
-            processTable(table, true); // 초기에 오름차순 정렬
         });
     
+        // 테이블을 정렬하는 함수
+        function sortTable(table, ascending) {
+            var rows = table.rows;
+            var switching = true;
+    
+            while (switching) {
+                switching = false;
+    
+                for (var i = 1; i < rows.length - 1; i++) {
+                    var shouldSwitch = false;
+                    var x = rows[i].getElementsByTagName('td')[0]; // 순위 열
+    
+                    var y = rows[i + 1].getElementsByTagName('td')[0]; // 다음 행의 순위 열
+    
+                    if (ascending) {
+                        if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else {
+                        if (parseInt(x.innerHTML) < parseInt(y.innerHTML)) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+    
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+        
         function validateDateRange() {
             var startDate = new Date(document.getElementById('startDate').value);
             var endDate = new Date(document.getElementById('endDate').value);
             var oneWeek = 7 * 24 * 60 * 60 * 1000; // 1주일을 밀리초로 표현
-    
+
             var timeDifference = endDate - startDate;
-    
+
             if (timeDifference > oneWeek) {
                 alert('날짜 범위가 1주일을 넘을 수 없습니다.');
                 event.preventDefault(); // 폼 제출을 막습니다.
             }
-        }
-        
-     
-
+        } 
     </script>
     <footer>
         <div id="bottom">

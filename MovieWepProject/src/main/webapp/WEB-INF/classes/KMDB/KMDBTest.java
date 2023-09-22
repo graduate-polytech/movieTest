@@ -25,7 +25,8 @@ public class KMDBTest{
         //이미지 항목 posters
         urlBuilder.append(Condition("ServiceKey","B40IP5NLA4A22KX077TM"));
         urlBuilder.append(Condition("detail","Y"));
-        urlBuilder.append(Condition("title","고향무정"));
+//        urlBuilder.append(Condition("title","봉준호"));
+        urlBuilder.append(Condition("releaseDts","20190530"));
         urlBuilder.append(Condition("nation","대한민국"));
 
         System.out.println("전체 URL : " + urlBuilder.toString());

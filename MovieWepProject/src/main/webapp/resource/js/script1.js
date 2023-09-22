@@ -183,10 +183,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	// You can fetch theater data from an API and loop through the data to create markers
 });
 
-
-
-
-
 // JavaScript 코드
 
 // document.addEventListener("DOMContentLoaded", function() {

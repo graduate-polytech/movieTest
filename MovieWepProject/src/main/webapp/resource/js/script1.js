@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			// 서버 측 언어(PHP, Node.js 등)를 사용하여 검색 결과를 가져올 수 있습니다.
 			// 가져온 결과를 HTML로 동적으로 생성하여 searchResults 영역에 추가합니다.
 			// 아래는 예시 코드입니다.
-			
+
 			// 예시: 검색어를 서버로 보내고 JSON 형식의 결과를 받는다고 가정
 			fetch(`search_movies.php?term=${searchTerm}`)
 				.then(response => response.json())
@@ -72,13 +72,13 @@ document.addEventListener("DOMContentLoaded", function() {
 		{ title: "오펜하이머 (2023)", poster: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/kAYtsVpE7q6NhLz6vKYAxOM6LmN.jpg" },
 		{ title: "미션 임파서블: 데드 레코닝 PART ONE (2023)", poster: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/nQsWPG020kSWdOl3EhFXRNE2s0n.jpg" },
 		{ title: "범죄도시 2 (2022)", poster: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/wxNUnSzuMgsT8DFkZjX9GtfOKJX.jpg" },
-	
+
 
 	];
 
 	// 가상의 추천 영화 데이터 (예시)
 	const recommendedMovies = [
-		 { title: "백두산 (2019)", poster: "https://upload.wikimedia.org/wikipedia/ko/b/bc/%EB%B0%B1%EB%91%90%EC%82%B0_%EC%98%81%ED%99%94_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" },
+		{ title: "백두산 (2019)", poster: "https://upload.wikimedia.org/wikipedia/ko/b/bc/%EB%B0%B1%EB%91%90%EC%82%B0_%EC%98%81%ED%99%94_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" },
 		{ title: "범죄도시3 (2023)", poster: "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jbremGnsRR4XZMDj97YHt20isRP.jpg" },
 		{ title: "엘리멘탈 (2023)", poster: "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/1YYL1OcgjPLjAGi6n0iZe1gdl9i.jpg" },
 		{ title: "스즈메의 문단속 (2022)", poster: "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jJhP6C9tNxf3txPDi6HBHTUEldk.jpg" },
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	const popularMoviesContainer = document.querySelector("#popularMoviesContainer");
 	randomMovies.forEach(movie => {
 		const movieCard = createMovieCard(movie.title, movie.poster);
-		movieCard.classList.add("col-md-2"); 
+		movieCard.classList.add("col-md-2");
 		popularMoviesContainer.appendChild(movieCard);
 	});
 
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	const recommendedMoviesContainer = document.querySelector("#recommendedMoviesContainer");
 	randomRecommendedMovies.forEach(movie => {
 		const movieCard = createMovieCard(movie.title, movie.poster);
-		movieCard.classList.add("col-md-2"); 
+		movieCard.classList.add("col-md-2");
 		recommendedMoviesContainer.appendChild(movieCard);
 	});
 });
@@ -151,15 +151,15 @@ function createMovieCard(title, posterUrl) {
 }
 
 /* JavaScript를 사용하여 하위 메뉴 표시 */
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
 	const menuItems = document.querySelectorAll(".nav-item");
 
-	menuItems.forEach(function (menuItem) {
-		menuItem.addEventListener("mouseenter", function () {
+	menuItems.forEach(function(menuItem) {
+		menuItem.addEventListener("mouseenter", function() {
 			this.querySelector(".submenu").style.display = "block";
 		});
 
-		menuItem.addEventListener("mouseleave", function () {
+		menuItem.addEventListener("mouseleave", function() {
 			this.querySelector(".submenu").style.display = "none";
 		});
 	});

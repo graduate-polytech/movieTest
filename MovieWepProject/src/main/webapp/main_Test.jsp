@@ -25,7 +25,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/styles1.css">
 <!-- 기존 CSS 스타일 시트 링크 -->
-
+	<script src="resource/js/script1.js"></script>
 </head>
 <body>
 
@@ -71,7 +71,6 @@
 					</a>
 				</div>
 
-				<script src="resource/js/script1.js"></script>
 				<!-- JavaScript 파일 링크  -->
 
 				<script>

@@ -8,6 +8,6 @@
 </head>
 <body>
     <h1>Welcome, <%= session.getAttribute("username") %></h1>
-    <a href="MovieWepProject/userLogin/LogoutServlet">Logout</a>
+    <a href="<%= request.getContextPath() %>/src/main/webapp/WEB-INF/classes/userLogin/LogoutServlet">Logout</a>
 </body>
 </html>

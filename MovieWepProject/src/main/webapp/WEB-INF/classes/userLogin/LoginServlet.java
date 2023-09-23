@@ -25,8 +25,11 @@ public class LoginServlet extends HttpServlet {
             // 로그인 후 리다이렉트할 페이지 설정
             response.sendRedirect(request.getContextPath() + "/welcome.jsp");
         } else {
-            // 로그인 실패 시 에러 메시지 출력 또는 리다이렉트
-            response.sendRedirect(request.getContextPath() + "/steellogin.jsp?error=1");
+            // 로그인 실패 시 에러 메시지를 request에 저장
+            request.setAttribute("errorMessage", "로그인 실패");
+
+            // 로그인 페이지로 포워딩
+            request.getRequestDispatcher("/steellogin.jsp").forward(request, response);
         }
     }
 }

@@ -5,38 +5,27 @@
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
-<!--
-<style>
-    .btn {
-    	width: 120PX;
-      	border: 2px solid #000; /* 외각선 스타일 및 색상 설정 */
-        padding: 10px; /* 컨테이너 내부 여백 설정 */
-    }
+	<link rel="stylesheet" href="resource/css/styles1.css">
 
-</style>
--->
-<div class="container" style="margin-top: 30px;">
-	<div class="row">
-		<div class="col-8" style="float: none; margin: 10px auto;">
-			<div class="mini-login-text-box" style="margin: 0px auto;">
-				<input type="text" class="" id="floatingInput" placeholder="ID"
-					style="width: 100%; margin: auto;"> <input type="password"
-					class="" id="" placeholder="Password" style="width: 100%">
-			</div>
-		</div>
-		<div class="col-4" style="margin-top: 10px; padding-left: 0px;">
-			<button id="login-btn" type="button" class="btn btn-primary"
-				style="width: 60px; height: 60px; font-size: 15px; padding: 3px;">로그인</button>
-		</div>
+
+<div class="miniLoginBox">
+	<div style="margin: 0px auto;">
+		<input type="text" class="" id="floatingInput" placeholder="ID"
+			style="width: 100%; margin: auto;"> <input type="password"
+			class="" id="" placeholder="Password" style="width: 100%">
 	</div>
-	<div class="row">
-    <div class="col-sm login-help-text" style="margin-top: 10px;">
-	<a href = "signup.jsp" class="">회원가입</a>
-	/
-	<a href = "#" class="">비밀번호 찾기</a>
-	</div>
-    </div>
+	<input id="login-btn" type="submit" class="btn btn-primary" value="로그인"
+		style="width: 60px; height: 60px; font-size: 15px; padding: 3px;">
 </div>
+	
+
+
+
+<a href="signup.jsp" class="">회원가입</a>
+/
+<a href="#" class="">비밀번호 찾기</a>
+
+
 <!-- <P><button id="signup-btn" type="button" class="btn btn-outline-primary">회원가입</button> </P> -->
 <script>
 	// 버튼 요소를 가져오기

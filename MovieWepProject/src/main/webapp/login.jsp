@@ -24,8 +24,22 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/styles1.css" type="text/css">
+
+<style>
+
+	.form-control {
+		
+		max-width: 60%;
+		height: 60px; 
+		font-size: 80px;
+		padding: 5px;
+		background-color: white;
+		margin: 10px auto;
+	}
+</style>
 </head>
 <body>
+
 	<header>
 		<div id="top">
 			<jsp:include page="loadFile/top.jsp" />

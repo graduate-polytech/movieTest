@@ -6,41 +6,6 @@
 <head>
     <title>날짜 선택 및 변환</title>
     <style>
-		.loading {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(255, 255, 255, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        .loading-content {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid #3498db;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
         .even {
             background-color: #f2f2f2;
         }
@@ -80,20 +45,13 @@
     </div>
 </head>
 <body>
-    <div class="loading" id="loading">
-        <div class="loading-content">
-            <div class="spinner"></div>
-            <p>로딩 중...</p>
-        </div>
-    </div>
-
     <div class="DateCon">
         <form>
             <label for="startDate"></label>
             <input type="date" id="startDate" name="startDate">
             <label for="endDate"></label>
             <input type="date" id="endDate" name="endDate">
-            <input type="submit" value="조회" id="submitButton" onclick="validateDateRange()">
+            <input type="submit" value="조회" onclick="validateDateRange()">
         </form>
         <%
         String startDateParam = request.getParameter("startDate");
@@ -106,18 +64,11 @@
 
             if (startDate.isBefore(endDate) || startDate.isEqual(endDate)) {
                 // Iterate through the date range and fetch data for each date
-                if (startDate.isBefore(endDate) || startDate.isEqual(endDate)) {
-                        // 데이터 로딩 시작 시 로딩 화면 표시
-       %>
-        <script>
-            document.getElementById("loading").style.display = "block";
-        </script>
-        <%
                 LocalDate currentDate = startDate;
                 while (!currentDate.isAfter(endDate)) {
                     String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
                     String formattedDateDisplay = currentDate.format(DateTimeFormatter.ofPattern("yyyy년 M월 d일"));
-                    List<datamovie> dataForDate = Dayboxoffice.fetchDataByDate(formattedDate);          
+                    List<datamovie> dataForDate = Dayboxoffice.fetchDataByDate(formattedDate);
         %>
         <div class="table-container">
             <div class="date-header"><%= formattedDateDisplay %></div>
@@ -169,39 +120,11 @@
                     currentDate = currentDate.plusDays(1); // Move to the next date
                 }
             } 
-        }
-     }
+        } 
         %>
-        <script>
-            // 데이터 로딩이 완료된 후 로딩 화면 숨김
-            document.getElementById("loading").style.display = "none";
-        </script>
     </div>
     <script>
-    	
-	    <%
-	    java.util.Date currentDateServer = new java.util.Date(); //자바에서 현재서버 시간 들고오기
-	    %>
-	
-		
-		 // 서버에서 가져온 현재 날짜를 로컬 시간대로 변환
-		var serverDate = new Date('<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(currentDateServer) %>');
-		
-		// 7일 전 날 계산
-		var sevenDaysAgoDate = new Date(serverDate);
-		sevenDaysAgoDate.setDate(serverDate.getDate() - 7);
-				 // 하루 전 날 계산
-		var yesterdayDate = new Date(serverDate);
-		yesterdayDate.setDate(serverDate.getDate() - 1);
-				 // 조회 버튼 클릭 이벤트 리스너 추가
-			document.getElementById("submitButton").addEventListener("click", function() {
-		    displaySelectedDates(); // 날짜 출력 함수 호출
-		});
-		
-		// 시작 날짜와 종료 날짜 input 요소에 값을 설정
-		document.getElementById("startDate").valueAsDate = sevenDaysAgoDate;
-		document.getElementById("endDate").valueAsDate = yesterdayDate;
-        
+    
         // 초기 정렬 상태
         var ascending = true;
     

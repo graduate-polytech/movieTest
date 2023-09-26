@@ -46,14 +46,17 @@
 </head>
 <body>
     <div class="DateCon">
-        <form>
+        <form id="abc" >
             <label for="startDate"></label>
             <input type="date" id="startDate" name="startDate">
             <label for="endDate"></label>
             <input type="date" id="endDate" name="endDate">
-            <input type="submit" value="조회" onclick="validateDateRange()">
+            <input type="submit" value="조회" id="submitButton" onclick="validateDateRange()">
         </form>
+        
         <%
+        
+        
         String startDateParam = request.getParameter("startDate");
         String endDateParam = request.getParameter("endDate");
         
@@ -120,10 +123,41 @@
                     currentDate = currentDate.plusDays(1); // Move to the next date
                 }
             } 
-        } 
+        }
+        else{
+        	
+            java.util.Date currentDateServer = new java.util.Date(); //자바에서 현재서버 시간 들고오기
+            
+
+            %>
+            <script>
+        	 // 서버에서 가져온 현재 날짜를 로컬 시간대로 변환
+        	var serverDate = new Date('<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(currentDateServer) %>');
+        	
+        	// 7일 전 날 계산
+        	var sevenDaysAgoDate = new Date(serverDate);
+        	sevenDaysAgoDate.setDate(serverDate.getDate() - 7);
+        			 // 하루 전 날 계산
+        	var yesterdayDate = new Date(serverDate);
+        	yesterdayDate.setDate(serverDate.getDate() - 1);
+        			 // 조회 버튼 클릭 이벤트 리스너 추가
+        		document.getElementById("submitButton").addEventListener("click", function() {
+        	    displaySelectedDates(); // 날짜 출력 함수 호출
+        	});
+        	
+        	// 시작 날짜와 종료 날짜 input 요소에 값을 설정
+        	document.getElementById("startDate").valueAsDate = sevenDaysAgoDate;
+        	document.getElementById("endDate").valueAsDate = yesterdayDate;
+        	
+        	document.getElementById("abc").submit();
+        	
+        	</script>
+        <%
+        }
         %>
     </div>
     <script>
+    
     
         // 초기 정렬 상태
         var ascending = true;
@@ -200,4 +234,3 @@
     </footer>
 </body>
 </html>
-

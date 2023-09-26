@@ -66,7 +66,7 @@
 				<div class="container text-center mt-5">
 					<h2>지금 당장 영화관으로</h2>
 					<a href="https://www.cgv.co.kr/" target="_blank"> <img
-						src="cgv_movie_theater.jpg" alt="CGV 영화관 사진"
+						src="resource/images/cgv_movie_theater.jpg" alt="CGV 영화관 사진"
 						style="width: 80%; max-width: 800px; height: auto; margin: 0 auto;">
 					</a>
 				</div>

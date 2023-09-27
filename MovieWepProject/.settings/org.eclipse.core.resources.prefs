@@ -1,4 +1,8 @@
 eclipse.preferences.version=1
 encoding//src/main/webapp/loadFile/top.jsp=UTF-8
+<<<<<<< HEAD
+encoding//src/main/webapp/resource/css/styles1.css=UTF-8
+=======
 encoding//src/main/webapp/rightContainer.jsp=UTF-8
+>>>>>>> branch 'master' of https://github.com/graduate-polytech/movieTest.git
 encoding/<project>=UTF-8

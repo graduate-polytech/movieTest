@@ -6,7 +6,11 @@ public class userData {
 	public userData() {
 		
 	}
-	
+	public userData(String id, String pw) {
+		super();
+		this.id = id;
+		this.pw = pw;
+	}
 	public userData(String id, String pw, String name, String birthday, String email, String address, String genre_1,
 			String genre_2, String genre_3, String genre_4) {
 		super();

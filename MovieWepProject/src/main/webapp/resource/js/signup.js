@@ -1,3 +1,8 @@
+function displayErrorMessages(messages) {
+	alert(messages);
+//	DBConTest();
+}
+
 function checkSignUpData() {
 	var form = document.getElementById('signupForm');
 
@@ -82,7 +87,7 @@ function checkSignUpData() {
             // 서버로부터의 응답 처리
         	result = response.message;
         	
-        	alert(response.message + ":" + (result == 1)); // 서버의 응답 메시지 출력
+        	// alert(response.message + ":" + (result == 1)); // 서버의 응답 메시지 출력
         }
     });
 	
@@ -92,7 +97,7 @@ function checkSignUpData() {
 		alert("사용할수 없는 아이디 입니다.");
 		return false;
 	} else {
-		alert("회원가입에 실패했습니다. :" + (result == 1));
+		alert("회원가입에 실패했습니다.");
 		return false;
 	}
 	// DB등록
@@ -120,10 +125,6 @@ function isValidIdPw(inputString) {
 	return regex.test(inputString);
 }
 
-function displayErrorMessages(messages) {
-	alert(messages);
-	DBConTest();
-}
 function checkPassword_f(){
 	var guideTextBox = document.getElementById("passwordGuide");
 	var userPw = document.getElementById('userPw').value;

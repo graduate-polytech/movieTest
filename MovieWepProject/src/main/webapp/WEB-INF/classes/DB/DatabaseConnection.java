@@ -6,9 +6,13 @@ public class DatabaseConnection {
 
 	private Connection connection;
 
-	private final String jdbcUrl = "jdbc:mysql://121.130.132.95:3306/moviedb"; // 데이터베이스 URL
-	private final String jdbcUsername = "outlineuser"; // 데이터베이스 사용자 이름
-	private final String jdbcPassword = "outline0000"; // 데이터베이스 암호
+//	private final String jdbcUrl = "jdbc:mysql://121.130.132.95:3306/moviedb"; // 데이터베이스 URL
+//	private final String jdbcUsername = "outlineuser"; // 데이터베이스 사용자 이름
+//	private final String jdbcPassword = "outline0000"; // 데이터베이스 암호
+
+	private final String jdbcUrl = "jdbc:mysql://localhost:3306/moviedb"; // 데이터베이스 URL
+	private final String jdbcUsername = "root"; // 데이터베이스 사용자 이름
+	private final String jdbcPassword = "0000"; // 데이터베이스 암호
 
 
 	// 데이터베이스 연결을 설정하고 커넥션을 반환하는 메서드
@@ -85,6 +89,33 @@ public class DatabaseConnection {
 			
 			if (rs.next()) {
 				result = 1;
+			}
+			
+			preparedStatement.close();
+			closeConnection(connection);
+		} catch (SQLException e) {
+			result = -1;
+			// TODO Auto-generated catch block
+			System.out.println(e.getErrorCode());
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public int signIn(userData u) {
+		int result = 1;
+		connection = getConnection();
+		// 데이터베이스에 데이터 삽입 쿼리
+		try {
+			connection = getConnection();
+
+			String checkIdSql = "SELECT * FROM moviedb.user WHERE id = ? and pw = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(checkIdSql);
+			preparedStatement.setString(1, u.getId());
+			preparedStatement.setString(2, u.getPw());
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			if (rs.next()) {
+				result = 0;
 			}
 			
 			preparedStatement.close();

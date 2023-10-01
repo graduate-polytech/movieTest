@@ -19,6 +19,7 @@ public class Dayboxoffice {
         HttpClient httpClient = HttpClients.createDefault();
         List<datamovie> movieDayDataList = new ArrayList<>();
 
+        
         try {
             String apiUrl = BASE_API_URL + "?key=" + API_KEY + "&targetDt=" + targetDt;
             HttpGet httpGet = new HttpGet(apiUrl);
@@ -34,24 +35,24 @@ public class Dayboxoffice {
                     JSONObject movieData = dailyBoxOfficeList.getJSONObject(i);
 
                     datamovie Daydata = new datamovie();
-                    Daydata.setRank(movieData.getString("rank"));//¼øÀ§
-                    Daydata.setMovieNm(movieData.getString("movieNm"));//¿µÈ­¸í
-                    Daydata.setMovieCd(movieData.getString("movieCd"));//¿µÈ­´ëÇ¥ÄÚµå
-                    Daydata.setOpenDt(movieData.getString("openDt"));//°³ºÀÀÏ
-                    Daydata.setSalesAcc(movieData.getString("salesAcc"));//´©Àû¸ÅÃâ¾×
-                    Daydata.setSalesShare(movieData.getString("salesShare"));//ÇØ´çÀÏÀÚ »ó¿µÀÛÀÇ ¸ÅÃâÃÑ¾× ´ëºñ ÇØ´ç ¿µÈ­ÀÇ ¸ÅÃâºñÀ²
-                    Daydata.setAudiCnt(movieData.getString("audiCnt"));//ÇØ´çÀÏ °ü°´¼ö
-                    Daydata.setAudiInten(movieData.getString("audiInten"));//ÀüÀÏ ´ëºñ °ü°´¼ö Áõ°¨
-                    Daydata.setAudiAcc(movieData.getString("audiAcc"));//´©Àû °ü°´¼ö
-                    Daydata.setScrnCnt(movieData.getString("scrnCnt"));//ÇØ´çÀÏÀÚ ½ºÅ©¸° »ó¿µ¼ö
-                    Daydata.setShowCnt(movieData.getString("showCnt"));//»ó¿µµÈ È½¼ö
-                    Daydata.setSalesAmt(movieData.getString("salesAmt"));//¸ÅÃâ¾×
-                    Daydata.setSalesInten(movieData.getString("salesInten"));//¸ÅÃâ¾×
+                    Daydata.setRank(movieData.getString("rank"));//ï¿½ï¿½ï¿½ï¿½
+                    Daydata.setMovieNm(movieData.getString("movieNm"));//ï¿½ï¿½È­ï¿½ï¿½
+                    Daydata.setMovieCd(movieData.getString("movieCd"));//ï¿½ï¿½È­ï¿½ï¿½Ç¥ï¿½Úµï¿½
+                    Daydata.setOpenDt(movieData.getString("openDt"));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                    Daydata.setSalesAcc(movieData.getString("salesAcc"));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                    Daydata.setSalesShare(movieData.getString("salesShare"));//ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                    Daydata.setAudiCnt(movieData.getString("audiCnt"));//ï¿½Ø´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                    Daydata.setAudiInten(movieData.getString("audiInten"));//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                    Daydata.setAudiAcc(movieData.getString("audiAcc"));//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                    Daydata.setScrnCnt(movieData.getString("scrnCnt"));//ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ó¿µ¼ï¿½
+                    Daydata.setShowCnt(movieData.getString("showCnt"));//ï¿½ó¿µµï¿½ È½ï¿½ï¿½
+                    Daydata.setSalesAmt(movieData.getString("salesAmt"));//ï¿½ï¿½ï¿½ï¿½ï¿½
+                    Daydata.setSalesInten(movieData.getString("salesInten"));//ï¿½ï¿½ï¿½ï¿½ï¿½
                    
                     movieDayDataList.add(Daydata);
                 }
             } else {
-                System.err.println("API ¿äÃ» ½ÇÆÐ: " + response.getStatusLine().getReasonPhrase());
+                System.err.println("API ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½: " + response.getStatusLine().getReasonPhrase());
             }
         } catch (Exception e) {
             e.printStackTrace();

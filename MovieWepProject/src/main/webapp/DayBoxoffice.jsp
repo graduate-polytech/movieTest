@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="boxOffice.*, java.util.List, java.util.ArrayList, java.time.LocalDate, java.time.format.DateTimeFormatter" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,7 +78,7 @@
             max-width: 200px; /* 최대 너비 설정, 필요에 따라 조절하세요 */
         }
         .table-container table tr:nth-child(odd) {
-            background-color: #f2f2f2;
+            background-color:  #f2f2f2;
         }
         .table-container table tr:first-child {
             border-top: 2px solid #ED1C23; /* 상단 가장자리 선 두꺼운 선 스타일 설정 */

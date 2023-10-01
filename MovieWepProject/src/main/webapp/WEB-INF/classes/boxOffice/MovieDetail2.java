@@ -53,6 +53,7 @@ public class MovieDetail2 {
 
         List<MovieInfo> movieInfoList = new ArrayList<>();
 
+        
         for (int i = 0; i < results.size(); i++) {
             JsonObject result = results.get(i).getAsJsonObject();
             String movieTitle = result.get("title").getAsString().trim().replaceAll("!HS|!HE", "");

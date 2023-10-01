@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class WeeklyBoxOffice {
     private static final String API_KEY = "9cbf70ef669df368261f74e63c81b28c"; // ���⿡ KOFIC API Ű�� ��������.
     private static final String BASE_API_URL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json";

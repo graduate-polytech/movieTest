@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WeeklyBoxOffice {
-    private static final String API_KEY = "9cbf70ef669df368261f74e63c81b28c"; // ¿©±â¿¡ KOFIC API Å°¸¦ ³ÖÀ¸¼¼¿ä.
+    private static final String API_KEY = "9cbf70ef669df368261f74e63c81b28c"; // ï¿½ï¿½ï¿½â¿¡ KOFIC API Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
     private static final String BASE_API_URL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json";
 
     public static List<datamovie> fetchWeeklyDataByWeek(String targetWeek) {
@@ -51,7 +51,7 @@ public class WeeklyBoxOffice {
                     movieWeeklyDataList.add(weeklyData);
                 }
             } else {
-                System.err.println("API ¿äÃ» ½ÇÆÐ: " + response.getStatusLine().getReasonPhrase());
+                System.err.println("API ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½: " + response.getStatusLine().getReasonPhrase());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,3 +59,4 @@ public class WeeklyBoxOffice {
         return movieWeeklyDataList;
     }
 }
+

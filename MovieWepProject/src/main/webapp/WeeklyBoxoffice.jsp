@@ -153,8 +153,8 @@
                 LocalDate currentDate = startDate;
                 while (!currentDate.isAfter(endDate)) {
                     String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-                    String formattedDateDisplay = currentDate.format(DateTimeFormatter.ofPattern("yyyy년 M월 d일"));
-                    List<datamovie> dataForDate = Dayboxoffice.fetchDataByDate(formattedDate);          
+                    String formattedDateDisplay = currentDate.format(DateTimeFormatter.ofPattern("yyyy년 M월 W주"));
+                    List<datamovie> weeklyDataList = WeeklyBoxOffice.fetchWeeklyDataByWeek(formattedDate);     
         %>
         <div class="table-container">
             <div class="date-header"> <%= formattedDateDisplay %></div>
@@ -181,7 +181,7 @@
                     <th>상영횟수</th>
                 </tr>
                 <%
-                    for (datamovie cinema : dataForDate) {
+                    for (datamovie cinema : weeklyDataList) {
                 %>
                 <tr>
                     <td><%= cinema.getRank() %></td>
@@ -203,7 +203,7 @@
             </table>
         </div>
         <%
-                    currentDate = currentDate.plusDays(1); // Move to the next date
+                    currentDate = currentDate.plusDays(7); // Move to the next date
                 }
             } 
         }
@@ -220,10 +220,10 @@
         	
         	// 7일 전 날 계산
         	var sevenDaysAgoDate = new Date(serverDate);
-        	sevenDaysAgoDate.setDate(serverDate.getDate() - 3);
+        	sevenDaysAgoDate.setDate(serverDate.getDate() - 21);
         			 // 하루 전 날 계산
         	var yesterdayDate = new Date(serverDate);
-        	yesterdayDate.setDate(serverDate.getDate() - 1);
+        	yesterdayDate.setDate(serverDate.getDate() - 7);
         			 // 조회 버튼 클릭 이벤트 리스너 추가
         		document.getElementById("submitButton").addEventListener("click", function() {
         	    displaySelectedDates(); // 날짜 출력 함수 호출
@@ -307,15 +307,16 @@
         function validateDateRange() {
             var startDate = new Date(document.getElementById('startDate').value);
             var endDate = new Date(document.getElementById('endDate').value);
-            var oneWeek = 7 * 24 * 60 * 60 * 1000; // 1주일을 밀리초로 표현
-    
+            var sevenWeeks = 7 * 7 * 24 * 60 * 60 * 1000; // 7주를 밀리초로 표현
+
             var timeDifference = endDate - startDate;
-    
-            if (timeDifference > oneWeek) {
-                alert('날짜 범위가 1주일을 넘을 수 없습니다.');
+
+            if (timeDifference > sevenWeeks) {
+                alert('날짜 범위가 7주를 넘을 수 없습니다.');
                 event.preventDefault(); // 폼 제출을 막습니다.
             }
         }
+
     </script>
     <footer>
         <div id="bottom">

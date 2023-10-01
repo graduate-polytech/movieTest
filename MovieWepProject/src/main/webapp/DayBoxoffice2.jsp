@@ -135,11 +135,34 @@
         <%
         String startDateParam = request.getParameter("startDate");
         String endDateParam = request.getParameter("endDate");
+        String startDateInput = null;
+        String endDateInput = null;
+
+        if (startDateParam != null && !startDateParam.trim().isEmpty()) {
+           	LocalDate startDate = LocalDate.parse(startDateParam);
+            LocalDate previousStartDate = startDate.minusDays(1); // 현재 날짜에서 하루를 뺀 날짜 계산
+            startDateInput = previousStartDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            System.out.println(startDate);
+            System.out.println(startDateInput);
+            
+        }
+
+        if (endDateParam != null && !endDateParam.trim().isEmpty()) {
+            LocalDate endDate = LocalDate.parse(endDateParam);
+            LocalDate previousEndDate = endDate.minusDays(1); // 현재 날짜에서 하루를 뺀 날짜 계산
+            endDateInput = previousEndDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            System.out.println(endDate);
+            System.out.println(endDateInput);
+        }
         
+        
+            		
         if (startDateParam != null && !startDateParam.trim().isEmpty() &&
             endDateParam != null && !endDateParam.trim().isEmpty()) {
             LocalDate startDate = LocalDate.parse(startDateParam);
             LocalDate endDate = LocalDate.parse(endDateParam);
+            LocalDate previousStartDate = LocalDate.parse(startDateInput);
+            LocalDate previousEndDate = LocalDate.parse(endDateInput);
 
             if (startDate.isBefore(endDate) || startDate.isEqual(endDate)) {
                 // Iterate through the date range and fetch data for each date
@@ -151,10 +174,14 @@
         </script>
         <%
                 LocalDate currentDate = startDate;
+        		LocalDate previousDate = previousStartDate;
                 while (!currentDate.isAfter(endDate)) {
                     String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+                    //데이터-1날짜
+                    String formattedPreivousDate = previousDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
                     String formattedDateDisplay = currentDate.format(DateTimeFormatter.ofPattern("yyyy년 M월 d일"));
-                    List<datamovie> dataForDate = Dayboxoffice.fetchDataByDate(formattedDate);          
+                    List<datamovie> dataForDate = Dayboxoffice.fetchDataByDate(formattedDate);   
+                    List<datamovie> previousforDate =  Dayboxoffice.fetchDataByDate(formattedPreivousDate);
         %>
         <div class="table-container">
             <div class="date-header"> <%= formattedDateDisplay %></div>
@@ -234,6 +261,8 @@
         	document.getElementById("endDate").valueAsDate = yesterdayDate;
         	
         	document.getElementById("abc").submit();
+        	
+        	
         	
         	</script>
         <%
@@ -316,6 +345,8 @@
                 event.preventDefault(); // 폼 제출을 막습니다.
             }
         }
+        
+        
     </script>
     <footer>
         <div id="bottom">

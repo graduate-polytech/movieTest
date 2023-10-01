@@ -19,7 +19,6 @@ public class Dayboxoffice {
         HttpClient httpClient = HttpClients.createDefault();
         List<datamovie> movieDayDataList = new ArrayList<>();
 
-        
         try {
             String apiUrl = BASE_API_URL + "?key=" + API_KEY + "&targetDt=" + targetDt;
             HttpGet httpGet = new HttpGet(apiUrl);

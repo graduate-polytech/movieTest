@@ -2,7 +2,6 @@ package boxOffice;
 
 import java.util.List;
 
-
 public class MovieInfo {
     private String movieTitle;
     private String directorName;

@@ -158,8 +158,18 @@ public class DatabaseConnection {
 		return userData;
 	}
 //UPDATE table_name SET name = '테스트 변경', country = '대한민국' WHERE id = 1105;
-	public int updateUserData(userData u) {
+	public int userInfoEdit(JSONObject json) {
 		int result = 1;
+		String userName = json.getString("userName");
+		String userId = json.getString("userId");
+		String userPw = json.getString("userPw");
+		String userEmail = json.getString("userEmail");
+		String birthDay = json.getString("birthDay");
+		String userAddress = json.getString("userAddress");
+		String Genre_1 = json.getString("Genre_1");
+		String Genre_2 = json.getString("Genre_2");
+		String Genre_3 = json.getString("Genre_3");
+		String Genre_4 = json.getString("Genre_4");
 		connection = getConnection();
 		// 데이터베이스에 데이터 삽입 쿼리
 		try {
@@ -167,21 +177,19 @@ public class DatabaseConnection {
 			
 			String checkIdSql = "UPDATE moviedb.user SET userName=?, userEmail=?, birthDay=?, userAddress=?, Genre_1=?, Genre_2=?, Genre_3=?, Genre_4=? WHERE userId = ? and userPw = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(checkIdSql);
-			preparedStatement.setString(1, u.getName());
-			preparedStatement.setString(2, u.getEmail());
-			preparedStatement.setString(3, u.getBirthday());
-			preparedStatement.setString(4, u.getAddress());
-			preparedStatement.setString(5, u.getGenre_1());
-			preparedStatement.setString(6, u.getGenre_2());
-			preparedStatement.setString(7, u.getGenre_3());
-			preparedStatement.setString(8, u.getGenre_4());
-			preparedStatement.setString(9, u.getId());
-			preparedStatement.setString(10, u.getPw());
-			ResultSet rs = preparedStatement.executeQuery();
+			preparedStatement.setString(1, userName);
+			preparedStatement.setString(2, userEmail);
+			preparedStatement.setString(3, birthDay);
+			preparedStatement.setString(4, userAddress);
+			preparedStatement.setString(5, Genre_1);
+			preparedStatement.setString(6, Genre_2);
+			preparedStatement.setString(7, Genre_3);
+			preparedStatement.setString(8, Genre_4);
+			preparedStatement.setString(9, userId); System.out.println("ID : [" + userId + "]");
+			preparedStatement.setString(10, userPw); System.out.println("PW : [" + userPw + "]");
+			int rs = preparedStatement.executeUpdate();
 			
-			if (rs.next()) {
-				result = 0;
-			}
+			if(rs == 1) result = 0;
 			
 			preparedStatement.close();
 			closeConnection(connection);
@@ -191,6 +199,7 @@ public class DatabaseConnection {
 			System.out.println(e.getErrorCode());
 			e.printStackTrace();
 		}
+		System.out.println("DatabaseConnection.userInfoEdit[result] : " + result);
 		return result;
 	} ; 
 }

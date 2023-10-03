@@ -21,7 +21,6 @@
             // 일치하는 데이터가 있는지 확인
             boolean matchFound = false;
 
-<<<<<<< HEAD
             // movieInfoList를 순회하며 영화 제목과 감독명이 포함된 데이터가 있는지 확인
             for (MovieInfo movieInfo : movieInfoList) {
                 if (movieInfo.getMovieTitle().contains(movieTitle) && movieInfo.getDirectorName().equals(dName)) {
@@ -45,17 +44,6 @@
                     <%
                     }
                     break; // 일치하는 데이터를 찾았으면 루프 종료
-=======
-            // movieInfoList를 순회하며 movieTitle과 dName이 동일한 데이터가 있는지 확인
-            for (int i = 0; i < movieInfoList.size(); i++) {
-                MovieInfo movieInfo = movieInfoList.get(i);
-                if (movieInfo.getMovieTitle().equals(movieTitle) && movieInfo.getDirectorName().equals(dName)) {
-                	
-                	//movieInfo.getMovieTitle().contains(movieTitle)
-                	//movieInfo.getMovieTitle().equals(movieTitle)
-                    matchingIndex = i;
-                    break; // 일치하는 데이터를 찾으면 루프 종료
->>>>>>> branch 'master' of https://github.com/graduate-polytech/movieTest.git
                 }
             }
 

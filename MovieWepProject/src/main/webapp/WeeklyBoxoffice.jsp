@@ -191,7 +191,7 @@
                     <td class="salesInten"><%= cinema.getSalesInten() %></td>
                     <td><%= cinema.getSalesShare() %></td>
                     <td><%= cinema.getAudiCnt() %></td>
-                    <td><%= cinema.getAudiInten() %></td>
+                    <td class="audiInten"><%= cinema.getAudiInten() %></td>
                     <td class="salesAcc"><%= cinema.getSalesAcc() %></td>
                     <td class="audiAcc"><%= cinema.getAudiAcc() %></td>
                     <td><%= cinema.getScrnCnt() %></td>
@@ -247,56 +247,66 @@
     </div>
     <script>
     	
-        // 초기 정렬 상태
-        var ascending = true;
-    
-        // 정렬 버튼에 대한 이벤트 리스너 설정
-        var upButtons = document.querySelectorAll('.btn_up01');
-    
-        upButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                processTable(button.closest('table'), ascending);
-                ascending = !ascending; // 정렬 상태 변경
-            });
-        });
-    
-        // 테이블을 정렬 및 천 단위 쉼표 추가하는 함수
-        function processTable(table, ascending) {
-            var rows = Array.from(table.querySelectorAll('tbody tr'));
-    
-            // 정렬 기준 열 선택 (예: 순위 열)
-            var columnIndex = 0; // 순위 열에 해당하는 열 번호
-            var sortByColumn = (a, b) => {
-                var aValue = parseInt(a.children[columnIndex].innerText);
-                var bValue = parseInt(b.children[columnIndex].innerText);
-                return ascending ? aValue - bValue : bValue - aValue;
-            };
-    
-            // 테이블 정렬
-            rows.sort(sortByColumn);
-            rows.forEach((row) => table.querySelector('tbody').appendChild(row));
-    
-            // 천 단위 쉼표 추가 함수
-            function addCommasToData(dataElements) {
-                dataElements.forEach(function (element) {
-                    var dataValue = parseInt(element.innerText);
-                    element.innerText = dataValue.toLocaleString();
-                });
-            }
-    
-            // 정렬 버튼 클릭 이벤트 설정
-            var sortButtons = table.querySelectorAll('.btn_updwBox button');
-            sortButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    ascending = !ascending; // 정렬 상태 변경
-                    processTable(table, ascending);
-                });
-            });
-    
-            // 천 단위 쉼표를 추가할 열 선택 및 처리
-            var columnsToAddCommas = table.querySelectorAll('.salesAmt, .salesInten, .salesAcc, .audiAcc');
-            addCommasToData(columnsToAddCommas);
-        }
+	 // 초기 정렬 상태
+	    var ascending = true;
+	
+	    // 정렬 버튼에 대한 이벤트 리스너 설정
+	    var upButtons = document.querySelectorAll('.btn_up01');
+	
+		upButtons.forEach(function (button) {
+		    button.addEventListener('click', function () {
+		        // 현재 클릭된 버튼을 클릭한 상태로 변경하고 다른 버튼의 클래스를 제거
+		        upButtons.forEach(function (btn) {
+		            if (btn === button) {
+		                btn.classList.toggle('active');
+		            } else {
+		                btn.classList.remove('active');
+		            }
+		        });
+		
+		        // 테이블을 정렬하는 함수 호출
+		        processTable(button.closest('table'), true); // 정렬 상태를 전달하거나 필요한 매개변수를 추가하세요.
+		    });
+		});
+		
+		// 테이블을 정렬 및 천 단위 쉼표 추가하는 함수
+		function processTable(table, ascending) {
+		    var rows = Array.from(table.querySelectorAll('tbody tr'));
+	
+		    // 정렬 기준 열 선택 (예: 순위 열)
+		    var columnIndex = 0; // 순위 열에 해당하는 열 번호
+		    var sortByColumn = (a, b) => {
+		        var aValue = parseInt(a.children[columnIndex].innerText.replace(/,/g, '')); // 천 단위 쉼표 제거
+		        var bValue = parseInt(b.children[columnIndex].innerText.replace(/,/g, '')); // 천 단위 쉼표 제거
+		        return ascending ? aValue - bValue : bValue - aValue;
+		    };
+	
+		    // 테이블 정렬
+		    rows.sort(sortByColumn);
+		    rows.forEach((row) => table.querySelector('tbody').appendChild(row));
+	
+		    // 천 단위 쉼표 추가 함수
+		    function addCommasToData(dataElements) {
+		        dataElements.forEach(function (element) {
+		            var dataValue = parseInt(element.innerText.replace(/,/g, '')); // 천 단위 쉼표 제거
+		            element.innerText = dataValue.toLocaleString();
+		        });
+		    }
+	
+		    // 정렬 버튼 클릭 이벤트 설정
+		    var sortButtons = table.querySelectorAll('.btn_updwBox button');
+		    sortButtons.forEach(function (button) {
+		        button.addEventListener('click', function () {
+		            ascending = !ascending; // 정렬 상태 변경
+		            processTable(table, ascending);
+		            addArrowsToSalesInten(table);
+		        });
+		    });
+	
+		    // 천 단위 쉼표를 추가할 열 선택 및 처리
+		    var columnsToAddCommas = table.querySelectorAll('.salesAmt, .salesInten, .salesAcc, .audiAcc, .audiInten');
+		    addCommasToData(columnsToAddCommas);
+		}
     
         // 초기 페이지 로드 시 모든 테이블에 대해 정렬 함수 호출
         var sortableTables = document.querySelectorAll('.sortable-table');

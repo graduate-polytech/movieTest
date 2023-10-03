@@ -69,26 +69,15 @@
             max-width: 80%; /* 테이블 너비를 80%로 변경 */
             margin: 20px auto; /* 테이블 위 아래 여백 조정 */
         }
-        .table-container table tr td {
-		    height: 40px; /* 원하는 높이로 조절하세요 */
-		    vertical-align: middle; /* 텍스트를 수직 가운데 정렬합니다. */
-		}
+        
         .table-container table td:nth-child(2) {
-        	text-align: left;
-        	padding-left: 10px;
             white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
             overflow: hidden;
             text-overflow: ellipsis; /* 텍스트가 너무 길 경우 생략 (...) 표시 */
             max-width: 200px; /* 최대 너비 설정, 필요에 따라 조절하세요 */
-            font-weight: bold;
         }
-        
-        .table-container table td:not(:nth-child(2)) {
-	        text-align: right;
-	        padding-right: 10px;
-	    }
         .table-container table tr:nth-child(odd) {
-            background-color: #f2f2f2;
+            background-color:  #f2f2f2;
         }
         .table-container table tr:first-child {
             border-top: 2px solid #ED1C23; /* 상단 가장자리 선 두꺼운 선 스타일 설정 */
@@ -100,34 +89,6 @@
             font-size: 20px;
             color: #D92332 ;
         }
-
-	    .small-image {
-	        width: 50px; /* 원하는 가로 크기로 조정 */
-	        height: auto; /* 세로 크기는 자동으로 조정 */
-	    }
-	    .btn_up01 {
-		    background: none;
-		    border: none;
-		    padding: 0;
-		    cursor: pointer;
-		    display: flex;
-		    align-items: center;
-		    outline: none;
-		}
-		
-		/* 화살표 이미지 스타일 */
-		.arrow-icon {
-		    width: 16px;
-		    height: 16px;
-		    transition: transform 0.2s; /* 부드러운 이미지 회전 효과 */
-		}
-		
-		/* 버튼 클릭 시 화살표 회전 */
-		.btn_up01.active .arrow-icon {
-		    transform: rotate(180deg); /* 이미지를 180도 회전하여 뒤집음 */
-		}
-
-        
     </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="resource/css/styles1.css">
@@ -203,8 +164,8 @@
                     순위
                     <span class="btn_updwBox">
                         <button name="btn4_up" type="button" class="btn_up01">
-						    <img class="arrow-icon" src="resource/images/cgv_movie_theater.jpg" alt="▲/▼" />
-						</button>
+                            <span>정렬</span>
+                        </button>
                     </span>
                     </th>
                     <th>영화명</th>
@@ -291,23 +252,14 @@
     
         // 정렬 버튼에 대한 이벤트 리스너 설정
         var upButtons = document.querySelectorAll('.btn_up01');
-
-		upButtons.forEach(function (button) {
-		    button.addEventListener('click', function () {
-		        // 현재 클릭된 버튼을 클릭한 상태로 변경하고 다른 버튼의 클래스를 제거
-		        upButtons.forEach(function (btn) {
-		            if (btn === button) {
-		                btn.classList.toggle('active');
-		            } else {
-		                btn.classList.remove('active');
-		            }
-		        });
-		
-		        // 테이블을 정렬하는 함수 호출
-		        processTable(button.closest('table'), true); // 정렬 상태를 전달하거나 필요한 매개변수를 추가하세요.
-		    });
-		});
-		
+    
+        upButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                processTable(button.closest('table'), ascending);
+                ascending = !ascending; // 정렬 상태 변경
+            });
+        });
+    
         // 테이블을 정렬 및 천 단위 쉼표 추가하는 함수
         function processTable(table, ascending) {
             var rows = Array.from(table.querySelectorAll('tbody tr'));
@@ -364,28 +316,6 @@
                 event.preventDefault(); // 폼 제출을 막습니다.
             }
         }
-     // 이 함수는 salesInten 값을 받아와서 필요한 로직을 처리한 후 문자열을 반환합니다.
-        function getSalesIntenWithArrow(salesInten) {
-		    if (salesInten.startsWith("-")) {
-		        return salesInten + "<img src='resource/images/blue_arrow.png' alt='▼' class='small-image' />";
-		    } else if (salesInten === "0") {
-		        return salesInten;
-		    } else {
-		        return salesInten + "<span style='color: red;'>  ▲</span>";
-		    }
-		}
-
-
-
-        // 위에서 정의한 함수를 사용하여 해당 테이블 셀에 데이터를 설정합니다.
-        var cinemaElements = document.querySelectorAll('.salesInten'); // salesInten 클래스를 가진 모든 요소 선택
-
-        cinemaElements.forEach(function (element) {
-            var salesInten = element.innerText; // 셀 내용 가져오기
-            var modifiedSalesInten = getSalesIntenWithArrow(salesInten); // 함수 호출
-            element.innerHTML = modifiedSalesInten; // 셀 내용 변경
-        });
-
     </script>
     <footer>
         <div id="bottom">

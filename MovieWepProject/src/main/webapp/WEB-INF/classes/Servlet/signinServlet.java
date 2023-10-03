@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
@@ -32,16 +33,29 @@ public class signinServlet extends HttpServlet {
 		// 데이터 확인 및 MySQL DB에 추가하는 로직 수행
 		String userId = json.getString("userId");
 		String userPw = json.getString("userPw");
-		
-		
+
 		userData u = new userData(userId, userPw);
 		DatabaseConnection db = new DatabaseConnection();
 		JSONObject jsonResponse = new JSONObject();
-		int result = db.signIn(u);
-		
+		JSONObject result = db.signIn(u);
+		HttpSession session = request.getSession();
+		int resultInt = (int) result.get("result");
+		if (resultInt == 0) {
+			session.setAttribute("userName", result.get("userName"));
+			session.setAttribute("userId", result.get("userId"));
+			session.setAttribute("userPw", result.get("userPw"));
+			session.setAttribute("userEmail", result.get("userEmail"));
+			session.setAttribute("birthDay", result.get("birthDay"));
+			session.setAttribute("userAddress", result.get("userAddress"));
+			session.setAttribute("Genre_1", result.get("Genre_1"));
+			session.setAttribute("Genre_2", result.get("Genre_2"));
+			session.setAttribute("Genre_3", result.get("Genre_3"));
+			session.setAttribute("Genre_4", result.get("Genre_4"));
+
+		}
 		// 응답 전송 (예: 성공 메시지)
-		
-		jsonResponse.put("result", result);
+
+		jsonResponse.put("result", resultInt);
 
 		// JSON 응답을 클라이언트로 전송
 		response.setContentType("application/json");

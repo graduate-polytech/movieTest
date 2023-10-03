@@ -2,17 +2,19 @@ package DB;
 
 import java.sql.*;
 
+import org.json.JSONObject;
+
 public class DatabaseConnection {
 
 	private Connection connection;
 
-//	private final String jdbcUrl = "jdbc:mysql://121.130.132.95:3306/moviedb"; // 데이터베이스 URL
-//	private final String jdbcUsername = "outlineuser"; // 데이터베이스 사용자 이름
-//	private final String jdbcPassword = "outline0000"; // 데이터베이스 암호
+	private final String jdbcUrl = "jdbc:mysql://121.130.132.95:3306/moviedb"; // 데이터베이스 URL
+	private final String jdbcUsername = "outlineuser"; // 데이터베이스 사용자 이름
+	private final String jdbcPassword = "outline0000"; // 데이터베이스 암호
 
-	private final String jdbcUrl = "jdbc:mysql://localhost:3306/moviedb"; // 데이터베이스 URL
-	private final String jdbcUsername = "root"; // 데이터베이스 사용자 이름
-	private final String jdbcPassword = "0000"; // 데이터베이스 암호
+//	private final String jdbcUrl = "jdbc:mysql://localhost:3306/moviedb"; // 데이터베이스 URL
+//	private final String jdbcUsername = "root"; // 데이터베이스 사용자 이름
+//	private final String jdbcPassword = "0000"; // 데이터베이스 암호
 
 
 	// 데이터베이스 연결을 설정하고 커넥션을 반환하는 메서드
@@ -47,7 +49,19 @@ public class DatabaseConnection {
 			return result;
 		}
 		try {
-			String insertQuery = "insert into moviedb.user(id,pw,name,birthday,email,address,genre_1,genre_2,genre_3,genre_4) values(?,?,?,?,?,?,?,?,?,?);";
+			/*
+			 * 				userData.put("userName",rs.getString("userName"));
+				userData.put("userId",rs.getString("userId"));
+				userData.put("userPw",rs.getString("userPw"));
+				userData.put("userEmail",rs.getString("userEmail"));
+				userData.put("birthDay",rs.getString("birthDay"));
+				userData.put("userAddress",rs.getString("userAddress"));
+				userData.put("Genre_1",rs.getString("Genre_1"));
+				userData.put("Genre_2",rs.getString("Genre_2"));
+				userData.put("Genre_3",rs.getString("Genre_3"));
+				userData.put("Genre_4",rs.getString("Genre_4"));*/
+			
+			String insertQuery = "insert into moviedb.user(userId,userPw,userName,birthDay,userEmail,userAddress,Genre_1,Genre_2,Genre_3,Genre_4) values(?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
 			preparedStatement.setString(1, u.getId());
 			preparedStatement.setString(2, u.getPw());
@@ -82,7 +96,7 @@ public class DatabaseConnection {
 		try {
 			connection = getConnection();
 
-			String checkIdSql = "SELECT * FROM moviedb.user WHERE id = ?";
+			String checkIdSql = "SELECT * FROM moviedb.user WHERE userId = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(checkIdSql);
 			preparedStatement.setString(1, userId);
 			ResultSet rs = preparedStatement.executeQuery();
@@ -101,17 +115,68 @@ public class DatabaseConnection {
 		}
 		return result;
 	}
-	public int signIn(userData u) {
+	public JSONObject signIn(userData u) {
+		int result = 1;
+		connection = getConnection();
+		JSONObject userData = new JSONObject();
+		// 데이터베이스에 데이터 삽입 쿼리
+		try {
+			connection = getConnection();
+
+			String checkIdSql = "SELECT * FROM moviedb.user WHERE userId = ? and userPw = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(checkIdSql);
+			preparedStatement.setString(1, u.getId());
+			preparedStatement.setString(2, u.getPw());
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			if (rs.next()) {
+
+				result = 0;
+				
+				userData.put("userName",rs.getString("userName"));
+				userData.put("userId",rs.getString("userId"));
+				userData.put("userPw",rs.getString("userPw"));
+				userData.put("userEmail",rs.getString("userEmail"));
+				userData.put("birthDay",rs.getString("birthDay"));
+				userData.put("userAddress",rs.getString("userAddress"));
+				userData.put("Genre_1",rs.getString("Genre_1"));
+				userData.put("Genre_2",rs.getString("Genre_2"));
+				userData.put("Genre_3",rs.getString("Genre_3"));
+				userData.put("Genre_4",rs.getString("Genre_4"));
+			}
+			
+			preparedStatement.close();
+			closeConnection(connection);
+		} catch (SQLException e) {
+			result = -1;
+			// TODO Auto-generated catch block
+			System.out.println(e.getErrorCode());
+			e.printStackTrace();
+		}
+
+		userData.put("result",result);
+		return userData;
+	}
+//UPDATE table_name SET name = '테스트 변경', country = '대한민국' WHERE id = 1105;
+	public int updateUserData(userData u) {
 		int result = 1;
 		connection = getConnection();
 		// 데이터베이스에 데이터 삽입 쿼리
 		try {
 			connection = getConnection();
-
-			String checkIdSql = "SELECT * FROM moviedb.user WHERE id = ? and pw = ?";
+			
+			String checkIdSql = "UPDATE moviedb.user SET userName=?, userEmail=?, birthDay=?, userAddress=?, Genre_1=?, Genre_2=?, Genre_3=?, Genre_4=? WHERE userId = ? and userPw = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(checkIdSql);
-			preparedStatement.setString(1, u.getId());
-			preparedStatement.setString(2, u.getPw());
+			preparedStatement.setString(1, u.getName());
+			preparedStatement.setString(2, u.getEmail());
+			preparedStatement.setString(3, u.getBirthday());
+			preparedStatement.setString(4, u.getAddress());
+			preparedStatement.setString(5, u.getGenre_1());
+			preparedStatement.setString(6, u.getGenre_2());
+			preparedStatement.setString(7, u.getGenre_3());
+			preparedStatement.setString(8, u.getGenre_4());
+			preparedStatement.setString(9, u.getId());
+			preparedStatement.setString(10, u.getPw());
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			if (rs.next()) {
@@ -127,6 +192,5 @@ public class DatabaseConnection {
 			e.printStackTrace();
 		}
 		return result;
-	}
-	
+	} ; 
 }

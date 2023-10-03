@@ -13,10 +13,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/styles1.css" type="text/css">
-
 <script src="resource/js/signin.js"></script>
 <script src="resource/js/DBconnect.js"></script>
-
 </head>
 <body>
 	<header>
@@ -28,7 +26,7 @@
 	<div class="login-box" style="margin-top: 50px auto;">
 		<img class="logo-title" src="resource/images/Title.png" alt="로고 이미지">
 		<div id="form-floating mb-3" style="margin-top: 20px auto;">
-			<form id="signinForm" name="signinForm" method="post"  action="main.jsp" style="margin: 40px auto;" onsubmit="return trySignIn()">
+			<form id="signinForm" name="signinForm" method="post" action="main.jsp" style="margin: 40px auto;" onsubmit="return trySignIn()">
 				<input type="text" class="form-control" id="userId" name="userId" placeholder="ID" style="height: 40px; font-size: 20px; padding: 5px;">
 				<input type="password" class="form-control" id="userPw" name="userPw" placeholder="Password" style="height: 40px; font-size: 20px; padding: 5px;">
 				<input id="login-btn" type="submit" class="btn btn-outline-primary" style="margin: 30px; margin-bottom: 5px; height: 50px; width: 60%; margin: 5px;" value="로그인">

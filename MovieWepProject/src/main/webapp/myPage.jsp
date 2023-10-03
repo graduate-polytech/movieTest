@@ -13,32 +13,37 @@ request.setCharacterEncoding("utf-8");
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFWttU33_ZQvbz5cU1vdkdtcyPL2Tr53U&libraries=places"></script>
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/styles1.css" type="text/css">
 <script src="resource/js/signup.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
 <script type="text/javascript">
 
-var userId = '<%=session.getAttribute("userId")%>';
-if (userId != 'null') {
-	alert(userId);
-}
-function sample4_execDaumPostcode() {
-	new daum.Postcode(
-		{
-			oncomplete : function(data) {
-			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-			document.getElementById("userAddress").value = data.roadAddress;
+	function sample4_execDaumPostcode() {
+		new daum.Postcode( {
+				oncomplete : function(data) {
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+				document.getElementById("userAddress").value = data.roadAddress;
+			}
+		}).open();
+	}
+	document.addEventListener('DOMContentLoaded', function() {
+		
+	});
+    // 페이지 로드 시 실행되는 함수
+    window.onload = function() {
+      // 세션에 데이터를 체크하는 예시
+      var sessionData = '<%=session.getAttribute("userId")%>';
+
+		if (sessionData.trim() == 'null') {
+			// 세션에 데이터가 없는 경우, 'signin.jsp'로 리다이렉트
+			window.location.href = 'signin.jsp';
 		}
-	}).open();
-}
+	}
 </script>
 <style>
-
-label{
+label {
 	margin-top: 10px;
 	margin-bottom: 0px;
 }
@@ -101,7 +106,6 @@ label{
 		<option value="판타지" />
 		<option value="해양액션" />
 	</datalist>
-
 	<header>
 		<div id="top">
 			<jsp:include page="loadFile/top.jsp" />
@@ -109,10 +113,9 @@ label{
 		</div>
 	</header>
 	<div class="signup-layout">
-		<h1>회원가입</h1>
-		<form id="signupForm" name="signupForm" method="post" action="main.jsp" onsubmit="return checkSignUpData()">
+		<h1>내 정보</h1>
+		<form id="signupForm" name="signupForm" method="post" action="main.jsp" onsubmit="return false">
 			<!--request.getRequestURI()I() %> -->
-
 			<!-- 
 			userName
 			userId
@@ -128,7 +131,7 @@ label{
 			Genre_4
 			 -->
 			<div class="rowMargin">
-				<!-- 아이디 userName -->
+				<!-- 이름 userName -->
 				<label for="userName">이름</label>
 				<input type="text" id="userName" name="userName" style="width: 100%" required>
 			</div>
@@ -138,21 +141,6 @@ label{
 				<input id="idCheck_btn" type="button" value="중복확인" style="font-size: 14px;">
 				<br>
 				<input type="text" id="userId" name="userId" style="width: 100%" required>
-			</div>
-
-			<div class="rowMargin">
-				<!-- 패스워드 userPw -->
-				<label>패스워드</label>
-				<br>
-				<input type="password" id="userPw" name="userPw" style="width: 100%" required>
-			</div>
-
-			<div class="rowMargin">
-				<!-- 패스워드 확인 checkPassword -->
-				<label>패스워드 확인</label>
-				<span id="passwordGuide" style="color: red; display: none;"> </span>
-				<br>
-				<input id="checkPassword" type="password" style="width: 100%" required>
 			</div>
 			<div class="rowMargin ">
 				<!-- 이메일 userEmail_1 userEmail_2 -->
@@ -164,7 +152,6 @@ label{
 					<input id="userEmail_2" type="text" list="email-domain" placeholder="email 선택" style="width: 48%" required>
 				</div>
 			</div>
-
 			<div class="rowMargin">
 				<!-- 생일 birthDay -->
 				<label for="birthDay">생년월일</label>
@@ -185,7 +172,6 @@ label{
 					<input type="hidden" class="w150" id="sample4_extraAddress" placeholder="참고항목">
 				</div>
 			</div>
-
 			<div class="rowMargin">
 				<!-- 장르 Genre_1 Genre_2 Genre_3 Genre_4 -->
 				<label style="width: 100%">선호 장르</label>
@@ -195,17 +181,13 @@ label{
 				<input type="text" id="Genre_3" name="Genre_3" list="genre" placeholder="선로 장르 선택" style="width: 49%">
 				<input type="text" id="Genre_4" name="Genre_4" list="genre" placeholder="선로 장르 선택" style="width: 49%">
 			</div>
-
 			<div style="display: flex; width: 100%; flex-direction: row-reverse;">
 				<button id="login-btn" type="submit" class="btn btn-primary" style="margin: 10px auto; margin-right: 0px;">
-					<h5>회원가입</h5>
+					<h5>저장</h5>
 				</button>
 			</div>
 		</form>
-		
 	</div>
-
-
 	<footer>
 		<p>&copy; 시네마 위키</p>
 	</footer>
@@ -229,25 +211,30 @@ label{
 					});
 
 			// 각각의 텍스트 상자에서 입력이 변경될 때마다 호출하여 업데이트
-			document.getElementById('Genre_1').addEventListener('change',
-					updateGenreList);
-			document.getElementById('Genre_2').addEventListener('change',
-					updateGenreList);
-			document.getElementById('Genre_3').addEventListener('change',
-					updateGenreList);
-			document.getElementById('Genre_4').addEventListener('change',
-					updateGenreList);
+			document.getElementById('Genre_1').addEventListener('change', updateGenreList);
+			document.getElementById('Genre_2').addEventListener('change', updateGenreList);
+			document.getElementById('Genre_3').addEventListener('change', updateGenreList);
+			document.getElementById('Genre_4').addEventListener('change', updateGenreList);
 
-			document.getElementById('idCheck_btn').addEventListener('click',
-					idcheck_f);
-			document.getElementById('userPw').addEventListener('input',
-					checkPassword_f);
-			document.getElementById('checkPassword').addEventListener('input',
-					checkPassword_f);
-			document.getElementById('userEmail_2').addEventListener('input',
-					inputEmail_2);
-
+			document.getElementById('idCheck_btn').addEventListener('click', idcheck_f);
+			//document.getElementById('userPw').addEventListener('input', checkPassword_f);
+			//document.getElementById('checkPassword').addEventListener('input', checkPassword_f);
+			document.getElementById('userEmail_2').addEventListener('input', inputEmail_2);
+			
+			document.getElementById('userName').value = '<%=session.getAttribute("userName")%>';
+			document.getElementById('userId').value = '<%=session.getAttribute("userId")%>';
+			//document.getElementById('userPw').value = userPw;
+			document.getElementById('userEmail_1').value = '<%=session.getAttribute("userEmail")%>'.split("@")[0];
+			document.getElementById('userEmail_2').value = '<%=session.getAttribute("userEmail")%>'.split("@")[1];
+			document.getElementById('birthDay').value = "1999-06-18";
+			document.getElementById('userAddress').value = '<%=session.getAttribute("userAddress")%>';
+			document.getElementById('Genre_1').value = '<%=session.getAttribute("Genre_1")%>';
+			document.getElementById('Genre_2').value = '<%=session.getAttribute("Genre_2")%>';
+			document.getElementById('Genre_3').value = '<%=session.getAttribute("Genre_3")%>';
+			document.getElementById('Genre_4').value = '<%=session.getAttribute("Genre_4")%>';
 		});
+		
+
 	</script>
 </body>
 </html>

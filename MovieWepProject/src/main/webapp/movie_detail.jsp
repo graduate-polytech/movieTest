@@ -30,7 +30,7 @@
         $(document).ready(function() {
             // URL에서 DOCID 파라미터를 가져옵니다.
             var urlParams = new URLSearchParams(window.location.search);
-            var docId = urlParams.get("docid");
+            var docId = urlParams.get("DOCID");
 
             // 영화 상세 정보를 가져와서 표시합니다.
             loadMovieDetails(docId);

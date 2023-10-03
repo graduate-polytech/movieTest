@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDetail2 {
+
     private static final String API_URL = "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json.jsp";
     private static final String API_KEY = "25QF8GG6G9R22N50D3X4"; // 본인의 KMDB API 키로 대체
 

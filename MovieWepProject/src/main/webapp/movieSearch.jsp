@@ -160,7 +160,7 @@
          // 포스터 이미지를 클릭했을 때 새 페이지로 이동
             $("#searchResult").on("click", "img[src^='http']", function() {
                 var docId = $(this).data("DOCID"); // 클릭한 영화의 DOCID를 가져옴
-                window.location.href = "movie_detail.jsp?docid=" + docId; // 새 페이지로 이동
+                window.location.href = "movie_detail.jsp?DOCID=" + docId; // 새 페이지로 이동
             });
 
 

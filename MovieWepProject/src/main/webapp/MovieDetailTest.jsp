@@ -25,6 +25,9 @@
             for (int i = 0; i < movieInfoList.size(); i++) {
                 MovieInfo movieInfo = movieInfoList.get(i);
                 if (movieInfo.getMovieTitle().equals(movieTitle) && movieInfo.getDirectorName().equals(dName)) {
+                	
+                	//movieInfo.getMovieTitle().contains(movieTitle)
+                	//movieInfo.getMovieTitle().equals(movieTitle)
                     matchingIndex = i;
                     break; // 일치하는 데이터를 찾으면 루프 종료
                 }

@@ -26,7 +26,7 @@ public class MovieDetail2 {
         // API 요청 URL 생성
         String API_URL = "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json.jsp";
         String API_KEY = "25QF8GG6G9R22N50D3X4"; // 본인의 KMDB API 키로 대체
-        String apiUrl = API_URL + "?ServiceKey=" + API_KEY + "&collection=kmdb_new&title=" + encodedTitle+ "&detail=Y&sort=prodYear&listCount="+20;
+        String apiUrl = API_URL + "?ServiceKey=" + API_KEY + "&collection=kmdb_new&title=" + encodedTitle+ "&detail=Y&sort=prodYear&listCount="+100;
 
         // HTTP GET 요청 생성 및 설정
         URL url = new URL(apiUrl);
@@ -45,20 +45,33 @@ public class MovieDetail2 {
 
         // JSON 파싱
         JsonParser jsonParser = new JsonParser();
+        
         JsonObject jsonResponse = jsonParser.parse(response.toString()).getAsJsonObject();
 
         // 필요한 정보 추출
         JsonArray data = jsonResponse.getAsJsonArray("Data");
+        
+        if (data == null || data.size() == 0) {
+            System.out.println("데이터가 없습니다.");
+            return new ArrayList<>(); // 빈 목록 반환 또는 예외를 던질 수 있음
+        }
+        
         JsonArray results = data.get(0).getAsJsonObject().getAsJsonArray("Result");
+        
+        if (results == null) {
+            System.out.println("검색 결과가 없습니다.");
+            return new ArrayList<>(); // 빈 목록 반환 또는 예외를 던질 수 있음
+        }
 
         List<MovieInfo> movieInfoList = new ArrayList<>();
-
+        
         for (int i = 0; i < results.size(); i++) {
             JsonObject result = results.get(i).getAsJsonObject();
             String movieTitle = result.get("title").getAsString();
             if (movieTitle.contains("!HS") || movieTitle.contains("!HE")) {
             	movieTitle = movieTitle.replaceAll("\\s!HS\\s|\\s!HE\\s", "");
             }
+
             System.out.println("Original Title: " + movieTitle);
 
             JsonArray directors = result.getAsJsonArray("director");
@@ -73,6 +86,21 @@ public class MovieDetail2 {
 
             // 중복된 "rating" 키 처리
             JsonArray ratings = result.getAsJsonArray("rating");
+            
+            String plot = result.get("plot").getAsString(); // "plot" 정보
+            
+            JsonArray actors = result.getAsJsonArray("actor");
+            String repRlsDate = result.get("repRlsDate").getAsString();
+            
+            List<String> actorNames = new ArrayList<>();
+            
+            if (actors != null && actors.size() > 0) {
+                for (int j = 0; j < actors.size(); j++) {
+                    JsonObject actor = actors.get(j).getAsJsonObject();
+                    String actorName = actor.get("actorNm").getAsString(); // 배우 이름
+                    actorNames.add(actorName);
+                }
+            }
 
             // "posters" 값을 불러옴
             JsonElement postersElement = result.get("posters");
@@ -87,8 +115,10 @@ public class MovieDetail2 {
             }
 
             // MovieInfo 객체 생성 및 추가
-            MovieInfo movieInfo = new MovieInfo(movieTitle, directorName, nation);
+            MovieInfo movieInfo = new MovieInfo(movieTitle, directorName, nation, plot,repRlsDate);
             movieInfo.setPosters(posters);
+            movieInfo.setActors(actorNames);
+            
             movieInfoList.add(movieInfo);
         }
 

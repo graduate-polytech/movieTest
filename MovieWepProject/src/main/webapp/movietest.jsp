@@ -12,8 +12,7 @@
             window.location.href = "MovieDetailTest.jsp" + queryParams;
         }
 
-        // 입력된 영화명에서 공백을 제거하는 함수
-        function cleanTitle() {
+        function removeSpaces() {
             var titleInput = document.getElementById("title");
             titleInput.value = titleInput.value.trim();
         }
@@ -21,9 +20,9 @@
 </head>
 <body>
     <h1>Movie Search</h1>
-    <form action="movietest.jsp" method="GET">
+    <form action="movietest.jsp" method="GET" onsubmit="removeSpaces()">
         <label for="title">Enter Movie Title:</label>
-        <input type="text" id="title" name="title" required oninput="cleanTitle()">
+        <input type="text" id="title" name="title" required>
         <input type="submit" value="Search">
     </form>
 
@@ -46,8 +45,8 @@
                                 <%= movieInfo.getMovieTitle() %>
                             </a>
                         </li>
-                        <li>Director: <%= movieInfo.getDirectorName() %></li>
-                        <li>Nation: <%= movieInfo.getNation() %></li>
+                        <li>감독명: <%= movieInfo.getDirectorName() %></li>
+                        <li>국가: <%= movieInfo.getNation() %></li>
                         <li>poster: <%
                         List<String> posters = movieInfo.getPosters();
                         if (!posters.isEmpty()) {

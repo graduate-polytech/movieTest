@@ -6,18 +6,49 @@ public class MovieInfo {
     private String movieTitle;
     private String directorName;
     private String nation;
-    private List<String> posters;
+    private String plot;
+    private String repRlsDate;
+    
 
-    public MovieInfo(String movieTitle, String directorName, String nation) {
+	public String getRepRlsDate() {
+		return repRlsDate;
+	}
+
+	public void setRepRlsDate(String repRlsDate) {
+		this.repRlsDate = repRlsDate;
+	}
+
+	private List<String> posters;
+	private List<String> actors;
+
+    public List<String> getActors() {
+		return actors;
+	}
+
+	public void setActors(List<String> actors) {
+		this.actors = actors;
+	}
+
+	public MovieInfo(String movieTitle, String directorName, String nation, String plot,String repRlsDate) {
         this.movieTitle = movieTitle;
         this.directorName = directorName;
         this.nation = nation;
+        this.plot = plot;
+        this.repRlsDate = repRlsDate;
     }
 
     public String getMovieTitle() {
         return movieTitle;
     }
 
+    public String getPlot() {
+		return plot;
+	}
+
+	public void setPlot(String plot) {
+		this.plot = plot;
+	}
+	
     public void setMovieTitle(String movieTitle) {
         this.movieTitle = movieTitle;
     }

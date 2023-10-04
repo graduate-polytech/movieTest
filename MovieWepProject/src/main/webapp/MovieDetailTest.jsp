@@ -39,13 +39,17 @@
             }
         }
     }
-    %>
+%>
+
 
     <%-- 이제 데이터를 ListData에서 사용할 수 있습니다. --%>
     <% for (MovieInfo movieInfo : ListData) { %>
         <p>데이터 표시 :</p>
-        <p>Movie Title: <%= movieInfo.getMovieTitle() %></p>
-        <p>Director Name: <%= movieInfo.getDirectorName() %></p>
+        <p>영화명: <%= movieInfo.getMovieTitle() %></p>
+        <p>감독명: <%= movieInfo.getDirectorName() %></p>
+        <p>줄거리 : <%= movieInfo.getPlot() %></p>
+        <p>배우: <%= movieInfo.getActors() %></p>
+        <p>개봉일 : <%= movieInfo.getRepRlsDate() %>
         <%-- 포스터 이미지를 표시 --%>
         <%
         List<String> posters = movieInfo.getPosters();

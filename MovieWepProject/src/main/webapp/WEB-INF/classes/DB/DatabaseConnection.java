@@ -2,6 +2,8 @@ package DB;
 
 import java.sql.*;
 
+import org.json.JSONObject;
+
 public class DatabaseConnection {
 
 	private Connection connection;
@@ -47,7 +49,19 @@ public class DatabaseConnection {
 			return result;
 		}
 		try {
-			String insertQuery = "insert into moviedb.user(id,pw,name,birthday,email,address,genre_1,genre_2,genre_3,genre_4) values(?,?,?,?,?,?,?,?,?,?);";
+			/*
+			 * 				userData.put("userName",rs.getString("userName"));
+				userData.put("userId",rs.getString("userId"));
+				userData.put("userPw",rs.getString("userPw"));
+				userData.put("userEmail",rs.getString("userEmail"));
+				userData.put("birthDay",rs.getString("birthDay"));
+				userData.put("userAddress",rs.getString("userAddress"));
+				userData.put("Genre_1",rs.getString("Genre_1"));
+				userData.put("Genre_2",rs.getString("Genre_2"));
+				userData.put("Genre_3",rs.getString("Genre_3"));
+				userData.put("Genre_4",rs.getString("Genre_4"));*/
+			
+			String insertQuery = "insert into moviedb.user(userId,userPw,userName,birthDay,userEmail,userAddress,Genre_1,Genre_2,Genre_3,Genre_4) values(?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
 			preparedStatement.setString(1, u.getId());
 			preparedStatement.setString(2, u.getPw());
@@ -82,7 +96,7 @@ public class DatabaseConnection {
 		try {
 			connection = getConnection();
 
-			String checkIdSql = "SELECT * FROM moviedb.user WHERE id = ?";
+			String checkIdSql = "SELECT * FROM moviedb.user WHERE userId = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(checkIdSql);
 			preparedStatement.setString(1, userId);
 			ResultSet rs = preparedStatement.executeQuery();
@@ -101,21 +115,34 @@ public class DatabaseConnection {
 		}
 		return result;
 	}
-	public int signIn(userData u) {
+	public JSONObject signIn(userData u) {
 		int result = 1;
 		connection = getConnection();
+		JSONObject userData = new JSONObject();
 		// 데이터베이스에 데이터 삽입 쿼리
 		try {
 			connection = getConnection();
 
-			String checkIdSql = "SELECT * FROM moviedb.user WHERE id = ? and pw = ?";
+			String checkIdSql = "SELECT * FROM moviedb.user WHERE userId = ? and userPw = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(checkIdSql);
 			preparedStatement.setString(1, u.getId());
 			preparedStatement.setString(2, u.getPw());
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			if (rs.next()) {
+
 				result = 0;
+				
+				userData.put("userName",rs.getString("userName"));
+				userData.put("userId",rs.getString("userId"));
+				userData.put("userPw",rs.getString("userPw"));
+				userData.put("userEmail",rs.getString("userEmail"));
+				userData.put("birthDay",rs.getString("birthDay"));
+				userData.put("userAddress",rs.getString("userAddress"));
+				userData.put("Genre_1",rs.getString("Genre_1"));
+				userData.put("Genre_2",rs.getString("Genre_2"));
+				userData.put("Genre_3",rs.getString("Genre_3"));
+				userData.put("Genre_4",rs.getString("Genre_4"));
 			}
 			
 			preparedStatement.close();
@@ -126,7 +153,53 @@ public class DatabaseConnection {
 			System.out.println(e.getErrorCode());
 			e.printStackTrace();
 		}
-		return result;
+
+		userData.put("result",result);
+		return userData;
 	}
-	
+//UPDATE table_name SET name = '테스트 변경', country = '대한민국' WHERE id = 1105;
+	public int userInfoEdit(JSONObject json) {
+		int result = 1;
+		String userName = json.getString("userName");
+		String userId = json.getString("userId");
+		String userPw = json.getString("userPw");
+		String userEmail = json.getString("userEmail");
+		String birthDay = json.getString("birthDay");
+		String userAddress = json.getString("userAddress");
+		String Genre_1 = json.getString("Genre_1");
+		String Genre_2 = json.getString("Genre_2");
+		String Genre_3 = json.getString("Genre_3");
+		String Genre_4 = json.getString("Genre_4");
+		connection = getConnection();
+		// 데이터베이스에 데이터 삽입 쿼리
+		try {
+			connection = getConnection();
+			
+			String checkIdSql = "UPDATE moviedb.user SET userName=?, userEmail=?, birthDay=?, userAddress=?, Genre_1=?, Genre_2=?, Genre_3=?, Genre_4=? WHERE userId = ? and userPw = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(checkIdSql);
+			preparedStatement.setString(1, userName);
+			preparedStatement.setString(2, userEmail);
+			preparedStatement.setString(3, birthDay);
+			preparedStatement.setString(4, userAddress);
+			preparedStatement.setString(5, Genre_1);
+			preparedStatement.setString(6, Genre_2);
+			preparedStatement.setString(7, Genre_3);
+			preparedStatement.setString(8, Genre_4);
+			preparedStatement.setString(9, userId); System.out.println("ID : [" + userId + "]");
+			preparedStatement.setString(10, userPw); System.out.println("PW : [" + userPw + "]");
+			int rs = preparedStatement.executeUpdate();
+			
+			if(rs == 1) result = 0;
+			
+			preparedStatement.close();
+			closeConnection(connection);
+		} catch (SQLException e) {
+			result = -1;
+			// TODO Auto-generated catch block
+			System.out.println(e.getErrorCode());
+			e.printStackTrace();
+		}
+		System.out.println("DatabaseConnection.userInfoEdit[result] : " + result);
+		return result;
+	} ; 
 }

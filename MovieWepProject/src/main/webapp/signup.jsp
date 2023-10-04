@@ -17,11 +17,15 @@ request.setCharacterEncoding("utf-8");
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/styles1.css" type="text/css">
 <script src="resource/js/signup.js"></script>
-<script src="resource/js/DBconnect.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
+
+<script type="text/javascript">
+
+var userId = '<%=session.getAttribute("userId")%>';
+if (userId != 'null') {
+	alert(userId);
+}
 function sample4_execDaumPostcode() {
 	new daum.Postcode(
 		{
@@ -32,7 +36,13 @@ function sample4_execDaumPostcode() {
 	}).open();
 }
 </script>
+<style>
 
+label{
+	margin-top: 10px;
+	margin-bottom: 0px;
+}
+</style>
 </head>
 <body>
 	<datalist id="email-domain">
@@ -102,9 +112,7 @@ function sample4_execDaumPostcode() {
 		<h1>회원가입</h1>
 		<form id="signupForm" name="signupForm" method="post" action="main.jsp" onsubmit="return checkSignUpData()">
 			<!--request.getRequestURI()I() %> -->
-			<%
-			boolean checkIdOverlap = false;
-			%>
+
 			<!-- 
 			userName
 			userId
@@ -172,9 +180,9 @@ function sample4_execDaumPostcode() {
 					<input type="hidden" class="w150" id="sample4_postcode" placeholder="우편번호">
 					<input type="text" id="userAddress" name="userAddress" placeholder="도로명주소" disabled="disabled" style="width: 100%" required>
 					<input type="hidden" class="w150" id="sample4_jibunAddress" placeholder="지번주소">
-					<span id="guide" style="color: #999; display: unset;"> </span>
+					<span id="AddressGuide" style="color: #999; display: unset;"> </span>
 					<input type="hidden" class="w150" id="sample4_detailAddress" placeholder="상세주소">
-					<input type="hidden" class="w150" id="sample4_extraAddress" placeholder="참고항목">s
+					<input type="hidden" class="w150" id="sample4_extraAddress" placeholder="참고항목">
 				</div>
 			</div>
 

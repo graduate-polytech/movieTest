@@ -55,7 +55,10 @@ public class MovieDetail2 {
 
         for (int i = 0; i < results.size(); i++) {
             JsonObject result = results.get(i).getAsJsonObject();
-            String movieTitle = result.get("title").getAsString().trim().replaceAll("!HS|!HE", "");
+            String movieTitle = result.get("title").getAsString();
+            if (movieTitle.contains("!HS") || movieTitle.contains("!HE")) {
+            	movieTitle = movieTitle.replaceAll("\\s!HS\\s|\\s!HE\\s", "");
+            }
             System.out.println("Original Title: " + movieTitle);
 
             JsonArray directors = result.getAsJsonArray("director");

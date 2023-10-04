@@ -15,6 +15,8 @@ request.setCharacterEncoding("utf-8");
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFWttU33_ZQvbz5cU1vdkdtcyPL2Tr53U&libraries=places"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/styles1.css" type="text/css">
+
+<script src="resource/js/signin.js"></script>
 <script src="resource/js/signup.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -114,7 +116,7 @@ label {
 	</header>
 	<div class="signup-layout">
 		<h1>내 정보</h1>
-		<form id="signupForm" name="signupForm" method="post" action="main.jsp" onsubmit="return false">
+		<form id="userInfoEdit" name="userInfoEdit" method="post" action="main.jsp" onsubmit="return userInfoEdit_F()"><!-- userInfoEdit() -->
 			<!--request.getRequestURI()I() %> -->
 			<!-- 
 			userName
@@ -138,10 +140,9 @@ label {
 			<div class="rowMargin">
 				<!-- 아이디 userId -->
 				<label>아이디</label>
-				<input id="idCheck_btn" type="button" value="중복확인" style="font-size: 14px;">
-				<br>
 				<input type="text" id="userId" name="userId" style="width: 100%" required>
 			</div>
+			<input type="hidden" id="userPw" name="userPw" style="width: 100%" required>
 			<div class="rowMargin ">
 				<!-- 이메일 userEmail_1 userEmail_2 -->
 				<label>이메일</label>
@@ -192,49 +193,42 @@ label {
 		<p>&copy; 시네마 위키</p>
 	</footer>
 	<script type="text/javascript">
-		document.addEventListener('DOMContentLoaded', function() {
-			// 스크립트 내용을 이곳에 넣으세요.
-			// 텍스트 상자에서 입력된 값을 제외하고 나머지 상자에서 리스트를 보여주는 함수
-			document.getElementById('signupForm').addEventListener('keydown',
-					function(e) {
-						if (e.key === 'Enter') {
-							e.preventDefault();
-							// 원하는 작업을 수행하세요.
-						}
-					});
-			document.getElementById('userId').addEventListener('keydown',
-					function(e) {
-						if (e.key === 'Enter') {
-							idcheck_f();
-							// 원하는 작업을 수행하세요.
-						}
-					});
+	function enterBreak(event) {
+		if (event === 'Enter') {
+			event.preventDefault();
+			//idcheck_f();
+			// 원하는 작업을 수행하세요.
+		}
+	}
+	document.addEventListener('DOMContentLoaded', function() {
+		// 스크립트 내용을 이곳에 넣으세요.
+		// 텍스트 상자에서 입력된 값을 제외하고 나머지 상자에서 리스트를 보여주는 함수
+		document.getElementById('userInfoEdit').addEventListener('keydown', enterBreak);
+		document.getElementById('userId').addEventListener('keydown', enterBreak);
 
-			// 각각의 텍스트 상자에서 입력이 변경될 때마다 호출하여 업데이트
-			document.getElementById('Genre_1').addEventListener('change', updateGenreList);
-			document.getElementById('Genre_2').addEventListener('change', updateGenreList);
-			document.getElementById('Genre_3').addEventListener('change', updateGenreList);
-			document.getElementById('Genre_4').addEventListener('change', updateGenreList);
+		// 각각의 텍스트 상자에서 입력이 변경될 때마다 호출하여 업데이트
+		document.getElementById('Genre_1').addEventListener('change', updateGenreList);
+		document.getElementById('Genre_2').addEventListener('change', updateGenreList);
+		document.getElementById('Genre_3').addEventListener('change', updateGenreList);
+		document.getElementById('Genre_4').addEventListener('change', updateGenreList);
 
-			document.getElementById('idCheck_btn').addEventListener('click', idcheck_f);
-			//document.getElementById('userPw').addEventListener('input', checkPassword_f);
-			//document.getElementById('checkPassword').addEventListener('input', checkPassword_f);
-			document.getElementById('userEmail_2').addEventListener('input', inputEmail_2);
-			
-			document.getElementById('userName').value = '<%=session.getAttribute("userName")%>';
-			document.getElementById('userId').value = '<%=session.getAttribute("userId")%>';
-			//document.getElementById('userPw').value = userPw;
-			document.getElementById('userEmail_1').value = '<%=session.getAttribute("userEmail")%>'.split("@")[0];
-			document.getElementById('userEmail_2').value = '<%=session.getAttribute("userEmail")%>'.split("@")[1];
-			document.getElementById('birthDay').value = "1999-06-18";
-			document.getElementById('userAddress').value = '<%=session.getAttribute("userAddress")%>';
-			document.getElementById('Genre_1').value = '<%=session.getAttribute("Genre_1")%>';
-			document.getElementById('Genre_2').value = '<%=session.getAttribute("Genre_2")%>';
-			document.getElementById('Genre_3').value = '<%=session.getAttribute("Genre_3")%>';
-			document.getElementById('Genre_4').value = '<%=session.getAttribute("Genre_4")%>';
-		});
+		//document.getElementById('idCheck_btn').addEventListener('click', idcheck_f);
+		//document.getElementById('userPw').addEventListener('input', checkPassword_f);
+		//document.getElementById('checkPassword').addEventListener('input', checkPassword_f);
+		document.getElementById('userEmail_2').addEventListener('input', inputEmail_2);
 		
-
+		document.getElementById('userName').value = '<%=session.getAttribute("userName")%>';
+		document.getElementById('userId').value = '<%=session.getAttribute("userId")%>';
+		document.getElementById('userPw').value = '<%=session.getAttribute("userPw")%>';
+		document.getElementById('userEmail_1').value = '<%=session.getAttribute("userEmail")%>'.split("@")[0];
+		document.getElementById('userEmail_2').value = '<%=session.getAttribute("userEmail")%>'.split("@")[1];
+		document.getElementById('birthDay').value = '<%=session.getAttribute("birthDay")%>';
+		document.getElementById('userAddress').value = '<%=session.getAttribute("userAddress")%>';
+		document.getElementById('Genre_1').value = '<%=session.getAttribute("Genre_1")%>';
+		document.getElementById('Genre_2').value = '<%=session.getAttribute("Genre_2")%>';
+		document.getElementById('Genre_3').value = '<%=session.getAttribute("Genre_3")%>';
+		document.getElementById('Genre_4').value = '<%=session.getAttribute("Genre_4")%>';
+	});
 	</script>
 </body>
 </html>

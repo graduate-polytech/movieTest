@@ -35,7 +35,7 @@
 									<a class="dropdown-item" href="DayBoxoffice.jsp">일별 박스오피스</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="WeeklyBoxoffice.jsp">주간 박스오피스</a>
+									<a class="dropdown-item" href="#">주간 박스오피스</a>
 								</li>
 							</ul>
 						</li>
@@ -54,7 +54,7 @@
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 마이 페이지 </a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<li>
-									<a class="dropdown-item" href="myPage.jsp">내 정보</a>
+									<a class="dropdown-item" href="#">내 정보</a>
 								</li>
 								<li>
 									<a class="dropdown-item" href="#">내 리뷰</a>

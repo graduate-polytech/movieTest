@@ -1,58 +1,53 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="resource/js/signin.js"></script>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<!--
 <style>
-.mini-login-container {
-	padding: 10px;
-}
+    .btn {
+    	width: 120PX;
+      	border: 2px solid #000; /* 외각선 스타일 및 색상 설정 */
+        padding: 10px; /* 컨테이너 내부 여백 설정 */
+    }
+
 </style>
-<%
-// 세션에서 값을 가져옵니다.
-String userId = (String) session.getAttribute("userId");
-%>
-<div id="divWithSession">
-	<%
-	if (userId != null) {//로그인상태
-	%>
-	<div class="container" id="logout">
-		<label>
-			ID :
-			<%=userId%>
-		</label>
-		<input type="button" value="로그아웃" onclick="trySignOut('<%=userId%>')">
-	</div>
-	<%
-	} else {//로그아웃상태
-	%>
-	<div class="mini-login-container" id="login">
-		<form id="signinForm" name="signinForm" method="post" action="main.jsp" onsubmit="return trySignIn()">
-			<div style="display: flex;">
-				<div class="mini-login-text-box">
-					<input type="text" id="userId" name="userId" placeholder="ID" style="width: 100%; margin: auto;">
-					<input type="password" id="userPw" name="userPw" placeholder="Password" style="width: 100%">
-				</div>
-				<button id="login-btn" type="submit" class="btn btn-primary" style="width: 60px; height: 60px; font-size: 15px;">Login</button>
+-->
+<div class="container" style="margin-top: 30px;">
+	<div class="row">
+		<div class="col-8" style="float: none; margin: 10px auto;">
+			<div class="mini-login-text-box" style="margin: 0px auto;">
+				<input type="text" class="" id="floatingInput" placeholder="ID"
+					style="width: 100%; margin: auto;"> <input type="password"
+					class="" id="" placeholder="Password" style="width: 100%">
 			</div>
-		</form>
-		<div class="col-sm login-help-text" style="margin-top: 10px;">
-			<a href="signup.jsp" class="">로그인 안됨</a>
-			/
-			<a href="#" class="">비밀번호 찾기</a>
+		</div>
+		<div class="col-4" style="margin-top: 10px; padding-left: 0px;">
+			<button id="login-btn" type="button" class="btn btn-primary"
+				style="width: 60px; height: 60px; font-size: 15px; padding: 3px;">로그인</button>
 		</div>
 	</div>
-	<%
-	}
-	%>
+	<div class="row">
+    <div class="col-sm login-help-text" style="margin-top: 10px;">
+	<a href = "signup.jsp" class="">회원가입</a>
+	/
+	<a href = "#" class="">비밀번호 찾기</a>
+	</div>
+    </div>
 </div>
 <!-- <P><button id="signup-btn" type="button" class="btn btn-outline-primary">회원가입</button> </P> -->
 <script>
 	// 버튼 요소를 가져오기
-	window.onload = function() {
-		var divWithSession = document.getElementById("divWithSession");
+	var moveButton = document.getElementById("login-btn");
 
-		// 세션 값이 없으면 해당 div를 숨깁니다.
-		if (divWithSession.innerHTML.trim() === "") {
-			//divWithSession.style.display = "none";
-		}
-	}
+	// 버튼 클릭 이벤트 리스너 추가
+	moveButton.addEventListener("click", function() {
+		// 이동할 페이지 URL을 설정
+		var targetPageUrl = "login.jsp"; // 이동할 페이지 URL을 여기에 입력하세요
+
+		// 페이지 이동
+		window.location.href = targetPageUrl;
+	});
 </script>

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDetail2 {
-
     private static final String API_URL = "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json.jsp";
     private static final String API_KEY = "25QF8GG6G9R22N50D3X4"; // 본인의 KMDB API 키로 대체
 
@@ -56,7 +55,11 @@ public class MovieDetail2 {
 
         for (int i = 0; i < results.size(); i++) {
             JsonObject result = results.get(i).getAsJsonObject();
-            String movieTitle = result.get("title").getAsString().trim().replaceAll("!HS|!HE", "");
+            String movieTitle = result.get("title").getAsString();
+            if (movieTitle.contains("!HS") || movieTitle.contains("!HE")) {
+            	movieTitle = movieTitle.replaceAll("\\s!HS\\s|\\s!HE\\s", "");
+            }
+
             System.out.println("Original Title: " + movieTitle);
 
             JsonArray directors = result.getAsJsonArray("director");

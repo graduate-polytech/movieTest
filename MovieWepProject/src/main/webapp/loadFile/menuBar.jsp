@@ -34,7 +34,7 @@
 								<li>
 									<a class="dropdown-item" href="DayBoxoffice.jsp">일별 박스오피스</a>
 								</li>
-								<li>
+								<li> 
 									<a class="dropdown-item" href="WeeklyBoxoffice.jsp">주간 박스오피스</a>
 								</li>
 							</ul>

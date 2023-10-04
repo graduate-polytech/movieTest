@@ -17,8 +17,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/styles1.css">
 <!-- 기존 CSS 스타일 시트 링크 -->
+
 </head>
 <body>
+
 	<!-- 로고 이미지 -->
 	<header>
 		<div id="top">
@@ -27,13 +29,6 @@
 			<jsp:include page="loadFile/menuBar.jsp" />
 		</div>
 	</header>
-	<script type="text/javascript">
-		
-		var userId = '<%=session.getAttribute("userId")%>';
-		if (userId != 'null') {
-			alert(userId);
-		}
-	</script>
 
 	<div class="row">
 		<!-- 인기 영화 목록 -->
@@ -46,12 +41,18 @@
 						<!-- 여기에 랜덤한 10개의 인기 영화 포스터가 추가됩니다. -->
 					</div>
 				</div>
+
+
 				<div class="container mt-5 ">
 					<h2 class="text-center">추천 영화</h2>
+
 					<div class="row" id="recommendedMoviesContainer"></div>
+
 				</div>
+
 				<h2 class="text-center">나의 영화관</h2>
 				<div id="map" style="width: 80%; height: 250px; margin: 0 auto;"></div>
+
 				<!-- CGV 영화관 사진 및 링크 -->
 				<div class="container text-center mt-5">
 					<h2>지금 당장 영화관으로</h2>
@@ -59,8 +60,10 @@
 						<img src="resource/images/cgv_movie_theater.jpg" alt="CGV 영화관 사진" style="width: 80%; max-width: 800px; height: auto; margin: 0 auto;">
 					</a>
 				</div>
+
 				<script src="resource/js/script1.js"></script>
 				<!-- JavaScript 파일 링크  -->
+
 				<script>
 					document.addEventListener("DOMContentLoaded", function() {
 						// 로그인 버튼 클릭 시 login.html로 이동
@@ -94,4 +97,5 @@
 		</div>
 	</footer>
 </body>
+
 </html>

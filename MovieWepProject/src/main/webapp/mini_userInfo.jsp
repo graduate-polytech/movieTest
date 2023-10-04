@@ -35,7 +35,7 @@ String userId = (String) session.getAttribute("userId");
 			</div>
 		</form>
 		<div class="col-sm login-help-text" style="margin-top: 10px;">
-			<a href="signup.jsp" class="">로그인 안됨</a>
+			<a href="signup.jsp" class="">회원가입</a>
 			/
 			<a href="#" class="">비밀번호 찾기</a>
 		</div>

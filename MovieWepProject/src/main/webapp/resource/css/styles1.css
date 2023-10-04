@@ -109,6 +109,8 @@ display: flex;
 	text-align: center;
 	background-color: #ffffff; /* 전체 페이지 배경 색상을 흰색 (#ffffff)으로 설정 */
 	margin-top: 100px;
+	display: flex;
+	align-items: center;
 }
 
 #login-grid {
@@ -149,7 +151,7 @@ display: flex;
 	
 	max-width: 60%; /* 너비 설정 */
 	height: 60px; /* 높이 설정 */
-	font-size: 80px; /* 글꼴 크기 설정 */
+	font-size: 20px; /* 글꼴 크기 설정 */
 	padding: 5px; /* 내부 여백 설정 */
 	background-color: white; 
 	margin-right : 10px;
@@ -394,10 +396,7 @@ header h1 {
 #searchInput {
 	width: 250px;
 }
-.mini-login-container{
-	display: flex;
-    align-items: center;
-}
+
 /* 푸터 스타일 수정 예시 */
 footer {
 	background-color: #222; /* 배경색 변경 예시 */

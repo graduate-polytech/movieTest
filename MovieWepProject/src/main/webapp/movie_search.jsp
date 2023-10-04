@@ -27,7 +27,7 @@
         <form id="searchForm" style="display: flex; align-content: center; align-items: center; justify-content: center;">
             <div class="form-group" style="width: 80%; display: flex; align-content: center; align-items: center; justify-content: center; margin: 0px;">
                 <label for="searchQuery"></label>
-                <input type="text" class="form-control1" id="searchQuery" name="query" placeholder="영화 제목을 입력하세요" style="width: 80%;">
+                <input type="text" class="" id="searchQuery" name="query" placeholder="영화 제목을 입력하세요" style="width: 50%;">
                 <button type="submit" class="btn btn-primary">검색</button>
             </div>
         </form>

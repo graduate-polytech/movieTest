@@ -1,4 +1,4 @@
-@charset "EUC-KR";
+@charset "UTF8";
 
 /* 로고 이미지 스타일 */
 header {
@@ -394,7 +394,10 @@ header h1 {
 #searchInput {
 	width: 250px;
 }
-
+.mini-login-container{
+	display: flex;
+    align-items: center;
+}
 /* 푸터 스타일 수정 예시 */
 footer {
 	background-color: #222; /* 배경색 변경 예시 */

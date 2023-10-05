@@ -34,9 +34,9 @@
             }
 
             // 일치하는 데이터를 찾지 못한 경우 첫 번째 데이터를 ListData에 추가
-            if (!matchFound) {
+            /*if (!matchFound) {
                 ListData.add(movieInfoList.get(0));
-            }
+            }*/	
         }
     }
 %>

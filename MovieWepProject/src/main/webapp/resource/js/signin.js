@@ -117,7 +117,7 @@ function trySignIn() {
 	
 	var userId = form.userId.value;
 	var userPw = form.userPw.value;
-	alert("로그인 시도");
+	//alert("로그인 시도");
 	var errorMessages = "";
 	var data = {
 		"userId" : userId,
@@ -138,7 +138,7 @@ function trySignIn() {
 		success : function(response) {
 			// 서버로부터의 응답 처리
 			result = response.result;
-			alert("result=" + result);
+			//alert("result=" + result);
 		}
 	});
 

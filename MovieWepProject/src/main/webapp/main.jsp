@@ -31,7 +31,7 @@
 		
 		var userId = '<%=session.getAttribute("userId")%>';
 		if (userId != 'null') {
-			alert(userId);
+			//alert(userId);
 		}
 	</script>
 

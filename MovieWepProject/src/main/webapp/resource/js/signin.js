@@ -107,7 +107,7 @@ function trySignOut(id) {
 			result = response.result;
 		}
 	});
-	alert("로그아웃" + result);
+	//alert("로그아웃" + result);
 	window.location.reload();
 }
 

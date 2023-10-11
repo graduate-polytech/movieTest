@@ -6,6 +6,7 @@
 <script src="resource/js/signin.js"></script>
 <style>
 .mini-login-container {
+
 	padding: 10px;
 	display: flex;
 	align-items: center;

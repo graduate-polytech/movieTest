@@ -13,12 +13,80 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFWttU33_ZQvbz5cU1vdkdtcyPL2Tr53U&libraries=places"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/styles1.css">
 <!-- 기존 CSS 스타일 시트 링크 -->
+<style>
+.loopDivTest {
+	margin: 50px 10% 30px 10%;
+}
+
+.text-box {
+	position: relative;
+	height: 150px;
+	border: 1px solid #ccc;
+	padding: 10px;
+	min-width: 500px;
+	margin-top: 10px;
+}
+
+.title {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	font-weight: bold;
+}
+
+.userid {
+	position: absolute;
+	top: 30px;
+	left: 60px;
+}
+
+.score {
+	position: absolute;
+	top: 30px;
+	left: 15px;
+}
+
+.review {
+	position: absolute;
+	top: 55px;
+	left: 10px;
+	right: 10px;
+	bottom: 10px;
+	padding: 5px;
+	resize: none;
+}
+
+.trbtn {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	padding: 5px 10px;
+	background-color: #0077FF;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+}
+
+.top-right-button:hover {
+	background-color: #0055CC;
+}
+</style>
+<script type="text/javascript">
+
+    // 페이지 로드 시 실행되는 함수
+    window.onload = function() {
+      // 세션에 데이터를 체크하는 예시
+      var sessionData = '<%=session.getAttribute("userId")%>';
+
+		if (sessionData.trim() == 'null') {
+			// 세션에 데이터가 없는 경우, 'signin.jsp'로 리다이렉트
+			window.location.href = 'signin.jsp';
+		}
+	}
+</script>
 </head>
 <body>
 	<!-- 로고 이미지 -->
@@ -31,45 +99,78 @@
 	</header>
 	<script type="text/javascript">
 		
-		var userId = '<%=session.getAttribute("userId")%>';
+		var userId = '<%=session.getAttribute("userId")%>
+		';
 		if (userId != 'null') {
 			//alert(userId);
 		}
 	</script>
-<div class="reviewTable" style="margin: 50px;">
-	<table border="0">
-		<tr>
-			<th>userId</th>
-			<th>Title</th>
-			<th>Director</th>
-			<th>score</th>
-			<th>review</th>
-			<th>date</th>
-			<th>movie</th>
-		</tr>
+	<div class="loopDivTest">
 		<%
 		DAO_ReviewDB cinemaAccess = new DAO_ReviewDB();
-		ArrayList<Data_Review> reviewList = cinemaAccess.getReviewList();
+		String userid = session.getAttribute("userId").toString();
+		
+		ArrayList<Data_Review> reviewList = cinemaAccess.getReviewList(userid);
+
+		if (reviewList.size() == 0) {
+		%>
+		<div class="text-box">리뷰가 없습니다.</div>
+		<%
+		}
 
 		for (Data_Review review : reviewList) {
 		%>
-		<tr>
-			<td><%=review.getUserid()%></td>
-			<td><%=review.getTitle()%></td>
-			<td><%=review.getDirector()%></td>
-			<td><%=review.getScore()%></td>
-			<td><%=review.getReview()%></td>
-			<td><%=review.getDate()%></td>
-			<td>
-				<a
-					href="MovieDetailTest.jsp?title=<%=review.getTitle()%>&director=<%=review.getDirector()%>">사이트</a>
-			</td>
-		</tr>
+		<div class="text-box">
+			<a href="MovieDetailTest.jsp?title=<%=review.getTitle()%>&director=<%=review.getDirector()%>">
+				<label class="title"><%=review.getTitle()%></label>
+			</a>
+			<label class="userid"><%=review.getUserid()%></label>
+			<label class="score"><%=review.getScore()%>
+				/ 5
+			</label>
+			<textarea class="review" id="review"> <%=review.getReview()%> </textarea>
+			<input class="trbtn" type="button" value="수정">
+		</div>
 		<%
 		}
 		%>
-	</table>
 	</div>
+	<script type="text/javascript">
+		var editing = false; // 편집 모드 여부를 추적하는 변수
+
+		function addContainer() {
+			var container = document.createElement("div");
+			var textNode = document.createTextNode("컨테이너 내용");
+			container.appendChild(textNode);
+
+			var editButton = document.createElement("button");
+			editButton.textContent = "수정";
+
+			editButton.addEventListener("click", function() {
+				if (editing) {
+					textNode.textContent = editText.value; // "저장" 버튼을 클릭하면 텍스트 업데이트
+					editButton.textContent = "수정";
+					container.removeChild(editText);
+				} else {
+					editText.value = textNode.textContent; // "수정" 버튼을 클릭하면 입력 필드에 현재 내용 표시
+					editButton.textContent = "저장";
+					container.appendChild(editText);
+				}
+
+				editing = !editing; // 편집 모드를 토글
+			});
+
+			var editText = document.createElement("input");
+			editText.style.display = "none"; // 입력 필드 초기에 숨김 처리
+
+			container.appendChild(editButton);
+			var containerDiv = document.getElementById("container");
+			containerDiv.appendChild(container);
+		}
+
+		document.getElementById("addContainerButton").addEventListener("click",
+				addContainer);
+	</script>
 	<footer>
 		<div id="bottom">
 			<jsp:include page="loadFile/bottom.jsp" />

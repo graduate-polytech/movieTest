@@ -9,7 +9,7 @@
 <!-- 기존 CSS 스타일 시트 링크 -->
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light"">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container">
 			<div class="container-fluid">
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,10 +18,10 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="movie_search.jsp" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 영화 </a>
+							<a class="nav-link dropdown-toggle" href="movietest.jsp" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 영화 </a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<li>
-									<a class="dropdown-item" href="movie_search.jsp">영화 검색</a>
+									<a class="dropdown-item" href="movietest.jsp">영화 검색</a>
 								</li>
 								<li>
 									<a class="dropdown-item" href="#">영화추천</a>
@@ -57,7 +57,7 @@
 									<a class="dropdown-item" href="myPage.jsp">내 정보</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="#">내 리뷰</a>
+									<a class="dropdown-item" href="reviewPage.jsp">내 리뷰</a>
 								</li>
 							</ul>
 						</li>

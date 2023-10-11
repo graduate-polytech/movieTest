@@ -42,7 +42,7 @@ public class signupServlet extends HttpServlet {
 		String Genre_4 = json.getString("Genre_4");
 		
 		
-		userData u = new userData(userId, userPw, userName, birthDay, userEmail, userAddress, Genre_1, Genre_2, Genre_3, Genre_4);
+		Data_User u = new Data_User(userId, userPw, userName, birthDay, userEmail, userAddress, Genre_1, Genre_2, Genre_3, Genre_4);
 		DatabaseConnection db = new DatabaseConnection();
 		JSONObject jsonResponse = new JSONObject();
 		int result = db.signUp(u);

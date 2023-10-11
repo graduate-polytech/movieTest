@@ -1,17 +1,17 @@
 package DB;
 
 
-public class userData {
+public class Data_User {
 	
-	public userData() {
+	public Data_User() {
 		
 	}
-	public userData(String id, String pw) {
+	public Data_User(String id, String pw) {
 		super();
 		this.id = id;
 		this.pw = pw;
 	}
-	public userData(String id, String pw, String name, String birthday, String email, String address, String genre_1,
+	public Data_User(String id, String pw, String name, String birthday, String email, String address, String genre_1,
 			String genre_2, String genre_3, String genre_4) {
 		super();
 		this.id = id;

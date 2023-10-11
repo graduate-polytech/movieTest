@@ -28,7 +28,7 @@
             <td><%= cinema.getCompany() %></td>
             <td><%= cinema.getAddress() %></td>
             <td><%= cinema.getCallno() %></td>
-            <td><%= cinema.getWep() %></td>
+            <td><a href = <%= cinema.getWep() %>>사이트</a></td>
         </tr>
         <%
             }

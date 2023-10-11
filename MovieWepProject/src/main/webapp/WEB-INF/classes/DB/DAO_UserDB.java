@@ -2,9 +2,7 @@ package DB;
 
 import java.sql.*;
 
-import javax.script.ScriptContext;
-
-public class userDB_DAO extends DatabaseConnection {
+public class DAO_UserDB extends DatabaseConnection {
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
@@ -13,7 +11,7 @@ public class userDB_DAO extends DatabaseConnection {
 
 	}
 
-	public int signupUser(userData u) {
+	public int signupUser(Data_User u) {
 		int result = 1;
 		try {
 			conn = getConnection();
@@ -62,4 +60,6 @@ public class userDB_DAO extends DatabaseConnection {
         }
 		return result;
 	}
+
+	
 }

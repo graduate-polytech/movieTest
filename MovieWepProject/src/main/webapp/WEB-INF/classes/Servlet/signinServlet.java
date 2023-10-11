@@ -34,7 +34,7 @@ public class signinServlet extends HttpServlet {
 		String userId = json.getString("userId");
 		String userPw = json.getString("userPw");
 
-		userData u = new userData(userId, userPw);
+		Data_User u = new Data_User(userId, userPw);
 		DatabaseConnection db = new DatabaseConnection();
 		JSONObject jsonResponse = new JSONObject();
 		JSONObject result = db.signIn(u);

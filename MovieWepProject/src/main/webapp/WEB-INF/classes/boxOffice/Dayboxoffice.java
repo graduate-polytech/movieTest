@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Dayboxoffice {
-    private static final String API_KEY = "9cbf70ef669df368261f74e63c81b28c";
+    private static final String API_KEY = "e7f29f3a771e33fd7d52149b8b31761c";
     private static final String BASE_API_URL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json";
 
     public static List<datamovie> fetchDataByDate(String targetDt) {

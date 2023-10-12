@@ -74,19 +74,7 @@
 	background-color: #0055CC;
 }
 </style>
-<script type="text/javascript">
 
-    // 페이지 로드 시 실행되는 함수
-    window.onload = function() {
-      // 세션에 데이터를 체크하는 예시
-      var sessionData = '<%=session.getAttribute("userId")%>';
-
-		if (sessionData.trim() == 'null') {
-			// 세션에 데이터가 없는 경우, 'signin.jsp'로 리다이렉트
-			window.location.href = 'signin.jsp';
-		}
-	}
-</script>
 </head>
 <body>
 	<!-- 로고 이미지 -->
@@ -99,16 +87,21 @@
 	</header>
 	<script type="text/javascript">
 		
-		var userId = '<%=session.getAttribute("userId")%>
-		';
-		if (userId != 'null') {
-			//alert(userId);
+		var userId = '<%=session.getAttribute("userId")%>';
+		if (userId == 'null') {
+			window.location.href = 'signin.jsp';
 		}
 	</script>
 	<div class="loopDivTest">
 		<%
 		DAO_ReviewDB cinemaAccess = new DAO_ReviewDB();
-		String userid = session.getAttribute("userId").toString();
+		Object useridObj = session.getAttribute("userId");
+		String userid = "";
+		if(useridObj != null){
+			userid = useridObj.toString();
+		} else {
+			userid = "_";
+		}
 		
 		ArrayList<Data_Review> reviewList = cinemaAccess.getReviewList(userid);
 

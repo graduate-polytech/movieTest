@@ -16,65 +16,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/styles1.css">
 <!-- 기존 CSS 스타일 시트 링크 -->
-<style>
-.loopDivTest {
-	margin: 50px 10% 30px 10%;
-}
 
-.text-box {
-	position: relative;
-	height: 150px;
-	border: 1px solid #ccc;
-	padding: 10px;
-	min-width: 500px;
-	margin-top: 10px;
-}
-
-.title {
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	font-weight: bold;
-}
-
-.userid {
-	position: absolute;
-	top: 30px;
-	left: 60px;
-}
-
-.score {
-	position: absolute;
-	top: 30px;
-	left: 15px;
-}
-
-.review {
-	position: absolute;
-	top: 55px;
-	left: 10px;
-	right: 10px;
-	bottom: 10px;
-	padding: 5px;
-	resize: none;
-}
-
-.trbtn {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	padding: 5px 10px;
-	background-color: #0077FF;
-	color: #fff;
-	border: none;
-	cursor: pointer;
-}
-
-.top-right-button:hover {
-	background-color: #0055CC;
-}
 </style>
-
 </head>
 <body>
 	<!-- 로고 이미지 -->
@@ -92,41 +35,9 @@
 			window.location.href = 'signin.jsp';
 		}
 	</script>
-	<div class="loopDivTest">
-		<%
-		DAO_ReviewDB cinemaAccess = new DAO_ReviewDB();
-		Object useridObj = session.getAttribute("userId");
-		String userid = "";
-		if(useridObj != null){
-			userid = useridObj.toString();
-		} else {
-			userid = "_";
-		}
-		
-		ArrayList<Data_Review> reviewList = cinemaAccess.getReviewList(userid);
-
-		if (reviewList.size() == 0) {
-		%>
-		<div class="text-box">리뷰가 없습니다.</div>
-		<%
-		}
-
-		for (Data_Review review : reviewList) {
-		%>
-		<div class="text-box">
-			<a href="MovieDetailTest.jsp?title=<%=review.getTitle()%>&director=<%=review.getDirector()%>">
-				<label class="title"><%=review.getTitle()%></label>
-			</a>
-			<label class="userid"><%=review.getUserid()%></label>
-			<label class="score"><%=review.getScore()%>
-				/ 5
-			</label>
-			<textarea class="review" id="review"> <%=review.getReview()%> </textarea>
-			<input class="trbtn" type="button" value="수정">
-		</div>
-		<%
-		}
-		%>
+	<div class="reviews">
+		<!-- 다운후 변경 -->
+		<jsp:include page="loadFile/review.jsp" />
 	</div>
 	<script type="text/javascript">
 		var editing = false; // 편집 모드 여부를 추적하는 변수

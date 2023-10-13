@@ -13,7 +13,7 @@ public class DAO_ReviewDB extends DatabaseConnection {
 		DAO_ReviewDB d = new DAO_ReviewDB();
 //		ArrayList<Data_Review> reviewList = d.getReviewList();
 //		ArrayList<Data_Review> reviewList = d.getReviewList("userID");
-		ArrayList<Data_Review> reviewList = d.getReviewList("CODE_1","감독_1");
+		ArrayList<Data_Review> reviewList = d.getReviewList("아바타: 물의 길", "제임스 카메론");
 		for (Data_Review review : reviewList) {
 			System.out.println(review.toString());
 		}
@@ -28,10 +28,12 @@ public class DAO_ReviewDB extends DatabaseConnection {
 		return getReviewList(condition, "");
 	}
 
-	public ArrayList<Data_Review> getReviewList(String userid_title, String director) {
+	public ArrayList<Data_Review> getReviewList(String in_userid_title, String in_director) {
 		ArrayList<Data_Review> reviewList = new ArrayList<Data_Review>();
+		String userid_title = in_userid_title.trim();
+		String director = in_director.trim();
 		try {
-			System.out.println("리뷰 불러오기");
+
 			conn = getConnection();
 			// "SELECT * FROM moviedb.review WHERE ? = ?"
 			String checkIdSql = "";
@@ -45,20 +47,23 @@ public class DAO_ReviewDB extends DatabaseConnection {
 				else
 					dataCount = 2;
 			}
-			
-			if(dataCount == 0) {
+
+			if (dataCount == 0) {
 				checkIdSql = "SELECT * FROM moviedb.review";
-			} else if(dataCount == 1) {
+				System.out.println("리뷰 불러오기(전체)");
+			} else if (dataCount == 1) {
 				checkIdSql = "SELECT * FROM moviedb.review WHERE userid = ?";
-			} else if(dataCount == 2) {
+				System.out.println("리뷰 불러오기(아이디)" + userid_title);
+			} else if (dataCount == 2) {
 				checkIdSql = "SELECT * FROM moviedb.review WHERE title = ? and director = ?";
+				System.out.println("리뷰 불러오기(영화)(" + userid_title + ") : (" + director+")");
 			}
-			
+
 			pstmt = conn.prepareStatement(checkIdSql);
-			
-			if(dataCount == 1) {
+
+			if (dataCount == 1) {
 				pstmt.setString(1, userid_title);
-			} else if(dataCount == 2) {
+			} else if (dataCount == 2) {
 				pstmt.setString(1, userid_title);
 				pstmt.setString(2, director);
 			}
@@ -89,6 +94,11 @@ public class DAO_ReviewDB extends DatabaseConnection {
 					conn.close();
 			} catch (SQLException e) {
 				System.out.println("finally : " + e.getMessage());
+			}
+		}
+		if (reviewList != null) {
+			for (Data_Review review : reviewList) {
+				System.out.println("클래스에서 실행" + review.toString());
 			}
 		}
 		return reviewList;

@@ -1,65 +1,78 @@
 package DB;
 
 public class Cinema {
-	int no;
-	String name;;
-	String company;
+
+	String name;
 	String address;
-	String callno;
+	String Area_1;
+	String Area_2;
+	float location_x;
+	float location_y;
+	String tel;
 	String wep;
 
-	public int getNo() {
-		return no;
-	}
-	public Cinema(int no, String name, String company, String address, String callno, String wep) {
-		super();
-		this.no = no;
-		this.name = name;
-		this.company = company;
-		this.address = address;
-		this.callno = callno;
-		this.wep = wep;
-	}
-	public Cinema() {
-		this.no = 0;
-		this.name = null;
-		this.company = null;
-		this.address = null;
-		this.callno = null;
-		this.wep = null;
-	}
-	public void setNo(int no) {
-		this.no = no;
-	}
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getCompany() {
-		return company;
-	}
-	public void setCompany(String company) {
-		this.company = company;
 	}
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getCallno() {
-		return callno;
+
+	public String getArea_1() {
+		return Area_1;
 	}
-	public void setCallno(String callno) {
-		this.callno = callno;
+
+	public void setArea_1(String area_1) {
+		Area_1 = area_1;
 	}
+
+	public String getArea_2() {
+		return Area_2;
+	}
+
+	public void setArea_2(String area_2) {
+		Area_2 = area_2;
+	}
+
+	public float getLocation_x() {
+		return location_x;
+	}
+
+	public void setLocation_x(float location_x) {
+		this.location_x = location_x;
+	}
+
+	public float getLocation_y() {
+		return location_y;
+	}
+
+	public void setLocation_y(float location_y) {
+		this.location_y = location_y;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
 	public String getWep() {
 		return wep;
 	}
+
 	public void setWep(String wep) {
 		this.wep = wep;
 	}
 
+	
 }

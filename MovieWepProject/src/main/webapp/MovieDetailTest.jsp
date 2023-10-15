@@ -123,9 +123,13 @@
 			%>
 			<div class="reviews" class="reviews_s">
 				<!-- 다운후 변경 -->
-				<jsp:include page="loadFile/review.jsp" />
+				<jsp:include page="loadFile/reviews.jsp" />
 			</div>
 		</div>
-		
+		<footer>
+		<div id="bottom">
+			<jsp:include page="loadFile/bottom.jsp" />
+		</div>
+	</footer>
 </body>
 </html>

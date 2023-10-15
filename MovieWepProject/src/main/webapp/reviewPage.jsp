@@ -37,44 +37,9 @@
 	</script>
 	<div class="reviews">
 		<!-- 다운후 변경 -->
-		<jsp:include page="loadFile/review.jsp" />
+		<jsp:include page="loadFile/reviews.jsp" />
 	</div>
-	<script type="text/javascript">
-		var editing = false; // 편집 모드 여부를 추적하는 변수
 
-		function addContainer() {
-			var container = document.createElement("div");
-			var textNode = document.createTextNode("컨테이너 내용");
-			container.appendChild(textNode);
-
-			var editButton = document.createElement("button");
-			editButton.textContent = "수정";
-
-			editButton.addEventListener("click", function() {
-				if (editing) {
-					textNode.textContent = editText.value; // "저장" 버튼을 클릭하면 텍스트 업데이트
-					editButton.textContent = "수정";
-					container.removeChild(editText);
-				} else {
-					editText.value = textNode.textContent; // "수정" 버튼을 클릭하면 입력 필드에 현재 내용 표시
-					editButton.textContent = "저장";
-					container.appendChild(editText);
-				}
-
-				editing = !editing; // 편집 모드를 토글
-			});
-
-			var editText = document.createElement("input");
-			editText.style.display = "none"; // 입력 필드 초기에 숨김 처리
-
-			container.appendChild(editButton);
-			var containerDiv = document.getElementById("container");
-			containerDiv.appendChild(container);
-		}
-
-		document.getElementById("addContainerButton").addEventListener("click",
-				addContainer);
-	</script>
 	<footer>
 		<div id="bottom">
 			<jsp:include page="loadFile/bottom.jsp" />

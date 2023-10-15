@@ -41,7 +41,7 @@ function sample4_execDaumPostcode() {
 label{
 	margin-top: 10px;
 	margin-bottom: 0px;
-}
+}a
 </style>
 </head>
 <body>

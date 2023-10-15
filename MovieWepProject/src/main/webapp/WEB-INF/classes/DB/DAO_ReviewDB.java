@@ -13,24 +13,24 @@ public class DAO_ReviewDB extends DatabaseConnection {
 		DAO_ReviewDB d = new DAO_ReviewDB();
 //		ArrayList<Data_Review> reviewList = d.getReviewList();
 //		ArrayList<Data_Review> reviewList = d.getReviewList("userID");
-		ArrayList<Data_Review> reviewList = d.getReviewList("아바타: 물의 길", "제임스 카메론");
+		ArrayList<Data_Review> reviewList = d.getReviewList("user0001", "아바타: 물의 길", "제임스 카메론");
 		for (Data_Review review : reviewList) {
 			System.out.println(review.toString());
 		}
 	}
 
 	public ArrayList<Data_Review> getReviewList() {
-		return getReviewList("", "");
+		return getReviewList("", "", "");
 	}
 
-	public ArrayList<Data_Review> getReviewList(String condition) {
-
-		return getReviewList(condition, "");
+	public ArrayList<Data_Review> getReviewList(String userid) {
+		return getReviewList(userid, "", "");
 	}
 
-	public ArrayList<Data_Review> getReviewList(String in_userid_title, String in_director) {
+	public ArrayList<Data_Review> getReviewList(String in_userid, String in_title, String in_director) {
 		ArrayList<Data_Review> reviewList = new ArrayList<Data_Review>();
-		String userid_title = in_userid_title.trim();
+		String userid = in_userid.trim();
+		String title = in_title.trim();
 		String director = in_director.trim();
 		try {
 
@@ -39,13 +39,15 @@ public class DAO_ReviewDB extends DatabaseConnection {
 			String checkIdSql = "";
 
 			int dataCount = 0;
-			if (userid_title.length() == 0)
+
+			if (in_userid.length() == 0) {
 				dataCount = 0;
-			else {
-				if (director.length() == 0)
-					dataCount = 1;
-				else
-					dataCount = 2;
+			} else {
+				dataCount = 1;
+			}
+
+			if (title.length() > 0 && director.length() > 0) {
+				dataCount = 2;
 			}
 
 			if (dataCount == 0) {
@@ -53,33 +55,54 @@ public class DAO_ReviewDB extends DatabaseConnection {
 				System.out.println("리뷰 불러오기(전체)");
 			} else if (dataCount == 1) {
 				checkIdSql = "SELECT * FROM moviedb.review WHERE userid = ?";
-				System.out.println("리뷰 불러오기(아이디)" + userid_title);
+				System.out.println("리뷰 불러오기(아이디)");
 			} else if (dataCount == 2) {
-				checkIdSql = "SELECT * FROM moviedb.review WHERE title = ? and director = ?";
-				System.out.println("리뷰 불러오기(영화)(" + userid_title + ") : (" + director+")");
+				checkIdSql = "SELECT * FROM moviedb.review WHERE title = ? and director = ? and userid = ?";
+				System.out.println("리뷰 불러오기(영화 본인)");
+			} else if (dataCount == 3) {
+				checkIdSql = "SELECT * FROM moviedb.review WHERE title = ? and director = ? and userid != ?";
+				//System.out.println("리뷰 불러오기(영화 타인)");
 			}
+			boolean isLoop = true;
+			while (isLoop) {
+				if (dataCount == 3) {
+					checkIdSql = "SELECT * FROM moviedb.review WHERE title = ? and director = ? and userid != ?";
+					System.out.println("리뷰 불러오기(영화 타인)");
+				}
 
-			pstmt = conn.prepareStatement(checkIdSql);
+				pstmt = conn.prepareStatement(checkIdSql);
+				
+				if (dataCount == 1) {
+					pstmt.setString(1, userid);
+					isLoop = false;
+				} else if (dataCount == 2) {
+					pstmt.setString(1, title);
+					pstmt.setString(2, director);
+					pstmt.setString(3, userid);
+				} else if (dataCount == 3) {
+					pstmt.setString(1, title);
+					pstmt.setString(2, director);
+					pstmt.setString(3, userid);
+					isLoop = false;
+				}
 
-			if (dataCount == 1) {
-				pstmt.setString(1, userid_title);
-			} else if (dataCount == 2) {
-				pstmt.setString(1, userid_title);
-				pstmt.setString(2, director);
-			}
+				rs = pstmt.executeQuery();
 
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				// 중복된 아이디가 이미 존재하는 경우
-				Data_Review review = new Data_Review();
-				review.setUserid(rs.getString(2));
-				review.setTitle(rs.getString(3));
-				review.setDirector(rs.getString(4));
-				review.setScore(rs.getInt(5));
-				review.setReview(rs.getString(6));
-				review.setDate(rs.getDate(7));
-				reviewList.add(review);
+				while (rs.next()) {
+					// 중복된 아이디가 이미 존재하는 경우
+					Data_Review review = new Data_Review();
+					review.setNo(rs.getInt(1));
+					review.setUserid(rs.getString(2));
+					review.setTitle(rs.getString(3));
+					review.setDirector(rs.getString(4));
+					review.setScore(rs.getInt(5));
+					review.setReview(rs.getString(6));
+					review.setDate(rs.getDate(7));
+					reviewList.add(review);
+				}
+				if (dataCount == 2) {
+					dataCount = 3;
+				}
 			}
 		} catch (SQLException e) {
 			System.out.println("에러 : " + e.getMessage());
@@ -103,5 +126,4 @@ public class DAO_ReviewDB extends DatabaseConnection {
 		}
 		return reviewList;
 	}
-
 }

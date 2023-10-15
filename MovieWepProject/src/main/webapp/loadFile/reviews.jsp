@@ -6,8 +6,6 @@
 <html>
 <head>
 <style>
-
-
 .text-box {
 	position: relative;
 	height: 150px;
@@ -69,20 +67,20 @@
 		Object useridObj = session.getAttribute("userId");
 		String movieTitle = request.getParameter("title");
 		String dName = request.getParameter("director");
-		System.out.println(movieTitle==null);
-		System.out.println(dName==null);
+		System.out.println(movieTitle == null);
+		System.out.println(dName == null);
 
 		String userid = "";
-
+		if (useridObj != null) {
+			userid = useridObj.toString();
+			System.out.println("세션값" + userid);
+		} else {
+			userid = "_";
+		}
 		ArrayList<Data_Review> reviewList = null;
 		if (movieTitle != null && dName != null) {
-			reviewList = cinemaAccess.getReviewList(movieTitle, dName);
+			reviewList = cinemaAccess.getReviewList(userid, movieTitle, dName);
 		} else {
-			if (useridObj != null) {
-				userid = useridObj.toString();
-			} else {
-				userid = "_";
-			}
 			reviewList = cinemaAccess.getReviewList(userid);
 		}
 		if (reviewList != null) {
@@ -90,13 +88,29 @@
 
 			if (reviewList.size() == 0) {
 		%>
-		<div class="text-box"><%=movieTitle %><%=dName %></div>
+		<div class="text-box">
+			<input type="hidden" id="no" value=<%=-1%>>
+			<a href="MovieDetailTest.jsp?title=<%=movieTitle%>&director=<%=dName%>">
+				<label class="title"><%=movieTitle%></label>
+			</a>
+			<label class="userid"><%=userid%></label>
+			<label class="score">
+				0 / 5
+			</label>
+			<textarea class="review" id="review"> <%=movieTitle%> </textarea>
+			<input class="trbtn" type="submit" value="저장">
+			<%
+
+			%>
+		</div>
 		<%
 		}
-
-		for (Data_Review review : reviewList) {
+		boolean myReview = true;
+		for (int i = 0; i < reviewList.size(); i++) {
+		Data_Review review = reviewList.get(i);
 		%>
 		<div class="text-box">
+			<input type="hidden" id="no" value=<%=review.getNo()%>>
 			<a href="MovieDetailTest.jsp?title=<%=review.getTitle()%>&director=<%=review.getDirector()%>">
 				<label class="title"><%=review.getTitle()%></label>
 			</a>
@@ -104,8 +118,29 @@
 			<label class="score"><%=review.getScore()%>
 				/ 5
 			</label>
+			<%
+			if (review.getUserid().equals(userid)) {
+				System.out.println("내 리뷰 있음");
+				myReview = false;
+			%>
 			<textarea class="review" id="review"> <%=review.getReview()%> <%="\n"%> <%=movieTitle%> </textarea>
-			<input class="trbtn" type="button" value="수정">
+			<input class="trbtn" type="submit" value="저장">
+			<%
+			} else {
+			if (myReview) {
+				i = 0;
+				myReview = false;
+				System.out.println("내 리뷰 없음");
+			%>
+			<textarea class="review" id="review"> <%=review.getReview()%> <%="\n"%> <%=movieTitle%> </textarea>
+			<input class="trbtn" type="submit" value="저장">
+			<%
+			}
+			%>
+			<textarea class="review" id="review" disabled style="background-color: white;"> <%=review.getReview()%> <%="\n"%> <%=movieTitle%> </textarea>
+			<%
+			}
+			%>
 		</div>
 		<%
 		}

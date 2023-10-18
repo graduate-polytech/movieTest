@@ -16,17 +16,18 @@ import java.util.List;
 
 public class MovieDetail2 {
     private static final String API_URL = "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json.jsp";
-    private static final String API_KEY = "25QF8GG6G9R22N50D3X4"; // 본인의 KMDB API 키로 대체
+    private static final String API_KEY = "77I86OA3PQ26LKYE5PG0"; // 본인의 KMDB API 키로 대체
 
-    public static List<MovieInfo> searchMovieInfo(String title) throws IOException {
+    public static List<MovieInfo> searchMovieInfo(String query,String Types) throws IOException {
         // 영화 제목을 URL 인코딩
     	
-        String encodedTitle = URLEncoder.encode(title, "UTF-8");
-        
+        String encodedquery = URLEncoder.encode(query, "UTF-8");
+        String types = Types;
+        System.out.println(types);
         // API 요청 URL 생성
         String API_URL = "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json.jsp";
-        String API_KEY = "25QF8GG6G9R22N50D3X4"; // 본인의 KMDB API 키로 대체
-        String apiUrl = API_URL + "?ServiceKey=" + API_KEY + "&collection=kmdb_new&title=" + encodedTitle+ "&detail=Y&sort=prodYear&listCount="+100;
+        String API_KEY = "77I86OA3PQ26LKYE5PG0"; // 본인의 KMDB API 키로 대체
+        String apiUrl = API_URL + "?ServiceKey=" + API_KEY + "&collection=kmdb_new&query=" + encodedquery+"&"+types+"="+encodedquery+"&detail=Y&sort=prodYear&listCount="+20;
 
         // HTTP GET 요청 생성 및 설정
         URL url = new URL(apiUrl);
@@ -80,6 +81,9 @@ public class MovieDetail2 {
             if (directors != null && directors.size() > 0) {
                 JsonObject director = directors.get(0).getAsJsonObject();
                 directorName = director.get("directorNm").getAsString(); // 감독 이름
+                if (directorName.contains("!HS") || directorName.contains("!HE")) {
+                   directorName = directorName.replaceAll("\\s!HS\\s|\\s!HE\\s", "");
+                }
             }
 
             String nation = result.get("nation").getAsString(); // 국가 정보
@@ -89,6 +93,7 @@ public class MovieDetail2 {
             
             String plot = result.get("plot").getAsString(); // "plot" 정보
             
+            //배우
             JsonArray actors = result.getAsJsonArray("actor");
             String repRlsDate = result.get("repRlsDate").getAsString();
             
@@ -101,7 +106,13 @@ public class MovieDetail2 {
                     actorNames.add(actorName);
                 }
             }
-
+            
+            //장르
+            String genre = result.get("genre").getAsString(); // "genre" 정보
+            
+            String prodYear = result.get("prodYear").getAsString(); // "prodYear" 정보
+            
+            
             // "posters" 값을 불러옴
             JsonElement postersElement = result.get("posters");
             List<String> posters = new ArrayList<>();
@@ -115,10 +126,9 @@ public class MovieDetail2 {
             }
 
             // MovieInfo 객체 생성 및 추가
-            MovieInfo movieInfo = new MovieInfo(movieTitle, directorName, nation, plot,repRlsDate);
+            MovieInfo movieInfo = new MovieInfo(movieTitle, directorName, nation, plot,repRlsDate, genre,prodYear);
             movieInfo.setPosters(posters);
-            movieInfo.setActors(actorNames);
-            
+            movieInfo.setActors(actorNames);         
             movieInfoList.add(movieInfo);
         }
 

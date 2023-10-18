@@ -3,6 +3,7 @@ package DB;
 import java.util.Date;
 
 public class Data_Review {
+	int no = 0;
 	String userid = "";
 	String title = "";
 	String director = "";
@@ -10,6 +11,14 @@ public class Data_Review {
 	String review = "";
 	Date date = new Date();
 
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+	
 	public String getUserid() {
 		return userid;
 	}

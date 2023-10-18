@@ -7,14 +7,19 @@
 <title>시네마 위키</title>
 <!-- 부트스트랩 CSS 링크 추가 -->
 <!-- 부트스트랩 및 jQuery 및 Popper.js JavaScript 라이브러리 링크 추가 -->
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFWttU33_ZQvbz5cU1vdkdtcyPL2Tr53U&libraries=places"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 <link rel="stylesheet" href="resource/css/styles1.css">
 <!-- 기존 CSS 스타일 시트 링크 -->
 </head>
@@ -60,7 +65,7 @@
 					</a>
 				</div>
 				<script src="resource/js/script1.js"></script>
-				<!-- JavaScript 파일 링크  -->
+				<!-- JavaScript 파일 링크  --> 
 				<script>
 					document.addEventListener("DOMContentLoaded", function() {
 						// 로그인 버튼 클릭 시 login.html로 이동
@@ -81,7 +86,7 @@
 			</div>
 		</div>
 		<div class="col">
-			<div class="side-right">
+			<div class="side-right" style="position: sticky; top: 10px;">
 				<div class="mini-login-box">
 					<jsp:include page="mini_userInfo.jsp" />
 				</div>

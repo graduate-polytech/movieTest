@@ -13,12 +13,11 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFWttU33_ZQvbz5cU1vdkdtcyPL2Tr53U&libraries=places"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/styles1.css">
 <!-- 기존 CSS 스타일 시트 링크 -->
+
+</style>
 </head>
 <body>
 	<!-- 로고 이미지 -->
@@ -32,44 +31,15 @@
 	<script type="text/javascript">
 		
 		var userId = '<%=session.getAttribute("userId")%>';
-		if (userId != 'null') {
-			//alert(userId);
+		if (userId == 'null') {
+			window.location.href = 'signin.jsp';
 		}
 	</script>
-<div class="reviewTable" style="margin: 50px;">
-	<table border="0">
-		<tr>
-			<th>userId</th>
-			<th>Title</th>
-			<th>Director</th>
-			<th>score</th>
-			<th>review</th>
-			<th>date</th>
-			<th>movie</th>
-		</tr>
-		<%
-		DAO_ReviewDB cinemaAccess = new DAO_ReviewDB();
-		ArrayList<Data_Review> reviewList = cinemaAccess.getReviewList();
-
-		for (Data_Review review : reviewList) {
-		%>
-		<tr>
-			<td><%=review.getUserid()%></td>
-			<td><%=review.getTitle()%></td>
-			<td><%=review.getDirector()%></td>
-			<td><%=review.getScore()%></td>
-			<td><%=review.getReview()%></td>
-			<td><%=review.getDate()%></td>
-			<td>
-				<a
-					href="MovieDetailTest.jsp?title=<%=review.getTitle()%>&director=<%=review.getDirector()%>">사이트</a>
-			</td>
-		</tr>
-		<%
-		}
-		%>
-	</table>
+	<div class="reviews">
+		<!-- 다운후 변경 -->
+		<jsp:include page="loadFile/reviews.jsp" />
 	</div>
+
 	<footer>
 		<div id="bottom">
 			<jsp:include page="loadFile/bottom.jsp" />

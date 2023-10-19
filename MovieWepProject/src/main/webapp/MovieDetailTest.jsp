@@ -121,10 +121,10 @@
 			}
 			}
 			%>
-			<div class="reviews" class="reviews_s">
-				<!-- 다운후 변경 -->
-				<jsp:include page="loadFile/reviews.jsp" />
-			</div>
+			<div class="reviews">
+		<!-- 다운후 변경 -->
+		<jsp:include page="loadFile/reviews_Test.jsp" />
+	</div>
 		</div>
 		<footer>
 		<div id="bottom">

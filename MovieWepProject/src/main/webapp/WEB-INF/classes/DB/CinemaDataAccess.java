@@ -6,11 +6,9 @@ import java.util.List;
 
 public class CinemaDataAccess {
     private DatabaseConnection databaseConnection = new DatabaseConnection();
-    
 
-    
     public List<Cinema> getAllCinemaData() {
-        List<Cinema> cinemaList = new ArrayList<Cinema>();
+        List<Cinema> cinemaList = new ArrayList<>();
         Connection connection = null;
 
         try {
@@ -21,18 +19,16 @@ public class CinemaDataAccess {
 
             while (resultSet.next()) {
                 Cinema cinema = new Cinema();
-
                 cinema.setName(resultSet.getString("name"));
+                cinema.setArea1(resultSet.getString("Area_1"));
+                cinema.setArea2(resultSet.getString("Area_2"));
                 cinema.setAddress(resultSet.getString("address"));
-                cinema.setArea_1(resultSet.getString("Area_1"));
-                cinema.setArea_2(resultSet.getString("Area_2"));
-                cinema.setLocation_x(resultSet.getFloat("location_x"));
-                cinema.setLocation_y(resultSet.getFloat("location_y"));
                 cinema.setTel(resultSet.getString("tel"));
                 cinema.setWep(resultSet.getString("wep"));
-
+                cinema.setlocation_x(resultSet.getFloat("location_x"));
+                cinema.setlocation_y(resultSet.getFloat("location_y"));
+                
                 cinemaList.add(cinema);
-                cinema.toString();
             }
 
             resultSet.close();

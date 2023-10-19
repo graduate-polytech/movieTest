@@ -57,53 +57,35 @@ public class DAO_ReviewDB extends DatabaseConnection {
 				checkIdSql = "SELECT * FROM moviedb.review WHERE userid = ?";
 				System.out.println("리뷰 불러오기(아이디)");
 			} else if (dataCount == 2) {
-				checkIdSql = "SELECT * FROM moviedb.review WHERE title = ? and director = ? and userid = ?";
+				checkIdSql = "SELECT * FROM moviedb.review WHERE title = ? and director = ? ORDER BY (userid = ?) DESC";
 				System.out.println("리뷰 불러오기(영화 본인)");
-			} else if (dataCount == 3) {
-				checkIdSql = "SELECT * FROM moviedb.review WHERE title = ? and director = ? and userid != ?";
-				//System.out.println("리뷰 불러오기(영화 타인)");
 			}
-			boolean isLoop = true;
-			while (isLoop) {
-				if (dataCount == 3) {
-					checkIdSql = "SELECT * FROM moviedb.review WHERE title = ? and director = ? and userid != ?";
-					System.out.println("리뷰 불러오기(영화 타인)");
-				}
 
-				pstmt = conn.prepareStatement(checkIdSql);
-				
-				if (dataCount == 1) {
-					pstmt.setString(1, userid);
-					isLoop = false;
-				} else if (dataCount == 2) {
-					pstmt.setString(1, title);
-					pstmt.setString(2, director);
-					pstmt.setString(3, userid);
-				} else if (dataCount == 3) {
-					pstmt.setString(1, title);
-					pstmt.setString(2, director);
-					pstmt.setString(3, userid);
-					isLoop = false;
-				}
+			pstmt = conn.prepareStatement(checkIdSql);
 
-				rs = pstmt.executeQuery();
-
-				while (rs.next()) {
-					// 중복된 아이디가 이미 존재하는 경우
-					Data_Review review = new Data_Review();
-					review.setNo(rs.getInt(1));
-					review.setUserid(rs.getString(2));
-					review.setTitle(rs.getString(3));
-					review.setDirector(rs.getString(4));
-					review.setScore(rs.getInt(5));
-					review.setReview(rs.getString(6));
-					review.setDate(rs.getDate(7));
-					reviewList.add(review);
-				}
-				if (dataCount == 2) {
-					dataCount = 3;
-				}
+			if (dataCount == 1) {
+				pstmt.setString(1, userid);
+			} else if (dataCount == 2) {
+				pstmt.setString(1, title);
+				pstmt.setString(2, director);
+				pstmt.setString(3, userid);
 			}
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// 중복된 아이디가 이미 존재하는 경우
+				Data_Review review = new Data_Review();
+				review.setNo(rs.getInt(1));
+				review.setUserid(rs.getString(2));
+				review.setTitle(rs.getString(3));
+				review.setDirector(rs.getString(4));
+				review.setScore(rs.getInt(5));
+				review.setReview(rs.getString(6));
+				review.setDate(rs.getDate(7));
+				reviewList.add(review);
+			}
+
 		} catch (SQLException e) {
 			System.out.println("에러 : " + e.getMessage());
 			e.printStackTrace();

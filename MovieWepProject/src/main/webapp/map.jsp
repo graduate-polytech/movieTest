@@ -25,7 +25,10 @@
 		</div>
 	</header>
 
-    <h1>지도</h1>
+    <h4>지도</h4>
+    <!-- 검색창 추가 -->
+    <input type="text" id="locationSearch" placeholder="원하시는 위치를 입력하세요" onkeydown="if(event.keyCode==13){searchLocation()}">
+    <button onclick="searchLocation()">검색</button>
     
     <div id="map">
     

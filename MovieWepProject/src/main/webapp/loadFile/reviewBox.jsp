@@ -1,91 +1,12 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="DB.*"%>
-<%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-.text-box {
-	position: relative;
-	height: 150px;
-	border: 1px solid #ccc;
-	padding: 10px;
-	min-width: 500px;
-	margin-top: 10px;
-}
-
-.title {
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	font-weight: bold;
-}
-
-.userid {
-	position: absolute;
-	top: 30px;
-	left: 60px;
-}
-
-.score {
-	position: absolute;
-	top: 30px;
-	left: 15px;
-}
-
-.review {
-	position: absolute;
-	top: 55px;
-	left: 10px;
-	right: 10px;
-	bottom: 10px;
-	padding: 5px;
-	resize: none;
-}
-
-.trbtn {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	padding: 5px 10px;
-	background-color: #0077FF;
-	color: #fff;
-	border: none;
-	cursor: pointer;
-}
-
-.top-right-button:hover {
-	background-color: #0055CC;
-}
-
-.star {
-	position: relative;
-	font-size: 2rem;
-	color: #ddd;
-}
-
-.star input {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	left: 0;
-	opacity: 0;
-	cursor: pointer;
-}
-
-.star span {
-	width: 0;
-	position: absolute;
-	left: 0;
-	color: red;
-	overflow: hidden;
-	pointer-events: none;
-}
-</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	<%
+	request.setCharacterEncoding("utf-8");
 	String sessionId = request.getParameter("sessionId");
 	String no = request.getParameter("no");
 	String director = request.getParameter("director");
@@ -94,21 +15,59 @@
 	String score = request.getParameter("score");
 	String review = request.getParameter("review");
 	String date = request.getParameter("date");
+	String isMyReview = (sessionId != null && !sessionId.equals("null") && !sessionId.trim().equals("")
+			&& !sessionId.isEmpty() && sessionId.equals(userid)) ? "t" : "f";
+	/*
+	String sessionId = "sessionId";
+	String no = "no";
+	String director = "director";
+	String title = "title";
+	String userid = "userid";
+	String score = "score";
+	String review = "review";
+	String date = "date";*/
 	%>
-	<form class="id">
-		<input type="hidden" id="no" value=<%=no%>>
-		<a href="MovieDetailTest.jsp?title=<%=title%>">
-			<label class="title"><%=title%></label>
-		</a>
-		<label class="userid"><%=userid%></label>
-			<jsp:include page="/loadFile/star.jsp" />
-		<textarea class="review" id="review"> <%=review%> </textarea>
-		<input class="trbtn" type="submit" value="저장">
-	</form>
+	<div class="review_text-box">
+
+			<input id="<%=no%>_no" type="hidden" value=<%=no%>>
+			<input id="<%=no%>_title" type="hidden" value=<%=title%>>
+			<input id="<%=no%>_director" type="hidden" value=<%=director%>>
+			<a href="MovieDetailTest.jsp?title=<%=title%>&director=<%=director%>">
+				<output></output>
+				<label id="<%=no%>_movie_title" class="review_title"><%=title%></label>
+			</a>
+			<div>
+				<div class="score">
+					<jsp:include page="star.jsp">
+						<jsp:param name="count" value="<%=no%>" />
+						<jsp:param name="score" value="<%=score%>" />
+						<jsp:param name="activate" value="<%=isMyReview%>" />
+					</jsp:include>
+				</div>
+				<label id="<%=no%>_userid" class="userid"><%=userid%></label>
+			</div>
+			<textarea class="review" id="<%=no%>_review"> <%=review%> </textarea>
+			<%
+			if (isMyReview.equals("t")) {
+			%>
+			<input id="<%=no%>" class="trbtn" type="button" onclick="onSubmitBtn()" value="저장">
+			<%
+			}
+			%>
+
+	</div>
 	<script type="text/javascript">
-	const drawStar = (target) => {
-		  document.querySelector(`.star span`).style.width = `${target.value * 10}%`;
+		function onSubmitBtn() {
+			//var title = document.getElementById("movie_title");
+			var no = event.target.id;
+			var number = "번호: " + document.getElementById(no + "_no").value
+			var title = "제목: " + document.getElementById(no + "_title").value
+			var director = "감독: " + document.getElementById(no + "_director").value
+			var review = "리뷰: " + document.getElementById(no + "_review").value
+			var score = "점수: " + document.getElementById("rangeInput_" + no).value
+			alert(title)
+			alert(number + "\n" + title + "\n" + director + "\n" + review + "\n" + score);
 		}
-	 </script>
+	</script>
 </body>
 </html>

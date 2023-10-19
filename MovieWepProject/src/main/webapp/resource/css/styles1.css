@@ -14,6 +14,7 @@ header {
 }
 
 .reviews {
+	
 	margin: 50px 20% 30px 20%;
 }
 .mini-login-text-box {
@@ -62,6 +63,8 @@ body {
 	background-color: #ffffff; /* 전체 페이지 배경 색상을 흰색 (#ffffff)으로 설정 */
 	margin: 0;
 	padding: 0;
+	
+	min-width: 700px;
 }
 
 .login-help-text {

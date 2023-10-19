@@ -37,9 +37,9 @@
 	</script>
 	<div class="reviews">
 		<!-- 다운후 변경 -->
-		<jsp:include page="loadFile/reviews.jsp" />
+		<jsp:include page="loadFile/reviews_Test.jsp" />
 	</div>
-
+	
 	<footer>
 		<div id="bottom">
 			<jsp:include page="loadFile/bottom.jsp" />

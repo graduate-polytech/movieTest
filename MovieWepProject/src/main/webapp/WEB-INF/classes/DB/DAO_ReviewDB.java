@@ -27,6 +27,84 @@ public class DAO_ReviewDB extends DatabaseConnection {
 		return getReviewList(userid, "", "");
 	}
 
+	public int updateReview(Data_Review data) {
+		int result = 0;
+		int no = data.getNo();
+		int score = data.getScore();
+		String userid = data.getUserid();
+		String title = data.getTitle();
+		String director = data.getDirector();
+		String review = data.getReview();
+		
+		if(no<=0) {
+			return insertReview(data);
+		}
+		
+
+		try {
+
+			conn = getConnection();
+			// "SELECT * FROM moviedb.review WHERE ? = ?"
+			String checkIdSql = "UPDATE moviedb.review SET score=? and review=? and date=curdate() WHERE no=?";
+
+			pstmt = conn.prepareStatement(checkIdSql);
+
+			pstmt.setInt(1, score);
+			pstmt.setString(2, review);
+			pstmt.setInt(3, no);
+
+			int rs = pstmt.executeUpdate();
+
+			if (rs > 0) {
+				result = 0;
+			}
+
+		} catch (SQLException e) {
+			System.out.println("에러 : " + e.getMessage());
+			e.printStackTrace();
+			result = -1;
+		}
+
+		return result;
+	}
+
+	public int insertReview(Data_Review data) {
+		int result = 0;
+		int score = data.getScore();
+		String userid = data.getUserid();
+		String title = data.getTitle();
+		String director = data.getDirector();
+		String review = data.getReview();
+		
+		try {
+
+			conn = getConnection();
+			// "SELECT * FROM moviedb.review WHERE ? = ?"
+			String checkIdSql = "insert into moviedb.review(userid,title,director,score,review) value(?,?,?,?,?)";
+
+			pstmt = conn.prepareStatement(checkIdSql);
+
+			pstmt.setString(1, userid);
+			pstmt.setString(2, title);
+			pstmt.setString(3, director);
+			pstmt.setInt(4, score);
+			pstmt.setString(5, review);
+
+			int rs = pstmt.executeUpdate();
+
+			if (rs > 0) {
+				result = 0;
+			}
+
+		} catch (SQLException e) {
+			System.out.println("에러 : " + e.getMessage());
+			e.printStackTrace();
+			result = -1;
+		}
+
+		return result;
+	}
+
 	public ArrayList<Data_Review> getReviewList(String in_userid, String in_title, String in_director) {
 		ArrayList<Data_Review> reviewList = new ArrayList<Data_Review>();
 		String userid = in_userid.trim();
@@ -74,7 +152,7 @@ public class DAO_ReviewDB extends DatabaseConnection {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// 중복된 아이디가 이미 존재하는 경우
+
 				Data_Review review = new Data_Review();
 				review.setNo(rs.getInt(1));
 				review.setUserid(rs.getString(2));

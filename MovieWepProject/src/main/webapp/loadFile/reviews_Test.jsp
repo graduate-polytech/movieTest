@@ -2,9 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="DB.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="java.time.LocalDate"%>
 <!DOCTYPE html>
 <html>
-
 <head>
 <%
 request.setCharacterEncoding("UTF-8");
@@ -33,9 +33,9 @@ request.setCharacterEncoding("UTF-8");
 
 .scoreInt {
 	position: absolute;
-	
 	left: 110px;
 }
+
 .review {
 	position: absolute;
 	top: 65px;
@@ -97,21 +97,40 @@ request.setCharacterEncoding("UTF-8");
 		String userid = "";
 		if (useridObj != null) {
 			userid = useridObj.toString();
-			System.out.println("세션값" + userid);
+
 		} else {
 			userid = "_";
 		}
+		System.out.println("이름" + userid);
 		ArrayList<Data_Review> reviewList = null;
 		if (movieTitle != null && dName != null) {
 			reviewList = cinemaAccess.getReviewList(userid, movieTitle, dName);
 		} else {
 			reviewList = cinemaAccess.getReviewList(userid);
 		}
+		System.out.println("반환 크기 : " + reviewList.size());
 		if (reviewList != null && reviewList.size() > 0) {
-
-			for (Data_Review review : reviewList) {
+			
+			if(!reviewList.get(0).getUserid().equals(userid)){
 				%>
 				<div class="review_data">
+					<jsp:include page="reviewBox.jsp">
+						<jsp:param name="sessionId" value="<%=userid%>" />
+						<jsp:param name="no" value="-1" />
+						<jsp:param name="director" value="<%=dName%>" />
+						<jsp:param name="title" value="<%=movieTitle%>" />
+						<jsp:param name="userid" value="<%=userid%>" />
+						<jsp:param name="score" value="0" />
+						<jsp:param name="review" value="" />
+						<jsp:param name="date" value="<%=LocalDate.now()%>" />
+					</jsp:include>
+				</div>
+				<%
+			}
+			
+			for (Data_Review review : reviewList) {
+			%>
+			<div class="review_data">
 				<jsp:include page="reviewBox.jsp">
 					<jsp:param name="sessionId" value="<%=userid%>" />
 					<jsp:param name="no" value="<%=review.getNo()%>" />
@@ -122,10 +141,26 @@ request.setCharacterEncoding("UTF-8");
 					<jsp:param name="review" value="<%=review.getReview()%>" />
 					<jsp:param name="date" value="<%=review.getDate()%>" />
 				</jsp:include>
-				</div>
-				<%
+			</div>
+			<%
 			}
 
+		} else  {
+			//System.out.println("오브젝트" + useridObj==null);
+			%>
+			<div class="review_data">
+				<jsp:include page="reviewBox.jsp">
+					<jsp:param name="sessionId" value="<%=userid%>" />
+					<jsp:param name="no" value="-1" />
+					<jsp:param name="director" value="<%=dName%>" />
+					<jsp:param name="title" value="<%=movieTitle%>" />
+					<jsp:param name="userid" value="<%=userid%>" />
+					<jsp:param name="score" value="0" />
+					<jsp:param name="review" value="" />
+					<jsp:param name="date" value="<%=LocalDate.now()%>" />
+				</jsp:include>
+			</div>
+			<%
 		}
 		%>
 	</div>

@@ -62,6 +62,7 @@ public class Data_Review {
 	}
 
 	public int getScore() {
+		System.out.println("getScore : " + score);
 		return score;
 	}
 

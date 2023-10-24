@@ -85,7 +85,8 @@ request.setCharacterEncoding("UTF-8");
 </style>
 </head>
 <body>
-	<div class="loopDivTest">
+	<div class="loopDivTest main">
+		<h1 style="display: flex; align-items: center; justify-content: center;">내 리뷰</h1>
 		<%
 		DAO_ReviewDB cinemaAccess = new DAO_ReviewDB();
 		Object useridObj = session.getAttribute("userId");
@@ -110,57 +111,57 @@ request.setCharacterEncoding("UTF-8");
 		}
 		System.out.println("반환 크기 : " + reviewList.size());
 		if (reviewList != null && reviewList.size() > 0) {
-			
-			if(!reviewList.get(0).getUserid().equals(userid)){
-				%>
-				<div class="review_data">
-					<jsp:include page="reviewBox.jsp">
-						<jsp:param name="sessionId" value="<%=userid%>" />
-						<jsp:param name="no" value="-1" />
-						<jsp:param name="director" value="<%=dName%>" />
-						<jsp:param name="title" value="<%=movieTitle%>" />
-						<jsp:param name="userid" value="<%=userid%>" />
-						<jsp:param name="score" value="0" />
-						<jsp:param name="review" value="" />
-						<jsp:param name="date" value="<%=LocalDate.now()%>" />
-					</jsp:include>
-				</div>
-				<%
-			}
-			
-			for (Data_Review review : reviewList) {
-			%>
-			<div class="review_data">
-				<jsp:include page="reviewBox.jsp">
-					<jsp:param name="sessionId" value="<%=userid%>" />
-					<jsp:param name="no" value="<%=review.getNo()%>" />
-					<jsp:param name="director" value="<%=review.getDirector()%>" />
-					<jsp:param name="title" value="<%=review.getTitle()%>" />
-					<jsp:param name="userid" value="<%=review.getUserid()%>" />
-					<jsp:param name="score" value="<%=review.getScore()%>" />
-					<jsp:param name="review" value="<%=review.getReview()%>" />
-					<jsp:param name="date" value="<%=review.getDate()%>" />
-				</jsp:include>
-			</div>
-			<%
-			}
 
-		} else  {
-			//System.out.println("오브젝트" + useridObj==null);
-			%>
-			<div class="review_data">
-				<jsp:include page="reviewBox.jsp">
-					<jsp:param name="sessionId" value="<%=userid%>" />
-					<jsp:param name="no" value="-1" />
-					<jsp:param name="director" value="<%=dName%>" />
-					<jsp:param name="title" value="<%=movieTitle%>" />
-					<jsp:param name="userid" value="<%=userid%>" />
-					<jsp:param name="score" value="0" />
-					<jsp:param name="review" value="" />
-					<jsp:param name="date" value="<%=LocalDate.now()%>" />
-				</jsp:include>
-			</div>
-			<%
+			if (!reviewList.get(0).getUserid().equals(userid)) {
+		%>
+		<div class="review_data">
+			<jsp:include page="reviewBox.jsp">
+				<jsp:param name="sessionId" value="<%=userid%>" />
+				<jsp:param name="no" value="-1" />
+				<jsp:param name="director" value="<%=dName%>" />
+				<jsp:param name="title" value="<%=movieTitle%>" />
+				<jsp:param name="userid" value="<%=userid%>" />
+				<jsp:param name="score" value="0" />
+				<jsp:param name="review" value="" />
+				<jsp:param name="date" value="<%=LocalDate.now()%>" />
+			</jsp:include>
+		</div>
+		<%
+		}
+
+		for (Data_Review review : reviewList) {
+		%>
+		<div class="review_data">
+			<jsp:include page="reviewBox.jsp">
+				<jsp:param name="sessionId" value="<%=userid%>" />
+				<jsp:param name="no" value="<%=review.getNo()%>" />
+				<jsp:param name="director" value="<%=review.getDirector()%>" />
+				<jsp:param name="title" value="<%=review.getTitle()%>" />
+				<jsp:param name="userid" value="<%=review.getUserid()%>" />
+				<jsp:param name="score" value="<%=review.getScore()%>" />
+				<jsp:param name="review" value="<%=review.getReview()%>" />
+				<jsp:param name="date" value="<%=review.getDate()%>" />
+			</jsp:include>
+		</div>
+		<%
+		}
+
+		} else {
+		//System.out.println("오브젝트" + useridObj==null);
+		%>
+		<div class="review_data">
+			<jsp:include page="reviewBox.jsp">
+				<jsp:param name="sessionId" value="<%=userid%>" />
+				<jsp:param name="no" value="-1" />
+				<jsp:param name="director" value="<%=dName%>" />
+				<jsp:param name="title" value="<%=movieTitle%>" />
+				<jsp:param name="userid" value="<%=userid%>" />
+				<jsp:param name="score" value="0" />
+				<jsp:param name="review" value="" />
+				<jsp:param name="date" value="<%=LocalDate.now()%>" />
+			</jsp:include>
+		</div>
+		<%
 		}
 		%>
 	</div>

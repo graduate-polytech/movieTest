@@ -66,7 +66,7 @@
 			</div>
 			<label id="<%=no%>_userid" class="userid"><%=userid%></label>
 		</div>
-		<textarea class="review" id="<%=no%>_review"> <%=review%> </textarea>
+		<textarea class="review" id="<%=no%>_review"><%=review%></textarea>
 		<%
 		if (isMyReview.equals("t")) {
 		%>
@@ -94,28 +94,30 @@
 
 		function checkSignUpData() {
 
-			alert("checkSignUpData");
+			//alert("checkSignUpData");
 
 			var form = document.getElementById('signupForm');
 
 			var no = event.target.id;
 			var number = document.getElementById(no + "_no").value
 
-			alert(number);
+			//alert(number);
 
 			var title = document.getElementById(no + "_title").value
-			alert(title);
+			//alert(title);
 			var director = document.getElementById(no + "_director").value
-			alert(director);
+			//alert(director);
 			var review = document.getElementById(no + "_review").value
-			alert(review);
+			//alert(review);
 			var score = document.getElementById("rangeInput_" + no).value
-			alert(score);
+			//alert("점수 : " + score);
 
 			var jsid = document.getElementById(no + "_userid").value
 
-			alert(jsid);
-
+			//alert(jsid);
+			
+			//return false;
+			
 			var errorMessages = "";
 			var data = {
 				"number" : number,
@@ -152,6 +154,7 @@
 				return false;
 			}
 			// DB등록
+			location.reload();
 			return true; // 유효성 검사 통과
 		}
 	</script>

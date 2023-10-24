@@ -28,9 +28,12 @@ public class DAO_ReviewDB extends DatabaseConnection {
 	}
 
 	public int updateReview(Data_Review data) {
-		int result = 0;
+		int result = -1;
 		int no = data.getNo();
 		int score = data.getScore();
+		
+		System.out.println(data.toString());
+		
 		String userid = data.getUserid();
 		String title = data.getTitle();
 		String director = data.getDirector();
@@ -45,11 +48,12 @@ public class DAO_ReviewDB extends DatabaseConnection {
 
 			conn = getConnection();
 			// "SELECT * FROM moviedb.review WHERE ? = ?"
-			String checkIdSql = "UPDATE moviedb.review SET score=? and review=? and date=curdate() WHERE no=?";
+			String checkIdSql = "UPDATE moviedb.review SET score=?, review=?, date=curdate() WHERE no=?";
 
 			pstmt = conn.prepareStatement(checkIdSql);
 
 			pstmt.setInt(1, score);
+			System.out.println("DB추가 점수 : " + score);
 			pstmt.setString(2, review);
 			pstmt.setInt(3, no);
 
@@ -69,8 +73,9 @@ public class DAO_ReviewDB extends DatabaseConnection {
 	}
 
 	public int insertReview(Data_Review data) {
-		int result = 0;
+		int result = -1;
 		int score = data.getScore();
+		
 		String userid = data.getUserid();
 		String title = data.getTitle();
 		String director = data.getDirector();
@@ -88,6 +93,7 @@ public class DAO_ReviewDB extends DatabaseConnection {
 			pstmt.setString(2, title);
 			pstmt.setString(3, director);
 			pstmt.setInt(4, score);
+			System.out.println("DB추가 점수 : " + score);
 			pstmt.setString(5, review);
 
 			int rs = pstmt.executeUpdate();

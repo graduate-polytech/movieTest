@@ -1,9 +1,8 @@
 package Servlet;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
-import Office.*;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,14 +14,10 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
-import DB.DAO_ReviewDB;
-import DB.Data_Review;
-import DB.Data_User;
-import DB.DatabaseConnection;
-import Office.DayBox3;
+import DB.*;
 
-@WebServlet("/ReviewUpdate")
-public class ReviewUpdate extends HttpServlet {
+@WebServlet("/RecommendMovies")
+public class RecommendMoviesServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 클라이언트로부터 전송된 데이터 읽기
@@ -38,31 +33,14 @@ public class ReviewUpdate extends HttpServlet {
 		JSONObject json = new JSONObject(requestData.toString());
 
 		// 데이터 확인 및 MySQL DB에 추가하는 로직 수행
-		String fun = json.getString("fun");
-
-		// System.out.println("---------------------------" + fun);
-
-		String number = json.getString("number");
-		String title = json.getString("title");
 		String userid = json.getString("userid");
-		String director = json.getString("director");
-		String review = json.getString("review");
-		String score = json.getString("score");
-		// String no, String userid, String title, String director, String score, String
-		// review
-		Data_Review reviewData = new Data_Review(number, userid, title, director, score, review);
-		DAO_ReviewDB db = new DAO_ReviewDB();
+
 		JSONObject jsonResponse = new JSONObject();
-		int result = 0;
-		if (fun.equals("del")) {
-			result = db.deleteReview(reviewData);
-		} else {
-			result = db.updateReview(reviewData);
-		}
-
-		System.out.println("리뷰 작성 서블렛 : " + result);
+		
+		int result = 1;
+		System.out.println("영화 추천 서블렛 : " + userid);
 		// 응답 전송 (예: 성공 메시지)
-
+		
 		jsonResponse.put("message", result);
 
 		// JSON 응답을 클라이언트로 전송

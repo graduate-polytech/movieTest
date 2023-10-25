@@ -19,9 +19,10 @@ request.setCharacterEncoding("UTF-8");
 }
 
 .userid {
+    font-weight: 500;
 	position: absolute;
-	top: 35px;
-	left: 150px;
+	top: 30px;
+	left: 130px;
 	font-size: 16px;
 }
 
@@ -57,6 +58,19 @@ request.setCharacterEncoding("UTF-8");
 	cursor: pointer;
 }
 
+.trbtn_de {
+	
+	position : absolute;
+	top: 10px;
+	right: 80px;
+	padding: 5px 10px;
+	background-color: #0077FF;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	position: absolute;
+}
+
 .review_text-box {
 	position: relative;
 	height: 150px;
@@ -85,8 +99,7 @@ request.setCharacterEncoding("UTF-8");
 </style>
 </head>
 <body>
-	<div class="loopDivTest main">
-		<h1 style="display: flex; align-items: center; justify-content: center;">내 리뷰</h1>
+	<div class="loopDivTest">
 		<%
 		DAO_ReviewDB cinemaAccess = new DAO_ReviewDB();
 		Object useridObj = session.getAttribute("userId");

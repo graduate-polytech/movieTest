@@ -26,22 +26,12 @@
 	System.out.println(userid);
 	System.out.println(score);
 	System.out.println(review);
-
-	/*
-	String sessionId = "sessionId";
-	String no = "no";
-	String director = "director";
-	String title = "title";
-	String userid = "userid";
-	String score = "score";
-	String review = "review";
-	String date = "date";*/
-	%>
-	<%
+	
 	if (userid.equals("_")) {
 	%>
 	<div class="review_text-box" style="display: flex; align-items: center; justify-content: center;">
-		<button id="login-btn" type="submit" class="btn btn-primary" style="font-size: 25px;">로그인</button>
+		<button id="login-btn" type="submit" class="btn btn-primary" style="font-size: 25px;"
+			onclick="location.href='signin.jsp'">로그인</button>
 	</div>
 	<%
 	} else {
@@ -51,7 +41,6 @@
 		<input id="<%=no%>_title" type="hidden" value="<%=title%>">
 		<input id="<%=no%>_director" type="hidden" value="<%=director%>">
 		<input id="<%=no%>_userid" type="hidden" value="<%=userid%>">
-		
 		<a href="MovieDetailTest.jsp?title=<%=title%>&director=<%=director%>">
 			<output></output>
 			<label id="<%=no%>_movie_title" class="review_title"><%=title%></label>
@@ -70,6 +59,8 @@
 		<%
 		if (isMyReview.equals("t")) {
 		%>
+		<input id="<%=no%>_de" class="trbtn_de" type="button" onclick="checkSignUpData()" value="삭제"
+			style="background: red;">
 		<input id="<%=no%>" class="trbtn" type="button" onclick="checkSignUpData()" value="저장">
 		<%
 		}
@@ -94,11 +85,18 @@
 
 		function checkSignUpData() {
 
-			//alert("checkSignUpData");
-
-			var form = document.getElementById('signupForm');
-
 			var no = event.target.id;
+			//const str = 'Hello, World, Javascript';
+			var fun = "update";
+
+			//alert(no.endsWith('de'));
+
+			if (no.endsWith('de')) {
+				no = no.split("_")[0];
+				fun = "del";
+			}
+
+			//alert("아이디 : " + no);
 			var number = document.getElementById(no + "_no").value
 
 			//alert(number);
@@ -114,12 +112,10 @@
 
 			var jsid = document.getElementById(no + "_userid").value
 
-			//alert(jsid);
-			
-			//return false;
-			
+
 			var errorMessages = "";
 			var data = {
+				"fun" : fun,
 				"number" : number,
 				"title" : title,
 				"userid" : jsid,
@@ -128,7 +124,7 @@
 				"score" : score
 			};
 
-			alert(data);
+			//alert(data);
 			var result = -1;
 			$.ajax({
 				type : "POST",
@@ -140,18 +136,29 @@
 					// 서버로부터의 응답 처리
 					result = response.message;
 
-					alert(response.message + ":" + (result == 1)); // 서버의 응답 메시지 출력
+					//alert(response.message + ":" + (result == 1)); // 서버의 응답 메시지 출력
 				}
 			});
-
-			if (result == 0) {
-				alert("리뷰 수정");
-			} else if (result == 1) {
-				alert("리뷰 수정 실패");
-				return false;
+			if (fun == "update") {
+				if (result == 0) {
+					alert("리뷰 저장");
+				} else if (result == 1) {
+					alert("리뷰 저장 실패");
+					return false;
+				} else {
+					alert("리뷰 저장 에러.");
+					return false;
+				}
 			} else {
-				alert("리뷰 수정 에러.");
-				return false;
+				if (result == 0) {
+					alert("리뷰 삭제");
+				} else if (result == 1) {
+					alert("리뷰가 없음");
+					return false;
+				} else {
+					alert("리뷰 삭제 에러.");
+					return false;
+				}
 			}
 			// DB등록
 			location.reload();

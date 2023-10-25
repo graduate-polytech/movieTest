@@ -26,7 +26,7 @@
 									<a class="dropdown-item" href="movietest.jsp">영화 검색</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="#">영화추천</a>
+									<a class="dropdown-item" href="MovieRecommendation.jsp">영화추천</a>
 								</li>
 							</ul>
 						</li>

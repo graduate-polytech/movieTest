@@ -9,6 +9,24 @@ public class Data_Review {
 	String director = "";
 	int score = 0;
 	String review = "";
+	
+	public Data_Review() {
+	}
+	
+	public Data_Review(String no, String userid, String title, String director, String score, String review) {
+		super();
+		try {
+			this.no = Integer.parseInt(no);
+		} catch(Exception e) {
+			this.no = -1;
+		}
+		this.userid = userid;
+		this.title = title;
+		this.director = director;
+		this.score = Integer.parseInt(score);
+		this.review = review;
+	}
+
 	Date date = new Date();
 
 	public int getNo() {
@@ -44,6 +62,7 @@ public class Data_Review {
 	}
 
 	public int getScore() {
+		System.out.println("getScore : " + score);
 		return score;
 	}
 

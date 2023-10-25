@@ -1,5 +1,5 @@
 package KMDB;
-
+//삭제
 //String jsonFilePath = "C:\\Users\\gusrl\\Desktop\\tt.json";
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

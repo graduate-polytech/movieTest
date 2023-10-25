@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 public class DatabaseConnection {
 
-	private Connection connection;
+	protected Connection connection;
 
 	private final String jdbcUrl = "jdbc:mysql://121.130.132.95:3306/moviedb"; // 데이터베이스 URL
 	private final String jdbcUsername = "outlineuser"; // 데이터베이스 사용자 이름

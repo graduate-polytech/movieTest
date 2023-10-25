@@ -15,18 +15,20 @@ public class LoadKMDBData {
 	long count;
 	ArrayList<KMDB_Data> KMDB_DataList = null;
 
-	LoadKMDBData() {
+	public LoadKMDBData() {
 		
 //		KMDB_DataList = getKMDB_movieSeq("55873");	//아이디로 검새
-		KMDB_DataList = getKMDB_title("타짜");	//제목으로 검색
-//		KMDB_DataList = getKMDB_director("55873");	//감독으로 검색
-//		KMDB_DataList = getKMDB_titleDirector("55873","");	//제목과 감독으로 검색
-		
-		if(KMDB_DataList!=null && KMDB_DataList.size()>0) {
-			for(KMDB_Data data : KMDB_DataList) {
-				System.out.println("[" +data.getMovieSeq()+ "] 제목: " + data.getTitle());
-			}
-		}
+//		KMDB_DataList = getKMDB_title("아이언맨");	//제목으로 검색
+//		KMDB_DataList = getKMDB_director("봉준호");	//감독으로 검색
+//		KMDB_DataList = getKMDB_titleDirector("아이언맨","존 파브로");	//제목과 감독으로 검색
+//		
+//		if(KMDB_DataList!=null && KMDB_DataList.size()>0) {
+//			for(KMDB_Data data : KMDB_DataList) {
+//				System.out.println(data.getDirectors().get(0).getDirectorNm());
+//				//
+//				System.out.println(data.toString());
+//			}
+//		}
 		
 	}
 
@@ -43,6 +45,15 @@ public class LoadKMDBData {
 			return "";
 		}
 	}
+	public String Condition(String Key, int value) {
+
+		try {
+			return ("&" + URLEncoder.encode(Key, "UTF-8") + "=" + value);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return "";
+		}
+	}
 
 	public ArrayList<KMDB_Data> getKMDB_movieSeq(String movieSeq) {
 		
@@ -52,27 +63,31 @@ public class LoadKMDBData {
 		return loadApi(urlBuilder);
 
 	}
-	public ArrayList<KMDB_Data> getKMDB_title(String title) {
+	public ArrayList<KMDB_Data> getKMDB_title(String title) { //제목을 사용한 영화 검색
 		
 		StringBuilder urlBuilder = new StringBuilder(api_url);
 		urlBuilder.append(Condition("title", title));
+		urlBuilder.append(Condition("sort", "prodYear,1"));	//최신영화 순으로 나열
+		//prodYear
 
 		return loadApi(urlBuilder);
 
 	}
-	public ArrayList<KMDB_Data> getKMDB_director(String director) {
+	public ArrayList<KMDB_Data> getKMDB_director(String director) { //감독명을 사용한 영화 검색
 		
 		StringBuilder urlBuilder = new StringBuilder(api_url);
 		urlBuilder.append(Condition("director", director));
+		urlBuilder.append(Condition("sort", "prodYear,1"));	//최신영화 순으로 나열
 
 		return loadApi(urlBuilder);
 
 	}
-	public ArrayList<KMDB_Data> getKMDB_titleDirector(String title,String director) {
+	public ArrayList<KMDB_Data> getKMDB_titleDirector(String title,String director) { //제목과 감독명을 사용한 영화 검색
 		
 		StringBuilder urlBuilder = new StringBuilder(api_url);
 		urlBuilder.append(Condition("title", title));
 		urlBuilder.append(Condition("director", director));
+//		urlBuilder.append(Condition("sort", "prodYear,1"));	//최신영화 순으로 나열
 
 		return loadApi(urlBuilder);
 

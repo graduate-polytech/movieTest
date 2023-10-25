@@ -1,11 +1,28 @@
 package KMDB;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class KMDB_Data {
+	
+	@Override
+	public String toString() {
+		return "KMDB_Data [ALIAS=" + ALIAS + ", audiAcc=" + audiAcc + ", Awards1=" + Awards1 + ", Awards2=" + Awards2
+				+ ", company=" + company + ", DOCID=" + DOCID + ", episodes=" + episodes + ", fLocation=" + fLocation
+				+ ", genre=" + genre + ", keywords=" + keywords + ", kmdbUrl=" + kmdbUrl + ", modDate=" + modDate
+				+ ", movieId=" + movieId + ", movieSeq=" + movieSeq + ", nation=" + nation + ", openThtr=" + openThtr
+				+ ", posters=" + Arrays.toString(posters) + ", prodYear=" + prodYear + ", ratedYn=" + ratedYn
+				+ ", rating=" + rating + ", regDate=" + regDate + ", repRatDate=" + repRatDate + ", repRlsDate="
+				+ repRlsDate + ", runtime=" + runtime + ", salesAcc=" + salesAcc + ", screenArea=" + screenArea
+				+ ", screenCnt=" + screenCnt + ", soundtrack=" + soundtrack + ", statDate=" + statDate + ", statSouce="
+				+ statSouce + ", stlls=" + Arrays.toString(stlls) + ", themeSong=" + themeSong + ", title=" + title
+				+ ", titleEng=" + titleEng + ", titleEtc=" + titleEtc + ", titleOrg=" + titleOrg + ", type=" + type
+				+ ", use=" + use + "]";
+	}
 
 	ArrayList<rating> ratings;
 	ArrayList<plot> plots;
@@ -95,12 +112,13 @@ public class KMDB_Data {
 			String directorEnNm = (String)result.get("directorEnNm");
 			String directorId = (String)result.get("directorId");
 			String directorNm = (String)result.get("directorNm");
+			directorNm = directorNm.replaceAll("!HE", "").replaceAll("!HS", "").replaceAll("\\s+", " ").trim();
 			
 			director data = new director();
 			data.setDirectorEnNm(directorEnNm);
 			data.setDirectorId(directorId);
 			data.setDirectorNm(directorNm);
-			
+			//System.out.println(directorNm + "추가됨");
 			list.add(data);
 		}
 
@@ -526,7 +544,7 @@ public class KMDB_Data {
 	/*------------------------------------------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------------------*/
 
-	class actor {
+	public class actor {
 		public actor(String actorEnNm, String actorId, String actorNm) {
 			super();
 			this.actorEnNm = actorEnNm;
@@ -535,7 +553,6 @@ public class KMDB_Data {
 		}
 
 		public actor() {
-			// TODO Auto-generated constructor stub
 		}
 
 		String actorEnNm;
@@ -567,7 +584,7 @@ public class KMDB_Data {
 		}
 	}
 
-	class director {
+	public class director {
 		public director(String directorEnNm, String directorId, String directorNm) {
 			super();
 			this.directorEnNm = directorEnNm;
@@ -576,7 +593,6 @@ public class KMDB_Data {
 		}
 
 		public director() {
-			// TODO Auto-generated constructor stub
 		}
 
 		String directorEnNm;
@@ -608,7 +624,7 @@ public class KMDB_Data {
 		}
 	}
 
-	class plot {
+	public class plot {
 		public plot(String plotLang, String plotText) {
 			super();
 			this.plotLang = plotLang;
@@ -639,7 +655,7 @@ public class KMDB_Data {
 		}
 	}
 
-	class rating {
+	public class rating {
 		public rating(String ratingDate, String ratingGrade, String ratingMain, String ratingNo, String releaseDate,
 				String runtime) {
 			super();
@@ -711,7 +727,7 @@ public class KMDB_Data {
 		}
 	}
 
-	class staff {
+	public class staff {
 		public staff(String staffEnNm, String staffEtc, String staffId, String staffNm, String staffRole,
 				String staffRoleGroup) {
 			super();
@@ -784,7 +800,7 @@ public class KMDB_Data {
 
 	}
 
-	class vod {
+	public class vod {
 		public vod(String vodClass, String vodUrl) {
 			super();
 			this.vodClass = vodClass;

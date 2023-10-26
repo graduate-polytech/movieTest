@@ -102,6 +102,7 @@ public class DayBox3 {
                         boxData2 Daydata = new boxData2();
                         Daydata.setRank(movieData.getString("rank"));
                         Daydata.setRankInten(movieData.getString("rankInten"));//랭킹 증감분
+                        Daydata.setRankOldAndNew(movieData.getString("rankOldAndNew"));
                         Daydata.setMovieNm(movieTitle);
                         Daydata.setMovieCd(movieCd);
                         String openDt = movieData.getString("openDt");
@@ -196,11 +197,12 @@ public class DayBox3 {
         return null;
     }
     public static void main(String[] args) throws IOException {
-        List<boxData2> movieDataList = fetchDataByDate("20231008");
+        List<boxData2> movieDataList = fetchDataByDate("20231025");
 
         for (boxData2 movieData : movieDataList) {
             System.out.println("랭킹: " + movieData.getRank());
             System.out.println("랭킹 증감분 : " + movieData.getRankInten());
+            System.out.println("랭킹 신규구분 : " + movieData.getRankOldAndNew());
             System.out.println("영화 제목: " + movieData.getMovieNm());
             System.out.println("영화 코드: " + movieData.getMovieCd());
             System.out.println("개봉일: " + movieData.getOpenDt());

@@ -31,8 +31,7 @@ public class BoxOfficeServlet extends HttpServlet {
             if (movieDataList != null && !movieDataList.isEmpty()) {
                 // 영화 데이터를 JSON 형식으로 변환
                 String jsonData = convertToJSON(movieDataList);
-
-                // JSON 데이터를 응답으로 전송
+                               // JSON 데이터를 응답으로 전송
                 response.getWriter().write(jsonData);
             } else {
                 // 데이터가 없을 때 에러 메시지를 응답으로 전송
@@ -48,7 +47,8 @@ public class BoxOfficeServlet extends HttpServlet {
         // Gson 라이브러리를 사용하여 영화 데이터를 JSON 형식으로 변환
         Gson gson = new Gson();
         String jsonData = gson.toJson(movieDataList);
-
+        
+        System.out.println(jsonData);
         // JSON 데이터를 반환
         return jsonData;
     }

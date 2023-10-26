@@ -5,6 +5,7 @@ import java.util.List;
 public class boxData2 {
     private String rank;
     private String rankInten;
+    private String rankOldAndNew;
     private String movieCd;
     private String movieNm;
     private String openDt;
@@ -22,6 +23,14 @@ public class boxData2 {
     private String showTm; // 상영시간
     private String nationNm; // 제작국가명
     private String prdtStatNm; // 제작상태
+    
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
 
     public String getAudiInten() {
 		return audiInten;
@@ -33,6 +42,14 @@ public class boxData2 {
 
 	public String getAudiChange() {
 		return audiChange;
+	}
+
+	public String getRankOldAndNew() {
+		return rankOldAndNew;
+	}
+
+	public void setRankOldAndNew(String rankOldAndNew) {
+		this.rankOldAndNew = rankOldAndNew;
 	}
 
 	public void setAudiChange(String audiChange) {
@@ -77,14 +94,6 @@ public class boxData2 {
 
     public void setDirectors(List<String> directors) {
         this.directors = directors;
-    }
-
-    public String getRank() {
-        return rank;
-    }
-
-    public void setRank(String rank) {
-        this.rank = rank;
     }
 
     public String getMovieCd() {

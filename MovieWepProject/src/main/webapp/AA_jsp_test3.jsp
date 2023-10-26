@@ -90,8 +90,24 @@
                 <div class="modal-body">
                     <!-- 모달 내부에 수정할 데이터를 표시하고 입력 상자를 추가합니다 -->
                     <div class="form-group">
-                        <label for="editData">데이터 수정:</label>
-                        <input type="text" class="form-control" id="editData">
+                        <label for="data_1">데이터 수정:</label>
+                        <input type="text" class="form-control inputTextData" id="data_1">
+                    </div>
+                    <div class="form-group">
+                        <label for="data_2">데이터 수정:</label>
+                        <input type="text" class="form-control inputTextData" id="data_2">
+                    </div>
+                    <div class="form-group">
+                        <label for="data_3">데이터 수정:</label>
+                        <input type="text" class="form-control inputTextData" id="data_3">
+                    </div>
+                    <div class="form-group">
+                        <label for="data_4">데이터 수정:</label>
+                        <input type="text" class="form-control inputTextData" id="data_4">
+                    </div>
+                    <div class="form-group">
+                        <label for="data_5">데이터 수정:</label>
+                        <input type="text" class="form-control inputTextData" id="data_5">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -109,10 +125,21 @@
                 var button = $(this); // 클릭된 버튼
                 var rowData = button.closest('tr').find('td'); // 동일한 행의 데이터를 가져옵니다.
                 var modal = $('#myModal');
-                var editInput = modal.find('#editData');
                 
-                // 모달 내 데이터를 설정합니다.
-                editInput.val(rowData.eq(3).text()); // '열 5'에 해당하는 데이터를 모달 입력 상자에 설정
+                var data_1 = modal.find('#data_1');
+                data_1(rowData.eq(0).text());
+                
+                var data_2 = modal.find('#data_2');
+                data_1(rowData.eq(1).text());
+                
+                var data_3 = modal.find('#data_3');
+                data_1(rowData.eq(2).text());
+                
+                var data_4 = modal.find('#data_4');
+                data_1(rowData.eq(3).text());
+                
+                var data_5 = modal.find('#data_5');
+                data_1(rowData.eq(4).text());
             });
 
             // 모달 내의 '저장' 버튼을 클릭할 때 수정된 데이터를 테이블에 적용하는 코드를 추가합니다.
@@ -124,6 +151,9 @@
                 // 수정된 데이터를 테이블에 적용합니다.
                 rowData.find('td').eq(3).text(editedData); // '열 5'에 해당하는 데이터를 수정
                 modal.modal('hide');
+            });
+            $('#myModal').on('hidden.bs.modal', function() {
+                $(this).find('.inputTextData').val(''); // 입력 상자를 비우기
             });
         });
     </script>

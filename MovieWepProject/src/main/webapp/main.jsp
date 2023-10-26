@@ -201,7 +201,7 @@
 													+ "</strong></p>");
 											var releaseDate = $("<p class='movie-release-date'><strong>"
 													+ movieData.openDt
-													+ "</strong></p>");
+													+ "</strong></p>"); 
 
 											recommendedPosterDiv.append(poster);
 											infoDiv.append(title);

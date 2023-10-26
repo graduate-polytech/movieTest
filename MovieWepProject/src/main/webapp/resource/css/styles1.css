@@ -235,21 +235,49 @@ button.btn-primary {
 	min-width: 0px;
 }
 
-/* 영화 제목 스타일 */
-.card-title {
-	font-size: 14px; /* 글자 크기 조정 */
-	margin-left: 10px; /* 왼쪽 여백을 추가하여 제목을 왼쪽으로 이동 */
+/* 갤러리 스타일 */
+.movie-gallery {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    max-width: 1000px; /* 갤러리의 최대 너비 설정 */
 }
 
-/* 인기 영화 포스터 호버 효과 */
-.card:hover .card-img-top {
-	transform: scale(1.2); /* 이미지 크기를 1.1배 확대 */
-	transition: transform 0.3s ease; /* 부드러운 확대 애니메이션 적용 */
+/*인기영화*/
+.movie-item {
+    display: inline-block;
+    width: 250px;
+    margin-right: 10px;
+    text-align: center;
 }
 
-/* 인기 영화 및 추천 영화 스타일 */
-.popular-movie, .recommended-movie {
-	margin-left: 10px; /* 오른쪽 여백을 추가하여 포스터를 왼쪽으로 이동 */
+.movie-gallery::-webkit-scrollbar {
+    width: 0; /* Webkit 브라우저에서 스크롤바 숨기기 */
+}
+
+/* 갤러리 내부 스크롤링 설정 */
+.movie-gallery::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.movie-gallery::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+.movie-gallery::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.poster {
+    width: 200px; /* 필요에 따라 크기 조절 */
+    height: auto;
+    margin-right: 20px; /* 이미지와 텍스트 사이의 간격 조절 */
+}
+
+.movie-details {
+    font-size: 14px; /* 필요에 따라 글꼴 크기 조절 */
 }
 
 /* 하위 메뉴 스타일 */

@@ -43,17 +43,17 @@
 	<div class="row">
 		<!-- 인기 영화 목록 -->
 		<div class="col"></div>
-		<div class="col-8">
+		<div class="col-8">		
 			<div class="side-center">
 				<div class="container mt-5">
 					<h2 class="text-center">인기 영화</h2>
-					<div class="row" id="popularMoviesContainer">
+					<div id="movie-list" class="row">									
 						<!-- 여기에 랜덤한 10개의 인기 영화 포스터가 추가됩니다. -->
 					</div>
 				</div>
 				<div class="container mt-5 ">
 					<h2 class="text-center">추천 영화</h2>
-					<div class="row" id="recommendedMoviesContainer"></div>
+					<div class="row" id=""></div>
 				</div>
 				<h2 class="text-center">나의 영화관</h2>
 				<div id="map" style="width: 80%; height: 250px; margin: 0 auto;"></div>
@@ -82,6 +82,64 @@
 							window.location.href = "signup.jsp";
 						});
 					});
+					
+					$(document).ready(function() {
+					    // 페이지 로드 시 실행할 내용
+					    fetchMovieData();
+					});
+					
+					function formatDate(date) {
+					    // 날짜를 "yymmdd" 형식으로 변환
+						 var year = date.getFullYear();
+						 var month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+						 var day = date.getUTCDate().toString().padStart(2, '0');
+						 return year + month + day;
+					}
+
+					function fetchMovieData() {
+						var today = new Date();
+						var yesterday = new Date(today);
+						yesterday.setDate(today.getDate() - 1);
+						var formattedDate = formatDate(yesterday);
+						    
+					    $.ajax({
+					        type: "GET",
+					        url: "MainBoxServlet", // AJAX 요청을 처리하는 서블릿 경로
+					        data: { targetDate: formattedDate }, // 날짜를 지정
+					        dataType: "json",
+					        success: function(data) {
+					            // 영화 정보를 성공적으로 받았을 때 실행될 함수
+					            displayMovieData(data);
+					        },
+					        error: function() {
+					            alert("영화 정보를 불러오는데 실패했습니다.");
+					        }
+					    });
+					}
+
+					function displayMovieData(data) {
+					    var movieList = $("#movie-list");
+					    movieList.empty(); // 기존 데이터 삭제
+
+					    var gallery = $("<div class='movie-gallery'></div>");
+					    
+					    
+					    $.each(data, function(index, movieData) {
+					        var movieDiv = $("<div class='col-md-3 movie-item'>");
+					        var posterUrl = movieData.posterUrl || "resource/images/흑백로고.png";
+					        var poster = $("<img src='" + posterUrl + "' alt='포스터' class='img-fluid'>");
+					        var title = $("<p class='movie-title'>" + movieData.movieNm + "</p>");
+					        var releaseDate = $("<p class='movie-release-date'>" + movieData.openDt + "</p>");
+					        
+					        movieDiv.append(poster);
+					        movieDiv.append(title);
+					        movieDiv.append(releaseDate);
+					        movieList.append(movieDiv);
+					        gallery.append(movieDiv);
+					    });
+					    movieList.append(gallery);
+					}
+
 				</script>
 			</div>
 		</div>

@@ -10,7 +10,13 @@ public class Cinema {
     String tel;
     String wep;
 
-    public Cinema(String Area_1, String Area_2, String name, float location_x, float location_y, String address, String tel, String wep) {
+    @Override
+	public String toString() {
+		return "Cinema [Area_1=" + Area_1 + ", Area_2=" + Area_2 + ", name=" + name + ", location_x=" + location_x
+				+ ", location_y=" + location_y + ", address=" + address + ", tel=" + tel + ", wep=" + wep + "]";
+	}
+
+	public Cinema(String Area_1, String Area_2, String name, float location_x, float location_y, String address, String tel, String wep) {
         super();
         this.Area_1 = Area_1;
         this.Area_2 = Area_2;

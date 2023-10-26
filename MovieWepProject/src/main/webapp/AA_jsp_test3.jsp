@@ -1,69 +1,132 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/JavaScript" src="/js/jquery-1.8.3.min.js" ></script>
-
-<script language="javascript">
-function getAddr(){
-	$.ajax({
-		 url :"https://business.juso.go.kr/addrlink/addrCoordApiJsonp.do"  //인터넷망
-		,type:"post"
-		,data:$("#form").serialize()
-		,dataType:"jsonp"
-		,crossDomain:true
-		,success:function(jsonStr){
-			$("#list").html("");
-			var errCode = jsonStr.results.common.errorCode;
-			var errDesc = jsonStr.results.common.errorMessage;
-			if(errCode != "0"){
-				alert(errCode+"="+errDesc);
-			}else{
-				if(jsonStr != null){
-					makeListJson(jsonStr);
-				}
-			}
-		}
-	    ,error: function(xhr,status, error){
-	    	alert("에러발생");
-	    }
-	});
-}
-
-function makeListJson(jsonStr){
-	var htmlStr = "";
-	htmlStr += "<table>";
-	$(jsonStr.results.juso).each(function(){
-		htmlStr += "<tr>";
-		htmlStr += "<td>"+this.admCd+"</td>";
-		htmlStr += "<td>"+this.rnMgtSn+"</td>";
-		htmlStr += "<td>"+this.bdMgtSn+"</td>";
-		htmlStr += "<td>"+this.udrtYn+"</td>";
-		htmlStr += "<td>"+this.buldMnnm+"</td>";
-		htmlStr += "<td>"+this.buldSlno+"</td>";
-		htmlStr += "<td>"+this.entX+"</td>";
-		htmlStr += "<td>"+this.entY+"</td>";
-		htmlStr += "<td>"+this.bdNm+"</td>";
-		htmlStr += "</tr>";
-	});
-	htmlStr += "</table>";
-	$("#list").html(htmlStr);
-}
-</script>
-<title>Insert title here</title>
+    <title>테이블 수정</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<form name="form" id="form" method="post">
-	<input type="text" name="resultType" value="json"/> <!-- 요청 변수 설정 (검색결과형식 설정, json) --> 
-	<input type="text" name="confmKey" value="TESTJUSOGOKR"/><!-- 요청 변수 설정 (승인키) -->
-	<input type="text" name="admCd" value=""/> <!-- 요청 변수 설정 (행정구역코드) -->
-	<input type="text" name="rnMgtSn" value=""/><!-- 요청 변수 설정 (도로명코드) --> 
-	<input type="text" name="udrtYn" value=""/> <!-- 요청 변수 설정 (지하여부) -->
-	<input type="text" name="buldMnnm" value=""/><!-- 요청 변수 설정 (건물본번) --> 
-	<input type="text" name="buldSlno" value=""/><!-- 요청 변수 설정 (건물부번) -->
-	<input type="button" onClick="getAddr();" value="좌표검색하기"/>
-	<div id="list" ></div><!-- 검색 결과 리스트 출력 영역 -->
-</form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>열 1</th>
+                <th>열 2</th>
+                <th>열 3</th>
+                <th>열 4</th>
+                <th>열 5</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 테이블 데이터를 동적으로 생성 -->
+            <tr>
+                <td>데이터 1-1</td>
+                <td>데이터 1-2</td>
+                <td>데이터 1-3</td>
+                <td>데이터 1-4</td>
+                <td>
+                    <button type="button" class="btn btn-primary edit-button" data-toggle="modal" data-target="#myModal">
+                        수정
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>데이터 2-1</td>
+                <td>데이터 2-2</td>
+                <td>데이터 2-3</td>
+                <td>데이터 2-4</td>
+                <td>
+                    <button type="button" class="btn btn-primary edit-button" data-toggle="modal" data-target="#myModal">
+                        수정
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>데이터 3-1</td>
+                <td>데이터 3-2</td>
+                <td>데이터 3-3</td>
+                <td>데이터 3-4</td>
+                <td>
+                    <button type="button" class="btn btn-primary edit-button" data-toggle="modal" data-target="#myModal">
+                        수정
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>데이터 4-1</td>
+                <td>데이터 4-2</td>
+                <td>데이터 4-3</td>
+                <td>데이터 4-4</td>
+                <td>
+                    <button type="button" class="btn btn-primary edit-button" data-toggle="modal" data-target="#myModal">
+                        수정
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>데이터 5-1</td>
+                <td>데이터 5-2</td>
+                <td>데이터 5-3</td>
+                <td>데이터 5-4</td>
+                <td>
+                    <button type="button" class="btn btn-primary edit-button" data-toggle="modal" data-target="#myModal">
+                        수정
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- 모달 창 정의 -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">모달 제목</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- 모달 내부에 수정할 데이터를 표시하고 입력 상자를 추가합니다 -->
+                    <div class="form-group">
+                        <label for="editData">데이터 수정:</label>
+                        <input type="text" class="form-control" id="editData">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary save-button">저장</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // '수정' 버튼을 클릭할 때 모달 내 데이터를 설정하는 JavaScript 코드를 추가합니다.
+            $('.edit-button').click(function() {
+                var button = $(this); // 클릭된 버튼
+                var rowData = button.closest('tr').find('td'); // 동일한 행의 데이터를 가져옵니다.
+                var modal = $('#myModal');
+                var editInput = modal.find('#editData');
+                
+                // 모달 내 데이터를 설정합니다.
+                editInput.val(rowData.eq(3).text()); // '열 5'에 해당하는 데이터를 모달 입력 상자에 설정
+            });
+
+            // 모달 내의 '저장' 버튼을 클릭할 때 수정된 데이터를 테이블에 적용하는 코드를 추가합니다.
+            $('.save-button').click(function() {
+                var modal = $('#myModal');
+                var editedData = modal.find('#editData').val();
+                var rowData = $('.modal:visible').closest('tr'); // 수정 중인 모달의 부모 행
+                
+                // 수정된 데이터를 테이블에 적용합니다.
+                rowData.find('td').eq(3).text(editedData); // '열 5'에 해당하는 데이터를 수정
+                modal.modal('hide');
+            });
+        });
+    </script>
 </body>
-</html> 
+</html>
+

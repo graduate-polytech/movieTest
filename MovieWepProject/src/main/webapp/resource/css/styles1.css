@@ -243,12 +243,23 @@ button.btn-primary {
   display: flex; /* 내부 요소들을 가로로 나란히 표시 */
 }
 
-/*인기영화*/
-.movie-item {
-  flex: 0 0 auto; /* 내부 요소들이 크기가 자동으로 조절되지 않도록 함 */
-  margin-right: 20px; /* 각 영화 아이템 간의 간격 설정 */
+.poster{
+	width: 210px;
+	height: 300px;
 }
 
+/*인기영화*/
+.movie-item {
+	display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+/* 포스터 이미지에 호버 효과 추가 */
+.movie-item:hover {
+  transform: scale(1.1); /* 호버 시 이미지 크기를 확대합니다. */
+  transition: transform 0.3s ease-in-out; /* 부드러운 전환 효과를 추가합니다. */
+  cursor: pointer; /* 호버 시 커서를 포인터로 변경합니다. */
+}
 .movie-gallery::-webkit-scrollbar {
     width: 0; /* Webkit 브라우저에서 스크롤바 숨기기 */
 }
@@ -266,11 +277,6 @@ button.btn-primary {
     background: #555;
 }
 
-.poster {
-    width: 200px; /* 필요에 따라 크기 조절 */
-    height: auto;
-    margin-right: 20px; /* 이미지와 텍스트 사이의 간격 조절 */
-}
 
 .movie-details {
     font-size: 14px; /* 필요에 따라 글꼴 크기 조절 */

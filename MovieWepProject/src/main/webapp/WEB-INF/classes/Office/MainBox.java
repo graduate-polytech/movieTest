@@ -24,115 +24,136 @@ import com.google.gson.JsonParser;
 
 public class MainBox {
 
-    private static final String API_KEY = "e7f29f3a771e33fd7d52149b8b31761c";
-    private static final String BASE_API_URL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json";
-    private static final String API_URL = "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json.jsp";
-    private static final String KMDB_API_KEY = "25QF8GG6G9R22N50D3X4"; // 여기에 KMDB API 키를 넣으세요
+	private static final String API_KEY = "e7f29f3a771e33fd7d52149b8b31761c";
+	private static final String BASE_API_URL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json";
+	private static final String API_URL = "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json.jsp";
+	private static final String KMDB_API_KEY = "25QF8GG6G9R22N50D3X4"; // 여기에 KMDB API 키를 넣으세요
 
-    public static List<MainBoxCtor> fetchDataByDate(String targetDt) {
-        HttpClient httpClient = HttpClients.createDefault();
-        List<MainBoxCtor> movieDayDataList = new ArrayList<>();
+	public static List<MainBoxCtor> fetchDataByDate(String targetDt) {
+		HttpClient httpClient = HttpClients.createDefault();
+		List<MainBoxCtor> movieDayDataList = new ArrayList<>();
 
-        try {
-            String apiUrl = BASE_API_URL + "?key=" + API_KEY + "&targetDt=" + targetDt;
-            HttpGet httpGet = new HttpGet(apiUrl);
-            HttpResponse response = httpClient.execute(httpGet);
+		try {
+			String apiUrl = BASE_API_URL + "?key=" + API_KEY + "&targetDt=" + targetDt;
+			HttpGet httpGet = new HttpGet(apiUrl);
+			HttpResponse response = httpClient.execute(httpGet);
 
-            if (response.getStatusLine().getStatusCode() == 200) {
-                String json = EntityUtils.toString(response.getEntity());
-                JSONObject jsonObject = new JSONObject(json);
-                JSONObject boxOfficeResult = jsonObject.getJSONObject("boxOfficeResult");
-                JSONArray dailyBoxOfficeList = boxOfficeResult.getJSONArray("dailyBoxOfficeList");
+			if (response.getStatusLine().getStatusCode() == 200) {
+				String json = EntityUtils.toString(response.getEntity());
+				JSONObject jsonObject = new JSONObject(json);
+				JSONObject boxOfficeResult = jsonObject.getJSONObject("boxOfficeResult");
+				JSONArray dailyBoxOfficeList = boxOfficeResult.getJSONArray("dailyBoxOfficeList");
 
-                for (int i = 0; i < dailyBoxOfficeList.length(); i++) {
-                    JSONObject movieData = dailyBoxOfficeList.getJSONObject(i);
-                    String movieTitle = movieData.getString("movieNm");
-                    String releaseDt = movieData.getString("openDt");
+				for (int i = 0; i < dailyBoxOfficeList.length(); i++) {
+					JSONObject movieData = dailyBoxOfficeList.getJSONObject(i);
+					String movieTitle = movieData.getString("movieNm");
+					String releaseDt = movieData.getString("openDt");
 
-                    String posterUrl = searchMoviePoster(movieTitle, releaseDt);
+					String[] data = searchMoviePoster(movieTitle, releaseDt);
 
-                    MainBoxCtor Daydata = new MainBoxCtor();
-                    Daydata.setRank(movieData.getString("rank"));
-                    Daydata.setMovieNm(movieTitle);
-                    Daydata.setOpenDt(releaseDt);
-                    Daydata.setPosterUrl(posterUrl);
+					String posterUrl = data[0];
+					String movieSeq = data[1];
 
-                    movieDayDataList.add(Daydata);
-                }
-            } else {
-                System.err.println("API 호출 오류: " + response.getStatusLine().getReasonPhrase());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+					MainBoxCtor Daydata = new MainBoxCtor();
+					Daydata.setRank(movieData.getString("rank"));
+					Daydata.setMovieNm(movieTitle);
+					Daydata.setOpenDt(releaseDt);
+					Daydata.setPosterUrl(posterUrl);
+					Daydata.setMovieSeq(movieSeq);
 
-        return movieDayDataList;
-    }
+					movieDayDataList.add(Daydata);
+				}
+			} else {
+				System.err.println("API 호출 오류: " + response.getStatusLine().getReasonPhrase());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-    public static String searchMoviePoster(String query, String releaseDt) throws IOException {
-        String encodedQuery = URLEncoder.encode(query, "UTF-8");
-        String encodedReleaseDt = URLEncoder.encode(releaseDt, "UTF-8");
+		return movieDayDataList;
+	}
 
-        String apiUrl = API_URL + "?ServiceKey=" + KMDB_API_KEY +
-            "&collection=kmdb_new&title=" + encodedQuery +
-            "&releaseDts=" + encodedReleaseDt +
-            "&detail=Y&listCount=" + 1; // 결과를 1개만 가져오기 위해 1로 설정
+	public static String[] searchMoviePoster(String query, String releaseDt) throws IOException {
 
-        URL url = new URL(apiUrl);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
+		String[] result = { "", "" };
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-        StringBuilder response = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            response.append(line);
-        }
-        reader.close();
-        conn.disconnect();
+		String encodedQuery = URLEncoder.encode(query, "UTF-8");
+		String encodedReleaseDt = URLEncoder.encode(releaseDt, "UTF-8");
 
-        JsonParser jsonParser = new JsonParser();
+		String apiUrl = API_URL + "?ServiceKey=" + KMDB_API_KEY + "&collection=kmdb_new&title=" + encodedQuery
+				+ "&releaseDts=" + encodedReleaseDt + "&detail=Y&listCount=" + 1; // 결과를 1개만 가져오기 위해 1로 설정
 
-        JsonObject jsonResponse = jsonParser.parse(response.toString()).getAsJsonObject();
+		URL url = new URL(apiUrl);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
 
-        JsonArray data = jsonResponse.getAsJsonArray("Data");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+		StringBuilder response = new StringBuilder();
+		String line;
+		while ((line = reader.readLine()) != null) {
+			response.append(line);
+		}
+		reader.close();
+		conn.disconnect();
 
-        if (data == null || data.size() == 0) {
-            System.out.println("데이터가 없습니다.");
-            return null;
-        }
+		JsonParser jsonParser = new JsonParser();
 
-        JsonArray results = data.get(0).getAsJsonObject().getAsJsonArray("Result");
+		JsonObject jsonResponse = jsonParser.parse(response.toString()).getAsJsonObject();
 
-        if (results == null || results.size() == 0) {
-            System.out.println("검색 결과가 없습니다.");
-            return null;
-        }
+		JsonArray data = jsonResponse.getAsJsonArray("Data");
 
-        JsonObject firstResult = results.get(0).getAsJsonObject();
+		if (data == null || data.size() == 0) {
+			System.out.println("데이터가 없습니다.");
+			return result;
+		}
 
-        JsonElement postersElement = firstResult.get("posters");
+		JsonArray results = data.get(0).getAsJsonObject().getAsJsonArray("Result");
 
-        if (postersElement != null && postersElement.isJsonPrimitive()) {
-            String postersValue = postersElement.getAsString();
-            String[] posterUrls = postersValue.split("\\|");
-            if (posterUrls.length > 0) {
-                return posterUrls[0];
-            }
-        }
+		if (results == null || results.size() == 0) {
+			System.out.println("검색 결과가 없습니다.");
+			return result;
+		}
 
-        return null;
-    }
+		JsonObject firstResult = results.get(0).getAsJsonObject();
 
-    public static void main(String[] args) throws IOException {
-        List<MainBoxCtor> movieDataList = fetchDataByDate("20230908");
+		JsonElement postersElement = firstResult.get("posters");
+		try {
+			if (postersElement != null && postersElement.isJsonPrimitive()) {
+				String postersValue = postersElement.getAsString();
+				String[] posterUrls = postersValue.split("\\|");
+				if (posterUrls.length > 0) {
+					result[0] = posterUrls[0];
+					// return posterUrls[0];
+				}
+			}
+		} catch (Exception e) {
+			result[0] = "";
+		}
+		try {
+			JsonElement movieSeqElement = firstResult.get("movieSeq");
+			if (movieSeqElement != null) {
+				if (movieSeqElement.isJsonPrimitive()) {
+					String movieSeqValue = movieSeqElement.getAsString();
 
-        for (MainBoxCtor movieData : movieDataList) {
-            System.out.println("랭킹: " + movieData.getRank());
-            System.out.println("영화 제목: " + movieData.getMovieNm());
-            System.out.println("개봉일: " + movieData.getOpenDt());
-            System.out.println("포스터 URL: " + movieData.getPosterUrl());
-            System.out.println();
-        }
-    }
+					result[1] = movieSeqValue;
+				}
+			}
+		} catch (Exception e) {
+			result[1] = "";
+		}
+
+		return result;
+	}
+
+	public static void main(String[] args) throws IOException {
+		List<MainBoxCtor> movieDataList = fetchDataByDate("20230908");
+
+		for (MainBoxCtor movieData : movieDataList) {
+			System.out.println("랭킹: " + movieData.getRank());
+			System.out.println("영화 제목: " + movieData.getMovieNm());
+			System.out.println("개봉일: " + movieData.getOpenDt());
+			System.out.println("포스터 URL: " + movieData.getPosterUrl());
+			System.out.println();
+		}
+	}
 }

@@ -4,15 +4,24 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CinemaDataAccess {
-    private DatabaseConnection databaseConnection = new DatabaseConnection();
-
+public class CinemaDataAccess extends DatabaseConnection{
+	CinemaDataAccess(){
+		List<Cinema> datas = getAllCinemaData();
+		for(Cinema data : datas) {
+			System.out.println(data.toString());
+			
+		}
+	}
+	public static void main(String[] args) {
+		new CinemaDataAccess();
+	}
+	
     public List<Cinema> getAllCinemaData() {
         List<Cinema> cinemaList = new ArrayList<>();
         Connection connection = null;
 
         try {
-            connection = databaseConnection.getConnection();
+            connection = getConnection();
             String sql = "SELECT * FROM cinema";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -36,7 +45,7 @@ public class CinemaDataAccess {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            databaseConnection.closeConnection(connection);
+            closeConnection(connection);
         }
 
         return cinemaList;

@@ -237,20 +237,16 @@ button.btn-primary {
 
 /* 갤러리 스타일 */
 .movie-gallery {
-    display: flex;
-    overflow-x: auto;
-    white-space: nowrap;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    max-width: 1000px; /* 갤러리의 최대 너비 설정 */
+  overflow-x: scroll; /* 가로 스크롤 활성화 */
+  white-space: nowrap; /* 요소들이 줄 바꿈되지 않도록 함 */
+  width: 100%; /* 가로 스크롤이 활성화된 영역의 너비를 조절합니다. */
+  display: flex; /* 내부 요소들을 가로로 나란히 표시 */
 }
 
 /*인기영화*/
 .movie-item {
-    display: inline-block;
-    width: 250px;
-    margin-right: 10px;
-    text-align: center;
+  flex: 0 0 auto; /* 내부 요소들이 크기가 자동으로 조절되지 않도록 함 */
+  margin-right: 20px; /* 각 영화 아이템 간의 간격 설정 */
 }
 
 .movie-gallery::-webkit-scrollbar {

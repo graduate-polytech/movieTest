@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page
-	import="boxOffice.*, java.util.List, java.util.ArrayList, java.io.IOException, java.time.LocalDate, java.time.format.DateTimeFormatter"%>
+	import="KMDB.*,KMDB.LoadKMDBData.*, java.util.List, java.util.ArrayList, java.io.IOException, java.time.LocalDate, java.time.format.DateTimeFormatter"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,6 @@
 					<input type="radio" name="types" value="title" checked>
 					제목(title)
 				</label>
-				
 				<label>
 					<input type="radio" name="types" value="director">
 					감독(director)
@@ -73,27 +72,36 @@
 		String movieTitle = request.getParameter("title");
 		String resultHtml = ""; // 검색 결과를 저장할 빈 HTML 문자열
 		String types = request.getParameter("types");
-
+		ArrayList<KMDB_Data> movieInfoList = null;
 		if (movieTitle != null && !movieTitle.isEmpty()) {
-			List<MovieInfo> movieInfoList = boxOffice.MovieDetail2.searchMovieInfo(movieTitle, types);
+
+			LoadKMDBData loadData = new LoadKMDBData();
+
+			if (types.equals("title")) {
+				movieInfoList = loadData.getKMDB_title(movieTitle);
+			} else {
+				movieInfoList = loadData.getKMDB_director(movieTitle);
+			}
 
 			if (movieInfoList != null && !movieInfoList.isEmpty()) {
-				for (MovieInfo movieInfo : movieInfoList) {
-			String title = movieInfo.getMovieTitle();
-			String director = movieInfo.getDirectorName();
-			String nation = movieInfo.getNation();
-			String genre = movieInfo.getGenre();
-			String prodYear = movieInfo.getProdYear();
+				for (KMDB_Data movieInfo : movieInfoList) {
 
-			List<String> posters = movieInfo.getPosters();
-
-			resultHtml += "<div class='row mt-3'>";
-			resultHtml += "<div class='col-md-4'>";
-			String posterUrl = posters.get(0);
-			if (posters != null && !posters.isEmpty() && !posterUrl.equals("")) {
+					String movieSeq =  movieInfo.getMovieSeq();
+					String title = movieInfo.getTitle();
+					String director = movieInfo.getDirectors().get(0).getDirectorNm();
+					String nation = movieInfo.getNation();
+					String genre = movieInfo.getGenre();
+					String prodYear = movieInfo.getProdYear();
+		
+					String posterUrl = movieInfo.getPosters()[0];
+		
+					resultHtml += "<div class='row mt-3'>";
+					resultHtml += "<div class='col-md-4'>";
+		
+					if (posterUrl != null && !posterUrl.isEmpty() && !posterUrl.equals("")) {
 
 				// 포스터 이미지가 있는 경우
-				resultHtml += "<a href='MovieDetailTest.jsp?title=" + title + "&director=" + director + "'>";
+				resultHtml += "<a href='MovieInfoOfMovieSeq.jsp?movieSeq=" + movieSeq + "'>";
 				resultHtml += "<img class='poster-img' src='" + posterUrl + "' alt='포스터' style='max-width: 100%;'>";
 				resultHtml += "</a>";
 			} else {
@@ -102,7 +110,7 @@
 			}
 			resultHtml += "</div>";
 			resultHtml += "<div class='col-md-8'>";
-			resultHtml += "<h4><a href='MovieDetailTest.jsp?title=" + title + "&director=" + director + "'>" + title
+			resultHtml += "<h4><a href='MovieInfoOfMovieSeq.jsp?movieSeq=" + movieSeq + "'>" + title
 					+ " (" + prodYear + ")</a></h4>";
 			resultHtml += "<p>감독: " + director + "</p>";
 			resultHtml += "<p>장르: " + genre + "</p>";
@@ -121,11 +129,11 @@
 			<h2 class="text-center"></h2>
 			<%=resultHtml%>
 		</div>
+	</div>
+	<footer>
+		<div id="bottom">
+			<jsp:include page="loadFile/bottom.jsp" />
 		</div>
-		<footer>
-			<div id="bottom">
-				<jsp:include page="loadFile/bottom.jsp" />
-			</div>
-		</footer>
+	</footer>
 </body>
 </html>

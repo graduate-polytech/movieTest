@@ -19,7 +19,7 @@ function getPosition(name) {
 		bottom : rect.bottom,
 		left : rect.left
 	}
-}
+} 
 
 // JavaScript 코드   보여주기 위한 자바스크립트 코드 이걸 kdmb 영화 검색 api가 적용되어야 하기 때문에 필히 수정해야 한다.
 document.addEventListener("DOMContentLoaded", function() {

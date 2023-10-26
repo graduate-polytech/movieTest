@@ -252,7 +252,7 @@ button.btn-primary {
 .movie-item {
 	display: flex;
     align-items: center;
-    flex-direction: column;
+    flex-direction: column; 
 }
 /* 포스터 이미지에 호버 효과 추가 */
 .movie-item:hover {

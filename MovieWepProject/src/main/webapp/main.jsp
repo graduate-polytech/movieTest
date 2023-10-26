@@ -43,17 +43,17 @@
 	<div class="row">
 		<!-- 인기 영화 목록 -->
 		<div class="col"></div>
-		<div class="col-8">
+		<div class="col-8">		
 			<div class="side-center">
 				<div class="container mt-5">
 					<h2 class="text-center">인기 영화</h2>
-					<div class="row" id="popularMoviesContainer">
+					<div id="movie-list" class="row">									
 						<!-- 여기에 랜덤한 10개의 인기 영화 포스터가 추가됩니다. -->
 					</div>
 				</div>
 				<div class="container mt-5 ">
 					<h2 class="text-center">추천 영화</h2>
-					<div class="row" id="recommendedMoviesContainer"></div>
+					 <div id="recommended-movie-list" class="row"></div>
 				</div>
 				<h2 class="text-center">나의 영화관</h2>
 				<div id="map" style="width: 80%; height: 250px; margin: 0 auto;"></div>
@@ -82,6 +82,116 @@
 							window.location.href = "signup.jsp";
 						});
 					});
+					
+					$(document).ready(function() {
+					    // 페이지 로드 시 실행할 내용
+					    fetchMovieData();
+					});
+					
+					$(document).ready(function() {
+					    // 좌우 화살표 클릭 이벤트 처리
+					    $("#scroll-left").click(function() {
+					        $(".movie-gallery").animate({
+					            scrollLeft: "-=200"
+					        }, "slow");
+					    });
+
+					    $("#scroll-right").click(function() {
+					        $(".movie-gallery").animate({
+					            scrollLeft: "+=200"
+					        }, "slow");
+					    });
+					});
+
+					
+					function formatDate(date) {
+					    // 날짜를 "yyyymmdd" 형식으로 변환
+						 var year = date.getFullYear();
+						 var month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+						 var day = date.getUTCDate().toString().padStart(2, '0');
+						 return year + month + day;
+					}
+
+					function fetchMovieData() {
+						var today = new Date();
+						var yesterday = new Date(today);
+						yesterday.setDate(today.getDate() - 1);
+						var formattedDate = formatDate(yesterday);
+						    
+					    $.ajax({
+					        type: "GET",
+					        url: "MainBoxServlet", // AJAX 요청을 처리하는 서블릿 경로
+					        data: { targetDate: formattedDate }, // 날짜를 지정
+					        dataType: "json",
+					        success: function(data) {
+					            // 영화 정보를 성공적으로 받았을 때 실행될 함수
+					            displayMovieData(data);
+					        },
+					        error: function() {
+					            alert("영화 정보를 불러오는데 실패했습니다.");
+					        }
+					    });
+					}
+
+					function displayMovieData(data) {
+					    var movieList = $("#movie-list");
+					    movieList.empty(); // 기존 데이터 삭제
+
+					    var gallery = $("<div class='movie-gallery'></div>");
+					    
+					    
+					    $.each(data, function(index, movieData) {
+				            var posterDiv = $("<div class='text-center'>");
+				            var movieDiv = $("<div class='col-md-3 movie-item'>");
+				            var posterUrl = movieData.posterUrl || "resource/images/흑백로고.png";
+				            var poster = $("<img src='" + posterUrl + "' alt='포스터' class='img-fluid'>");
+
+				            // 제목과 개봉일을 감싸는 div를 추가하고 스타일 적용
+				            var infoDiv = $("<div class='movie-info text-center'>");
+				            var title = $("<p class='movie-title'><strong>" + movieData.movieNm + "</strong></p>");
+				            var releaseDate = $("<p class='movie-release-date'><strong>" + movieData.openDt + "</strong></p>");
+
+				            posterDiv.append(poster);
+				            infoDiv.append(title);
+				            infoDiv.append(releaseDate);
+
+				            movieDiv.append(poster);
+				            movieDiv.append(infoDiv);
+				            movieList.append(movieDiv);
+				            gallery.append(movieDiv);
+				        });
+				        movieList.append(gallery);
+				    }
+					
+					//추천 영화 형식을 인기 영화 형식으로 만들었습니다.
+					function displayRecommendedMovieData(recommendedData) {
+					    var recommendedMovieList = $("#recommended-movie-list");
+					    recommendedMovieList.empty(); // 기존 데이터 삭제
+
+					    var recommendedGallery = $("<div class='movie-gallery'>");
+
+					    $.each(recommendedData, function(index, movieData) {
+					        var recommendedPosterDiv = $("<div class='text-center'>");
+					        var recommendedMovieDiv = $("<div class='col-md-3 movie-item'>");
+					        var posterUrl = movieData.posterUrl || "resource/images/흑백로고.png";
+					        var poster = $("<img src='" + posterUrl + "' alt='포스터' class='img-fluid'>");
+
+					        var infoDiv = $("<div class='movie-info text-center'>");
+					        var title = $("<p class='movie-title'><strong>" + movieData.movieNm + "</strong></p>");
+					        var releaseDate = $("<p class='movie-release-date'><strong>" + movieData.openDt + "</strong></p>");
+
+					        recommendedPosterDiv.append(poster);
+					        infoDiv.append(title);
+					        infoDiv.append(releaseDate);
+
+					        recommendedMovieDiv.append(recommendedPosterDiv);
+					        recommendedMovieDiv.append(infoDiv);
+					        recommendedMovieList.append(recommendedMovieDiv);
+					        recommendedGallery.append(recommendedMovieDiv);
+					    });
+					    recommendedMovieList.append(recommendedGallery);
+					}
+
 				</script>
 			</div>
 		</div>

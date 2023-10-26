@@ -19,16 +19,16 @@ public class LoadKMDBData {
 		
 //		KMDB_DataList = getKMDB_movieSeq("55873");	//아이디로 검새
 //		KMDB_DataList = getKMDB_title("아이언맨");	//제목으로 검색
-//		KMDB_DataList = getKMDB_director("봉준호");	//감독으로 검색
+		KMDB_DataList = getKMDB_director("봉준호");	//감독으로 검색
 //		KMDB_DataList = getKMDB_titleDirector("아이언맨","존 파브로");	//제목과 감독으로 검색
 //		
-//		if(KMDB_DataList!=null && KMDB_DataList.size()>0) {
-//			for(KMDB_Data data : KMDB_DataList) {
-//				System.out.println(data.getDirectors().get(0).getDirectorNm());
-//				//
-//				System.out.println(data.toString());
-//			}
-//		}
+		if(KMDB_DataList!=null && KMDB_DataList.size()>0) {
+			for(KMDB_Data data : KMDB_DataList) {
+				//System.out.println(data.getDirectors().get(0).getDirectorNm());
+				//
+				System.out.println(data.toString());
+			}
+		}
 		
 	}
 

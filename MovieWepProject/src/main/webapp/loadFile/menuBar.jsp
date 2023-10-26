@@ -8,6 +8,17 @@
 <!-- 기존 CSS 스타일 시트 링크 -->
 </head>
 <body>
+	<%
+	Object sessionId = session.getAttribute("userId");
+	
+	String userid = "";
+	if(sessionId != null && !sessionId.equals("") && !sessionId.equals("null")){
+		userid = (String)sessionId;
+	} else{
+		userid = "";
+	}
+	
+	%>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container">
 			<div class="container-fluid">
@@ -25,9 +36,10 @@
 								<li>
 									<a class="dropdown-item" href="movietest.jsp">영화 검색</a>
 								</li>
+								<!-- 
 								<li>
 									<a class="dropdown-item" href="MovieRecommendation.jsp">영화추천</a>
-								</li>
+								</li> -->
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
@@ -66,6 +78,23 @@
 								</li>
 							</ul>
 						</li>
+						<%if(userid.equals("admin")) {%>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false"> 관리자 페이지 </a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<li>
+									<a class="dropdown-item" href="myPage.jsp">유저관리</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="reviewPage.jsp">리뷰 관리</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="reviewPage.jsp">영화관 관리</a>
+								</li>
+							</ul>
+						</li>
+						<%} %>
 					</ul>
 					<form class="navbar-nav ml-auto">
 						<input id="title" class="form-control me-2" type="search" placeholder="Search"
@@ -78,21 +107,23 @@
 		</div>
 	</nav>
 	<script type="text/javascript">
-		  function bar_search() {
-		    var title = document.getElementById("title").value;
-		    if (title.length == 0) {
-		      return;
-		    } else {
-		      window.location.href = "http://localhost:9001/MovieWepProject/movietest.jsp?title=" + title + "&types=title";
-		    }
-		  }
+		function bar_search() {
+			var title = document.getElementById("title").value;
+			if (title.length == 0) {
+				return;
+			} else {
+				window.location.href = "http://localhost:9001/MovieWepProject/movietest.jsp?title="
+						+ title + "&types=title";
+			}
+		}
 
-		  document.getElementById('title').addEventListener('keydown', function(e) {
-		    if (e.key === 'Enter') {
-		    	e.preventDefault();
-		      bar_search();
-		    }
-		  });
+		document.getElementById('title').addEventListener('keydown',
+				function(e) {
+					if (e.key === 'Enter') {
+						e.preventDefault();
+						bar_search();
+					}
+				});
 	</script>
 </body>
 </html>

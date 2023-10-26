@@ -62,7 +62,6 @@ request.setCharacterEncoding("UTF-8");
 			modal.find('.modal-body input').val(recipient)
 		})
 	}
-	
 	</script>
 </body>
 </html>

@@ -7,7 +7,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 
-public class TestKakao {
+public class GeoCodeApi {
 
     private static String GEOCODE_URL="http://dapi.kakao.com/v2/local/search/address.json?query=";
     private static String GEOCODE_USER_INFO="KakaoAK " + "a3138b5db7f6811a7a1e1783dd7720e3"; 
@@ -18,7 +18,7 @@ public class TestKakao {
 	
         try{
             //인코딩한 String을 넘겨야 원하는 데이터를 받을 수 있다.
-            String address = URLEncoder.encode("	경기도 고양시 일산동구 백석동 1242 번지 고양종합터미널 5~7F CGV 고양백석", "UTF-8");
+            String address = URLEncoder.encode("경기도 고양시 일산동구 백석동 1242 번지 고양종합터미널 5~7F CGV 고양백석", "UTF-8");
             
             obj = new URL(GEOCODE_URL+address);
 			

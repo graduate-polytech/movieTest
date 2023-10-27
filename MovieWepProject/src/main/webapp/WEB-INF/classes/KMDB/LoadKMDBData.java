@@ -17,10 +17,10 @@ public class LoadKMDBData {
 
 	public LoadKMDBData() {
 		
-		KMDB_DataList = getKMDB_movieDOCID("F28826");	//아이디로 검새
+//		KMDB_DataList = getKMDB_movieDOCID("B10374");	//아이디로 검새
 //		KMDB_DataList = getKMDB_title("아이언맨");	//제목으로 검색
 //		KMDB_DataList = getKMDB_director("봉준호");	//감독으로 검색
-//		KMDB_DataList = getKMDB_titleDirector("아이언맨","존 파브로");	//제목과 감독으로 검색
+		KMDB_DataList = getKMDB_titleData("그대들은 어떻게 살 것인가","20231025");	//제목과 감독으로 검색
 //		
 		if(KMDB_DataList!=null && KMDB_DataList.size()>0) {
 			for(KMDB_Data data : KMDB_DataList) {
@@ -89,11 +89,11 @@ public class LoadKMDBData {
 		return loadApi(urlBuilder);
 
 	}
-	public ArrayList<KMDB_Data> getKMDB_titleDirector(String title,String director) { //제목과 감독명을 사용한 영화 검색
+	public ArrayList<KMDB_Data> getKMDB_titleData(String title,String date) { //제목과 개봉일을 사용한 영화 검색
 		
 		StringBuilder urlBuilder = new StringBuilder(api_url);
 		urlBuilder.append(Condition("title", title));
-		urlBuilder.append(Condition("director", director));
+		urlBuilder.append(Condition("prodYear", date));
 //		urlBuilder.append(Condition("sort", "prodYear,1"));	//최신영화 순으로 나열
 
 		return loadApi(urlBuilder);
@@ -126,7 +126,12 @@ public class LoadKMDBData {
 			conn.disconnect();
 
 			String responseJson = sb.toString();
+			
+
+			System.out.println(responseJson);
+			
 			result = changeJsonData(responseJson);
+			
 
 		} catch (Exception e) {
 			

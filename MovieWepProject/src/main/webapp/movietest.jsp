@@ -86,7 +86,11 @@
 			if (movieInfoList != null && !movieInfoList.isEmpty()) {
 				for (KMDB_Data movieInfo : movieInfoList) {
 
+					String movieid =  movieInfo.getMovieId();
 					String movieSeq =  movieInfo.getMovieSeq();
+					
+					String DOCID = movieInfo.getDOCID();
+					
 					String title = movieInfo.getTitle();
 					String director = movieInfo.getDirectors().get(0).getDirectorNm();
 					String nation = movieInfo.getNation();
@@ -101,7 +105,7 @@
 					if (posterUrl != null && !posterUrl.isEmpty() && !posterUrl.equals("")) {
 
 				// 포스터 이미지가 있는 경우
-				resultHtml += "<a href='MovieInfoOfMovieSeq.jsp?movieSeq=" + movieSeq + "'>";
+				resultHtml += "<a href='MovieInfoOfMovieSeq.jsp?DOCID=" + DOCID + "'>";
 				resultHtml += "<img class='poster-img' src='" + posterUrl + "' alt='포스터' style='max-width: 100%;'>";
 				resultHtml += "</a>";
 			} else {
@@ -110,7 +114,7 @@
 			}
 			resultHtml += "</div>";
 			resultHtml += "<div class='col-md-8'>";
-			resultHtml += "<h4><a href='MovieInfoOfMovieSeq.jsp?movieSeq=" + movieSeq + "'>" + title
+			resultHtml += "<h4><a href='MovieInfoOfMovieSeq.jsp?DOCID=" + DOCID + "&director=" + director + "&title=" + title + "'>" + title
 					+ " (" + prodYear + ")</a></h4>";
 			resultHtml += "<p>감독: " + director + "</p>";
 			resultHtml += "<p>장르: " + genre + "</p>";

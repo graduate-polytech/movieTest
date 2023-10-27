@@ -30,7 +30,7 @@ public class MainBoxServlet extends HttpServlet {
             if (movieDataList != null && !movieDataList.isEmpty()) {
                 // 영화 데이터를 JSON 형식으로 변환
                 String jsonData = convertToJSON(movieDataList);
-
+                System.out.println("jsonData" + jsonData);
                 // JSON 데이터를 응답으로 전송
                 response.getWriter().write(jsonData);
             } else {

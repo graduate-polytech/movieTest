@@ -46,15 +46,18 @@
 	</header>
 	<h1 id="title" class="text-center">영화 상세정보</h1>
 	<%
-	String movieSeq = request.getParameter("movieSeq");
+	String movieDOCID = request.getParameter("DOCID");
+	
+	String director = request.getParameter("director");
+	String title = request.getParameter("title");
 
 	ArrayList<KMDB_Data> ListData = new ArrayList<KMDB_Data>(); // ListData 리스트를 생성
 
 	LoadKMDBData loadData = new LoadKMDBData();
 	KMDB_Data kmdbData = new KMDB_Data();
-
-	if (movieSeq != null && !movieSeq.isEmpty()) {
-		ArrayList<KMDB_Data> movieInfoList = loadData.getKMDB_movieSeq(movieSeq);
+	System.out.println("movieDOCID : " + movieDOCID);
+	if (movieDOCID != null && !movieDOCID.isEmpty()  && movieDOCID != "undefined") {
+		ArrayList<KMDB_Data> movieInfoList = loadData.getKMDB_movieDOCID(movieDOCID);
 		KMDB_Data data = movieInfoList.get(0);
 		// 영화 정보가 있을 때 처리
 	%>
@@ -103,6 +106,12 @@
 			</div>
 		</div>
 		<%
+		} else{
+			%>
+			<script type="text/javascript">
+			alert("영화 정보를 찾을수 없습니다.");
+			history.back();</script>
+			<%
 		}
 		%>
 		<div class="reviews">

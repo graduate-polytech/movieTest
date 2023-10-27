@@ -17,9 +17,9 @@ public class LoadKMDBData {
 
 	public LoadKMDBData() {
 		
-//		KMDB_DataList = getKMDB_movieSeq("55873");	//아이디로 검새
+		KMDB_DataList = getKMDB_movieDOCID("F28826");	//아이디로 검새
 //		KMDB_DataList = getKMDB_title("아이언맨");	//제목으로 검색
-		KMDB_DataList = getKMDB_director("봉준호");	//감독으로 검색
+//		KMDB_DataList = getKMDB_director("봉준호");	//감독으로 검색
 //		KMDB_DataList = getKMDB_titleDirector("아이언맨","존 파브로");	//제목과 감독으로 검색
 //		
 		if(KMDB_DataList!=null && KMDB_DataList.size()>0) {
@@ -55,9 +55,16 @@ public class LoadKMDBData {
 		}
 	}
 
-	public ArrayList<KMDB_Data> getKMDB_movieSeq(String movieSeq) {
+	public ArrayList<KMDB_Data> getKMDB_movieDOCID(String DOCID) {
+		
+
+		String movieId = DOCID.substring(0, 1);
+		String movieSeq = DOCID.substring(1, 6);
+		
+		
 		
 		StringBuilder urlBuilder = new StringBuilder(api_url);
+		urlBuilder.append(Condition("movieId", movieId));
 		urlBuilder.append(Condition("movieSeq", movieSeq));
 
 		return loadApi(urlBuilder);

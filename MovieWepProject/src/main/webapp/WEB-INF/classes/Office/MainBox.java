@@ -52,14 +52,14 @@ public class MainBox {
 					String[] data = searchMoviePoster(movieTitle, releaseDt);
 
 					String posterUrl = data[0];
-					String movieSeq = data[1];
+					String DOCID = data[1];
 
 					MainBoxCtor Daydata = new MainBoxCtor();
 					Daydata.setRank(movieData.getString("rank"));
 					Daydata.setMovieNm(movieTitle);
 					Daydata.setOpenDt(releaseDt);
 					Daydata.setPosterUrl(posterUrl);
-					Daydata.setMovieSeq(movieSeq);
+					Daydata.setMovieDOCID(DOCID);
 
 					movieDayDataList.add(Daydata);
 				}
@@ -130,11 +130,11 @@ public class MainBox {
 			result[0] = "";
 		}
 		try {
-			JsonElement movieSeqElement = firstResult.get("movieSeq");
+			JsonElement movieSeqElement = firstResult.get("DOCID");
 			if (movieSeqElement != null) {
 				if (movieSeqElement.isJsonPrimitive()) {
 					String movieSeqValue = movieSeqElement.getAsString();
-
+					System.out.println(movieSeqValue);
 					result[1] = movieSeqValue;
 				}
 			}
@@ -146,13 +146,14 @@ public class MainBox {
 	}
 
 	public static void main(String[] args) throws IOException {
-		List<MainBoxCtor> movieDataList = fetchDataByDate("20230908");
+		List<MainBoxCtor> movieDataList = fetchDataByDate("20231025");
 
 		for (MainBoxCtor movieData : movieDataList) {
 			System.out.println("랭킹: " + movieData.getRank());
 			System.out.println("영화 제목: " + movieData.getMovieNm());
 			System.out.println("개봉일: " + movieData.getOpenDt());
 			System.out.println("포스터 URL: " + movieData.getPosterUrl());
+			System.out.println("포스터 DOCID: " + movieData.getMovieDOCID());
 			System.out.println();
 		}
 	}

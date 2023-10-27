@@ -7,14 +7,14 @@ public class MainBoxCtor {
     private String movieNm;
     private String openDt;
     private String posterUrl;
-    private String movieSeq;
+    private String movieDOCID;
 
-    public String getMovieSeq() {
-		return movieSeq;
+    public String getMovieDOCID() {
+		return movieDOCID;
 	}
 
-	public void setMovieSeq(String movieSeq) {
-		this.movieSeq = movieSeq;
+	public void setMovieDOCID(String DOCID) {
+		this.movieDOCID = DOCID;
 	}
 
 	public String getPosterUrl() {

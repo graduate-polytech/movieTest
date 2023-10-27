@@ -144,12 +144,17 @@
 										function(index, movieData) {
 											
 											//
+											//alert(movieData);
+											var movieDOCID = movieData.movieDOCID;
+											if(movieDOCID == undefined){
+												movieDOCID = "";
+											}
 											
-											var movieSeq = movieData.movieSeq;
 											var posterDiv = $("<div class='text-center'>");
 											//MovieInfoOfMovieSeq.jsp?movieSeq=55873
-											var url = "MovieInfoOfMovieSeq.jsp?movieSeq=" + movieSeq;
+											var url = "MovieInfoOfMovieSeq.jsp?DOCID=" + movieDOCID;
 											//onclick='"+url+""'
+											//alert(url);
 											var movieDiv = $("<div class='col-md-3 movie-item' onclick=location.href='"+url+"';>");
 											var posterUrl = movieData.posterUrl
 													|| "resource/images/흑백로고.png";

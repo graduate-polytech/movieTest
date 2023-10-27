@@ -144,7 +144,7 @@ function trySignIn() {
 
 	if (result == 0) {
 		alert("로그인 성공");
-
+		history.back();
 	} else if (result == 1) {
 		alert("로그인 실패");
 		return false;

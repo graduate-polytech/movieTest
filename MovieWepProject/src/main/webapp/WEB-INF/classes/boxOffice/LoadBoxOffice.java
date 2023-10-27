@@ -20,7 +20,7 @@ public class LoadBoxOffice {
 
 	public static void main(String[] args) throws IOException {
 		LoadBoxOffice load = new LoadBoxOffice();
-		load.getBoxOfficeData("20230920",false);
+		load.getBoxOfficeData("20231025",true);
 	}
 
 	public void getBoxOfficeData(String date, boolean isDaily) {

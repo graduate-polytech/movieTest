@@ -55,9 +55,15 @@ public class AdminServlet extends HttpServlet {
 		if(type.equals("user")) {
 			DAO_UserDB dao = new DAO_UserDB();
 			if(doFun.equals("update"))
-			result = dao.updateUserData(datas);
+				result = dao.updateUserData(datas);
 			if(doFun.equals("delete"))
-			result = dao.deleteUserData(datas);
+				result = dao.deleteUserData(datas);
+		}else if(type.equals("review")) {
+			DAO_ReviewDB dao = new DAO_ReviewDB();
+			if(doFun.equals("update"))
+				result = dao.updateReview(datas);
+			if(doFun.equals("delete"))
+				result = dao.deleteReview(datas);
 		}
 
 		System.out.println("리뷰 작성 서블렛 : " + result);

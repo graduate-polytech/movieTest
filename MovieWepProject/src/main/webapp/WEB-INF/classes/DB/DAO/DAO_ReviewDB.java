@@ -21,13 +21,17 @@ public class DAO_ReviewDB extends DatabaseConnection {
 			System.out.println(review.toString());
 		}
 	}
-
+	
 	public ArrayList<Data_Review> getReviewList() {
 		return getReviewList("", "", "");
 	}
 
 	public ArrayList<Data_Review> getReviewList(String userid) {
 		return getReviewList(userid, "", "");
+	}
+	
+	public int deleteReview(String[] data) {
+		return deleteReview(new Data_Review(data));
 	}
 	public int deleteReview(Data_Review data) {
 		int result = -1;
@@ -38,7 +42,7 @@ public class DAO_ReviewDB extends DatabaseConnection {
 		
 		String userid = data.getUserid();
 		String title = data.getTitle();
-		String director = data.getDirector();
+		String DOCID = data.getDOCID();
 		String review = data.getReview();
 		
 		if(no<=0) {
@@ -68,6 +72,9 @@ public class DAO_ReviewDB extends DatabaseConnection {
 
 		return result;
 	}
+	public int updateReview(String[] data) {
+		return updateReview(new Data_Review(data));
+	}
 	public int updateReview(Data_Review data) {
 		int result = -1;
 		int no = data.getNo();
@@ -77,7 +84,7 @@ public class DAO_ReviewDB extends DatabaseConnection {
 		
 		String userid = data.getUserid();
 		String title = data.getTitle();
-		String director = data.getDirector();
+		String DOCID = data.getDOCID();
 		String review = data.getReview();
 		
 		if(no<=0) {
@@ -117,20 +124,20 @@ public class DAO_ReviewDB extends DatabaseConnection {
 		
 		String userid = data.getUserid();
 		String title = data.getTitle();
-		String director = data.getDirector();
+		String DOCID = data.getDOCID();
 		String review = data.getReview();
 		
 		try {
 
 			conn = getConnection();
 			// "SELECT * FROM moviedb.review WHERE ? = ?"
-			String checkIdSql = "insert into moviedb.review(userid,title,director,score,review) value(?,?,?,?,?)";
+			String checkIdSql = "insert into moviedb.review(userid,title,DOCID,score,review) value(?,?,?,?,?)";
 
 			pstmt = conn.prepareStatement(checkIdSql);
 
 			pstmt.setString(1, userid);
 			pstmt.setString(2, title);
-			pstmt.setString(3, director);
+			pstmt.setString(3, DOCID);
 			pstmt.setInt(4, score);
 			//System.out.println("DB추가 점수 : " + score);
 			pstmt.setString(5, review);
@@ -150,11 +157,11 @@ public class DAO_ReviewDB extends DatabaseConnection {
 		return result;
 	}
 
-	public ArrayList<Data_Review> getReviewList(String in_userid, String in_title, String in_director) {
+	public ArrayList<Data_Review> getReviewList(String in_userid, String in_title, String in_DOCID) {
 		ArrayList<Data_Review> reviewList = new ArrayList<Data_Review>();
 		String userid = in_userid.trim();
 		String title = in_title.trim();
-		String director = in_director.trim();
+		String DOCID = in_DOCID.trim();
 		try {
 
 			conn = getConnection();
@@ -169,7 +176,7 @@ public class DAO_ReviewDB extends DatabaseConnection {
 				dataCount = 1;
 			}
 
-			if (title.length() > 0 && director.length() > 0) {
+			if (title.length() > 0 && DOCID.length() > 0) {
 				dataCount = 2;
 			}
 
@@ -180,7 +187,7 @@ public class DAO_ReviewDB extends DatabaseConnection {
 				checkIdSql = "SELECT * FROM moviedb.review WHERE userid = ?";
 				//System.out.println("리뷰 불러오기(아이디)");
 			} else if (dataCount == 2) {
-				checkIdSql = "SELECT * FROM moviedb.review WHERE title = ? and director = ? ORDER BY (userid = ?) DESC";
+				checkIdSql = "SELECT * FROM moviedb.review WHERE DOCID = ? ORDER BY (userid = ?) DESC";
 				//System.out.println("리뷰 불러오기(영화 본인)");
 			}
 
@@ -189,9 +196,8 @@ public class DAO_ReviewDB extends DatabaseConnection {
 			if (dataCount == 1) {
 				pstmt.setString(1, userid);
 			} else if (dataCount == 2) {
-				pstmt.setString(1, title);
-				pstmt.setString(2, director);
-				pstmt.setString(3, userid);
+				pstmt.setString(1, DOCID);
+				pstmt.setString(2, userid);
 			}
 
 			rs = pstmt.executeQuery();
@@ -200,9 +206,9 @@ public class DAO_ReviewDB extends DatabaseConnection {
 
 				Data_Review review = new Data_Review();
 				review.setNo(rs.getInt(1));
-				review.setUserid(rs.getString(2));
+				review.setDOCID(rs.getString(2));
 				review.setTitle(rs.getString(3));
-				review.setDirector(rs.getString(4));
+				review.setUserid(rs.getString(4));
 				review.setScore(rs.getInt(5));
 				review.setReview(rs.getString(6));
 				review.setDate(rs.getDate(7));

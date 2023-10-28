@@ -18,7 +18,7 @@ public class GeoCodeApi {
 	
         try{
             //인코딩한 String을 넘겨야 원하는 데이터를 받을 수 있다.
-            String address = URLEncoder.encode("경기도 고양시 일산동구 백석동 1242 번지 고양종합터미널 5~7F CGV 고양백석", "UTF-8");
+            String address = URLEncoder.encode("서울 중랑구 용마공원로9길 29", "UTF-8");
             
             obj = new URL(GEOCODE_URL+address);
 			

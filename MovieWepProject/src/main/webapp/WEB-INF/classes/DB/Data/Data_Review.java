@@ -1,34 +1,42 @@
 package DB.Data;
 
-import java.util.Date;
+import java.sql.Date;
 
-public class Data_Review {
+import DB.DatabaseConnection;
+
+public class Data_Review extends DatabaseConnection {
 	int no = 0;
 	String userid = "";
 	String title = "";
-	String director = "";
+	String DOCID = "";
 	int score = 0;
 	String review = "";
-	
+	Date date = null;
+
 	public Data_Review() {
-		
+
 	}
-	
-	public Data_Review(String no, String userid, String title, String director, String score, String review) {
+
+	public Data_Review(String[] datas) {
+
+		this.no = StringParseInt(datas[0]);
+		this.userid = datas[1];
+		this.title = datas[2];
+		this.DOCID = datas[3];
+		this.score = Integer.parseInt(datas[4]);
+		this.review = datas[5];
+		this.date = transStringDate(datas[6]);
+	}
+
+	public Data_Review(String no, String userid, String title, String DOCID, String score, String review) {
 		super();
-		try {
-			this.no = Integer.parseInt(no);
-		} catch(Exception e) {
-			this.no = -1;
-		}
+		this.no = StringParseInt(no);
 		this.userid = userid;
 		this.title = title;
-		this.director = director;
+		this.DOCID = DOCID;
 		this.score = Integer.parseInt(score);
 		this.review = review;
 	}
-
-	Date date = new Date();
 
 	public int getNo() {
 		return no;
@@ -37,7 +45,7 @@ public class Data_Review {
 	public void setNo(int no) {
 		this.no = no;
 	}
-	
+
 	public String getUserid() {
 		return userid;
 	}
@@ -54,16 +62,16 @@ public class Data_Review {
 		this.title = title;
 	}
 
-	public String getDirector() {
-		return director;
+	public String getDOCID() {
+		return DOCID;
 	}
 
-	public void setDirector(String director) {
-		this.director = director;
+	public void setDOCID(String DOCID) {
+		this.DOCID = DOCID;
 	}
 
 	public int getScore() {
-		System.out.println("getScore : " + score);
+		// System.out.println("getScore : " + score);
 		return score;
 	}
 
@@ -89,7 +97,7 @@ public class Data_Review {
 
 	@Override
 	public String toString() {
-		return "Data_Review [userid=" + userid + ", title=" + title + ", director=" + director + ", score=" + score
+		return "Data_Review [userid=" + userid + ", title=" + title + ", DOCID=" + DOCID + ", score=" + score
 				+ ", review=" + review + ", date=" + date + "]";
 	}
 

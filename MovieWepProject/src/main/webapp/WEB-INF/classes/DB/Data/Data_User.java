@@ -5,7 +5,9 @@ import java.text.SimpleDateFormat;
 
 import org.json.simple.parser.ParseException;
 
-public class Data_User {
+import DB.DatabaseConnection;
+
+public class Data_User extends DatabaseConnection{
 
 	private String id;
 	private String pw;
@@ -21,41 +23,13 @@ public class Data_User {
 	public Data_User() {
 
 	}
-
+	
 	public Data_User(String[] datas) {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-		// 문자열 -> Date
-		SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyymmdd");
-
-		// Date로 변경하기 위해서는 날짜 형식을 yyyy-mm-dd로 변경해야 한다.
-		SimpleDateFormat afterFormat = new SimpleDateFormat("yyyy-mm-dd");
-
-		java.util.Date tempDate = null;
-
-		// 현재 yyyymmdd로된 날짜 형식으로 java.util.Date객체를 만든다.
-		try {
-			tempDate = afterFormat.parse(datas[3]);
-		} catch (java.text.ParseException e) {
-			// TODO Auto-generated catch block
-			System.out.println("에러 발생");
-			tempDate = new java.util.Date("1900-01-01");
-			e.printStackTrace();
-		}
-
-		String transDate = afterFormat.format(tempDate);
-
-
-		System.out.println("날짜 문자열 : " + transDate);
-		
-		Date date = Date.valueOf(transDate);
-		
-		
 		
 		this.id = datas[0];
 		this.pw = datas[1];
 		this.name = datas[2];
-		this.birthday = date;
+		this.birthday = transStringDate(datas[3]);
 		this.email = datas[4];
 		this.address = datas[5];
 		this.genre_1 = datas[6];

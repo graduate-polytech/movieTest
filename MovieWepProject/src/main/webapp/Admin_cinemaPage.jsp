@@ -24,7 +24,7 @@
 <script type="text/javascript">
 		
 		var userId = '<%=session.getAttribute("userId")%>
-	';
+		';
 	if (userId != 'admin') {
 		alert("잘못된 접근입니다.");
 		location.href = "main.jsp";
@@ -220,12 +220,30 @@ td {
 			전체 회원수 :
 			<%=count%>명
 		</h3>
-		<div class="input-group mb-3">
-			<span class="input-group-text" id="inputGroup-sizing-default">회원 정보 검색</span>
-			<input type="text" id="filterText" class="form-control" aria-label="Sizing example input"
-				aria-describedby="inputGroup-sizing-default"
-			>
+
+		<div class="input-group mb-3" style="width: 100%;">
+			<span class="input-group-text" id="inputGroup-sizing-default">리뷰 검색</span>
+			<div class="form-floating">
+				<input type="text" class="form-control filterText" id="filteruserid" placeholder="find">
+				<label for="floatingInput">아이디</label>
+			</div>
+			<div class="form-floating">
+				<input type="text" class="form-control filterText" id="findusername" placeholder="find">
+				<label for="floatingInput">이름</label>
+			</div>
+			<div class="form-floating">
+				<input type="text" class="form-control filterText" id="findemail" placeholder="find">
+				<label for="floatingInput">이메일</label>
+			</div>
+			<div class="form-floating">
+				<input type="text" class="form-control filterText" id="findgener" placeholder="find">
+				<label for="floatingInput">선호장르</label>
+			</div>
+			<button type="button" id="filterResetBtn" class="btn btn-primary save-button">검색 초기화</button>
 		</div>
+		<span id="findResult">
+			검색결과 : <%=count%>개
+		</span>
 	</div>
 	<div class="body_main">
 		<div class="table-container">
@@ -278,8 +296,67 @@ td {
 	<script type="text/javascript">
 	$(document).ready(function() {
 	    var modal = $('#myModal');
-	    var filterInput = $('#filterText'); // 검색어를 입력하는 입력 상자
+	    var filterInputs = $('.filterText');
+		var findtitleInput = $('#filteruserid');
+		var finduseridInput = $('#findusername');
+		var findscoreInput = $('#findemail');
+		var findreviewInput = $('#findgener');
+		
+	    var count = 0;
+		filterInputs.each(function() {
+		    $(this).on('input', function() {
+		        // 각 필터 입력 상자의 값을 가져옴
+		        //filteruserid findusername findemail findgener
+		        var findtitleText = findtitleInput.val().toLowerCase();
+		        var finduseridText = finduseridInput.val().toLowerCase();
+		        var findscoreText = findscoreInput.val().toLowerCase();
+		        var findreviewText = findreviewInput.val().toLowerCase();
+		        count = 0;
+		        $('.table tbody tr').each(function() {
+		            var rowData_1 = $(this).find('td').eq(0).text().toLowerCase(); // 첫 번째 열 값
+		            var rowData_2 = $(this).find('td').eq(2).text().toLowerCase(); // 두 번째 열 값
+		            var rowData_3 = $(this).find('td').eq(4).text().toLowerCase(); // 세 번째 열 값
+		            var rowData_4_1 = $(this).find('td').eq(6).text().toLowerCase(); // 네 번째 열 값
+		            var rowData_4_2 = $(this).find('td').eq(7).text().toLowerCase(); // 네 번째 열 값
+		            var rowData_4_3 = $(this).find('td').eq(8).text().toLowerCase(); // 네 번째 열 값
+		            var rowData_4_4 = $(this).find('td').eq(9).text().toLowerCase(); // 네 번째 열 값	
+		
+		            if (rowData_1.indexOf(findtitleText) !== -1 && rowData_2.indexOf(finduseridText) !== -1 &&
+		                rowData_3.indexOf(findscoreText) !== -1 && 
+		                (rowData_4_1.indexOf(findreviewText) !== -1 || rowData_4_2.indexOf(findreviewText) !== -1 || rowData_4_3.indexOf(findreviewText) !== -1 || rowData_4_4.indexOf(findreviewText) !== -1)) {
+		                $(this).show(); // 일치하는 경우 표시
+		                count++;
+		            } else {
+		                $(this).hide(); // 일치하지 않는 경우 숨김
+		            }
+		        });
+		        updateDisplayedRowCount();
+		    });
+		    
+		});
+		function updateDisplayedRowCount() {
+			//alert("updateDisplayedRowCount");
+		    var displayedRowCount = $('.table tbody tr:visible').length;
+		    var displayedRowCountElement = document.getElementById("findResult");
+		    displayedRowCountElement.textContent = "검색 결과 : " + displayedRowCount;
+		}
 
+		// 페이지 로딩 시나 필터가 변경될 때마다 호출하여 업데이트
+		
+		var filterBtn = document.getElementById('filterResetBtn')
+
+		filterBtn.addEventListener("click", filterReset);
+		
+		function filterReset(){
+			//alert("필터 초기화");
+			findtitleInput.val("");
+			finduseridInput.val("");
+			findscoreInput.val("");
+			findreviewInput.val("");
+			$('.table tbody tr').show();
+			updateDisplayedRowCount();
+		}
+	    
 	    $('.table tbody tr').click(function() {
 	    	
 	        var rowData = $(this).find('td');

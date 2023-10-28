@@ -1,6 +1,7 @@
 package DB;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 
 import org.json.JSONObject;
 
@@ -17,8 +18,42 @@ public class DatabaseConnection {
 //	private final String jdbcUrl = "jdbc:mysql://localhost:3306/moviedb"; // 데이터베이스 URL
 //	private final String jdbcUsername = "root"; // 데이터베이스 사용자 이름
 //	private final String jdbcPassword = "0000"; // 데이터베이스 암호
+	public int StringParseInt(String stringInt) {
+		try {
+			return Integer.parseInt(stringInt);
+		} catch(Exception e) {
+			return -1;
+		}
+	}
+	public Date transStringDate(String stringDate) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+		// 문자열 -> Date
+		SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyymmdd");
+
+		// Date로 변경하기 위해서는 날짜 형식을 yyyy-mm-dd로 변경해야 한다.
+		SimpleDateFormat afterFormat = new SimpleDateFormat("yyyy-mm-dd");
+
+		java.util.Date tempDate = null;
+
+		// 현재 yyyymmdd로된 날짜 형식으로 java.util.Date객체를 만든다.
+		try {
+			tempDate = afterFormat.parse(stringDate);
+		} catch (java.text.ParseException e) {
+			// TODO Auto-generated catch block
+			System.out.println("에러 발생");
+			tempDate = new java.util.Date("1900-01-01");
+			e.printStackTrace();
+		}
+
+		String transDate = afterFormat.format(tempDate);
 
 
+		System.out.println("날짜 문자열 : " + transDate);
+		
+		Date date = Date.valueOf(transDate);
+		return date;
+	}
 	// 데이터베이스 연결을 설정하고 커넥션을 반환하는 메서드
 	public Connection getConnection() {
 		connection = null;

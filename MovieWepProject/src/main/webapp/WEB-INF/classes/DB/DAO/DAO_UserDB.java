@@ -58,7 +58,7 @@ public class DAO_UserDB extends DatabaseConnection {
 		return updateUserData(new Data_User(datas));
 	}
 	public int updateUserData(Data_User u) {
-		int result = 1;
+		int result = -1;
 		try {
 			conn = getConnection();
 
@@ -83,14 +83,14 @@ public class DAO_UserDB extends DatabaseConnection {
 			System.out.println("유저 정보 수정 : " + u.toString());
 			if (rowsInserted > 0) {
 				// 정보 수정 완료
-				result = 1;
+				result = 0;
 			} else {
 				// 정보 수정 실패
 				result = -1;
 			}
 
 		} catch (SQLException e) {
-			result = e.getErrorCode();
+			result = 1;
 			e.printStackTrace();
 		} finally {
 			try {
@@ -110,7 +110,7 @@ public class DAO_UserDB extends DatabaseConnection {
 		return deleteUserData(new Data_User(datas));
 	}
 	public int deleteUserData(Data_User u) {
-		int result = 1;
+		int result = -1;
 		try {
 			conn = getConnection();
 
@@ -124,14 +124,14 @@ public class DAO_UserDB extends DatabaseConnection {
 			System.out.println("유저 정보 삭제 : " + u.toString());
 			if (rowsInserted > 0) {
 				// 정보 수정 완료
-				result = 1;
+				result = 0;
 			} else {
 				// 정보 수정 실패
 				result = -1;
 			}
 
 		} catch (SQLException e) {
-			result = e.getErrorCode();
+			result = 1;
 			e.printStackTrace();
 		} finally {
 			try {
@@ -148,7 +148,7 @@ public class DAO_UserDB extends DatabaseConnection {
 		return result;
 	}
 	public int signupUser(Data_User u) {
-		int result = 1;
+		int result = -1;
 		try {
 			conn = getConnection();
 
@@ -159,7 +159,7 @@ public class DAO_UserDB extends DatabaseConnection {
 
 			if (rs.next()) {
 				// 중복된 아이디가 이미 존재하는 경우
-				result = 0;
+				result = -1;
 			} else {
 				// 중복된 아이디가 없는 경우 회원 정보를 데이터베이스에 저장
 				String insertSql = "INSERT INTO user (id, pw, name, birthday, email, address, genre) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -176,14 +176,14 @@ public class DAO_UserDB extends DatabaseConnection {
 
 				if (rowsInserted > 0) {
 					// 회원가입 성공
-					result = 1;
+					result = 0;
 				} else {
 					// 회원가입 실패
 					result = -1;
 				}
 			}
 		} catch (SQLException e) {
-			result = e.getErrorCode();
+			result = 1;
 			e.printStackTrace();
 		} finally {
 			try {
@@ -201,7 +201,7 @@ public class DAO_UserDB extends DatabaseConnection {
 	}
 
 	public int insertUserData(Data_User u) {
-		int result = 1;
+		int result = -1;
 		try {
 			conn = getConnection();
 
@@ -229,14 +229,14 @@ public class DAO_UserDB extends DatabaseConnection {
 
 				if (rowsInserted > 0) {
 					// 회원가입 성공
-					result = 1;
+					result = 0;
 				} else {
 					// 회원가입 실패
 					result = -1;
 				}
 			}
 		} catch (SQLException e) {
-			result = e.getErrorCode();
+			result = 1;
 			e.printStackTrace();
 		} finally {
 			try {

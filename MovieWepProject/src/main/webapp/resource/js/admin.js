@@ -34,7 +34,7 @@ function admin_F(pageType, doFun) {
 }
 
 function resultShow(pageType, doFun, result) {
-	//alert("resultShow" + pageType +","+doFun+","+result);
+	// alert("resultShow" + pageType +","+doFun+","+result);
 	var msg_1 = "";
 	var msg_2 = "";
 	var msg_3 = "";
@@ -52,10 +52,10 @@ function resultShow(pageType, doFun, result) {
 	} else {
 		msg_2 = "삭제"
 	}
-	
-	if (result == 1) {
+
+	if (result == 0) {
 		msg_3 = "되었습니다."
-	} else if (result == 0) {
+	} else if (result == 1) {
 		msg_3 = "되지 않았습니다."
 	} else {
 		alert("서버 통신중 문제가 발생했습니다.");
@@ -63,7 +63,7 @@ function resultShow(pageType, doFun, result) {
 	}
 	var mas = msg_1 + " 정상적으로 " + msg_2 + msg_3;
 	alert(mas);
-	if(doFun=="delete" && result==1){
+	if (doFun == "delete" && result == 1) {
 		location.reload();
 	}
 }
@@ -71,7 +71,7 @@ function resultShow(pageType, doFun, result) {
 function getData(type, index) {
 	var user = [ "userid", "userpw", "username", "birthday", "email",
 			"userAddress", "Genre_1", "Genre_2", "Genre_3", "Genre_4" ];
-	var review = [ "", "", "", "", "", "", "", "", "", "" ];
+	var review = [ "no", "DOCID", "reviewtitle", "userid", "score", "review", "registration_date" ];
 	var cinema = [ "", "", "", "", "", "", "", "", "", "" ];
 
 	if (type == "user") {
@@ -84,7 +84,7 @@ function getData(type, index) {
 		if (index > review.length - 1) {
 			return "";
 		} else {
-			return review[index];
+			return document.getElementById(review[index]).value;
 		}
 	} else if (type == "cinema") {
 		if (index > cinema.length - 1) {
@@ -96,3 +96,5 @@ function getData(type, index) {
 		return "";
 	}
 }
+
+

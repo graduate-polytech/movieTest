@@ -1,4 +1,4 @@
-package DB;
+package DB.Data;
 
 import java.sql.Date;
 

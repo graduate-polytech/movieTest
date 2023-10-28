@@ -1,7 +1,10 @@
-package DB;
+package DB.DAO;
 
 import java.sql.*;
 import java.util.*;
+
+import DB.DatabaseConnection;
+import DB.Data.Data_Review;
 
 public class DAO_ReviewDB extends DatabaseConnection {
 	private Connection conn = null;

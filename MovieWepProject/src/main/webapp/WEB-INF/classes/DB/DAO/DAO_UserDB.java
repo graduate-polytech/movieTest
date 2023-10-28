@@ -1,7 +1,10 @@
-package DB;
+package DB.DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
+
+import DB.DatabaseConnection;
+import DB.Data.Data_User;
 
 public class DAO_UserDB extends DatabaseConnection {
 	private Connection conn = null;

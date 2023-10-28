@@ -15,10 +15,10 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
-import DB.DAO_ReviewDB;
-import DB.Data_Review;
-import DB.Data_User;
 import DB.DatabaseConnection;
+import DB.DAO.DAO_ReviewDB;
+import DB.Data.Data_Review;
+import DB.Data.Data_User;
 import Office.DayBox3;
 
 @WebServlet("/ReviewUpdate")

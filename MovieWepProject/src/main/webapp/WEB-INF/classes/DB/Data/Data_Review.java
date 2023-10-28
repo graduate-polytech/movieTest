@@ -1,4 +1,4 @@
-package DB;
+package DB.Data;
 
 import java.util.Date;
 
@@ -11,6 +11,7 @@ public class Data_Review {
 	String review = "";
 	
 	public Data_Review() {
+		
 	}
 	
 	public Data_Review(String no, String userid, String title, String director, String score, String review) {

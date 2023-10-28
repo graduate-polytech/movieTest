@@ -4,6 +4,8 @@ import java.sql.*;
 
 import org.json.JSONObject;
 
+import DB.Data.Data_User;
+
 public class DatabaseConnection {
 
 	protected Connection connection;

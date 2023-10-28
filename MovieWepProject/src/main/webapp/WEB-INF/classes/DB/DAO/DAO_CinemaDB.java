@@ -1,23 +1,21 @@
-package DB;
+package DB.DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CinemaDataAccess extends DatabaseConnection{
-	CinemaDataAccess(){
-		List<Cinema> datas = getAllCinemaData();
-		for(Cinema data : datas) {
-			System.out.println(data.toString());
-			
-		}
-	}
+import DB.DatabaseConnection;
+import DB.Data.Data_Cinema;
+
+public class DAO_CinemaDB extends DatabaseConnection{
+
 	public static void main(String[] args) {
-		new CinemaDataAccess();
+		DAO_CinemaDB dao = new DAO_CinemaDB();
+		dao.getAllCinemaData();
 	}
 	
-    public List<Cinema> getAllCinemaData() {
-        List<Cinema> cinemaList = new ArrayList<>();
+    public ArrayList<Data_Cinema> getAllCinemaData() {
+    	ArrayList<Data_Cinema> cinemaList = new ArrayList<>();
         Connection connection = null;
 
         try {
@@ -27,7 +25,7 @@ public class CinemaDataAccess extends DatabaseConnection{
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                Cinema cinema = new Cinema();
+            	Data_Cinema cinema = new Data_Cinema();
                 cinema.setName(resultSet.getString("name"));
                 cinema.setArea1(resultSet.getString("Area_1"));
                 cinema.setArea2(resultSet.getString("Area_2"));

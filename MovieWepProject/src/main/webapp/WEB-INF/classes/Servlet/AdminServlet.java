@@ -11,10 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
+import DB.DAO.*;
 
 @WebServlet("/adminServlet")
 public class AdminServlet extends HttpServlet {
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 클라이언트로부터 전송된 데이터 읽기
@@ -31,23 +32,34 @@ public class AdminServlet extends HttpServlet {
 
 		// 데이터 확인 및 MySQL DB에 추가하는 로직 수행
 		String type = json.getString("type");
-//		String userId = json.getString("userId");
-//		String userPw = json.getString("userPw");
-//		String userName = json.getString("userName");
-//		String birthDay = json.getString("birthDay");
-//		String userEmail = json.getString("userEmail");
-//		String userAddress = json.getString("userAddress");
-//		String genre_1 = json.getString("genre_1");
-//		String genre_2 = json.getString("genre_2");
-//		String genre_3 = json.getString("genre_3");
-//		String genre_4 = json.getString("genre_4");
-		
-		System.out.println("관리자 서블렛 : " + type);
+		String doFun = json.getString("doFun");
+		String[] datas = new String[10];
+		datas[0] = json.getString("data_1");
+		datas[1] = json.getString("data_2");
+		datas[2] = json.getString("data_3");
+		datas[3] = json.getString("data_4");
+		datas[4] = json.getString("data_5");
+		datas[5] = json.getString("data_6");
+		datas[6] = json.getString("data_7");
+		datas[7] = json.getString("data_8");
+		datas[8] = json.getString("data_9");
+		datas[9] = json.getString("data_10");
+
+//		System.out.println("관리자 서블렛 : " + type);
+//		for (int i = 0; i < 10; i++) {
+//			System.out.println("datas[" + i + "] : " + datas[i]);
+//		}
+		int result = 0;
 
 		JSONObject jsonResponse = new JSONObject();
-		
-		int result = 0;
-		
+		if(type.equals("user")) {
+			DAO_UserDB dao = new DAO_UserDB();
+			if(doFun.equals("update"))
+			result = dao.updateUserData(datas);
+			if(doFun.equals("delete"))
+			result = dao.deleteUserData(datas);
+		}
+
 		System.out.println("리뷰 작성 서블렛 : " + result);
 
 		jsonResponse.put("result", result);

@@ -1,6 +1,6 @@
-package DB;
+package DB.Data;
 
-public class Cinema {
+public class Data_Cinema {
     String Area_1;
     String Area_2;
     String name;
@@ -16,8 +16,8 @@ public class Cinema {
 				+ ", location_y=" + location_y + ", address=" + address + ", tel=" + tel + ", wep=" + wep + "]";
 	}
 
-	public Cinema(String Area_1, String Area_2, String name, float location_x, float location_y, String address, String tel, String wep) {
-        super();
+	public Data_Cinema(String Area_1, String Area_2, String name, float location_x, float location_y, String address, String tel, String wep) {
+        
         this.Area_1 = Area_1;
         this.Area_2 = Area_2;
         this.name = name;
@@ -28,7 +28,7 @@ public class Cinema {
         this.wep = wep;
     }
 
-    public Cinema() {
+    public Data_Cinema() {
         this.Area_1 = null;
         this.Area_2 = null;
         this.name = null;

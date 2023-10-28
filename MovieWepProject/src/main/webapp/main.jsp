@@ -34,8 +34,7 @@
 	</header>
 	<script type="text/javascript">
 		
-		var userId = '<%=session.getAttribute("userId")%>
-		';
+		var userId = '<%=session.getAttribute("userId")%>';
 		if (userId != 'null') {
 			//alert(userId);
 		}

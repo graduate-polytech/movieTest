@@ -3,6 +3,7 @@ package boxOffice;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.time.LocalDate;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -22,7 +23,6 @@ public class LoadBoxOffice {
 		LoadBoxOffice load = new LoadBoxOffice();
 		load.getBoxOfficeData("20231025",true);
 	}
-
 	public void getBoxOfficeData(String date, boolean isDaily) {
 		String type = (isDaily)? "dailyBoxOfficeList" : "weeklyBoxOfficeList";
 		String api_url = (isDaily)? "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?" : "https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json?";
@@ -31,7 +31,7 @@ public class LoadBoxOffice {
 			StringBuilder urlBuilder = new StringBuilder(api_url);
 			// 이미지 항목 posters
 			urlBuilder.append(Condition("key", API_KEY));
-			urlBuilder.append(Condition("targetDt", date));
+			urlBuilder.append(Condition("targetDt", date.replace("-","")));
 
 			System.out.println("전체 URL : " + urlBuilder.toString());
 

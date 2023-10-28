@@ -66,7 +66,7 @@ public class DatabaseConnection {
 			preparedStatement.setString(1, u.getId());
 			preparedStatement.setString(2, u.getPw());
 			preparedStatement.setString(3, u.getName());
-			preparedStatement.setString(4, u.getBirthday());
+			preparedStatement.setDate(4, u.getBirthday());
 			preparedStatement.setString(5, u.getEmail());
 			preparedStatement.setString(6, u.getAddress());
 			preparedStatement.setString(7, u.getGenre_1());

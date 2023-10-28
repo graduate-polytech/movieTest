@@ -6,7 +6,7 @@ function displayErrorMessages(messages) {
 function userInfoEdit_F() {
 
 //	alert("userInfoEdit");
-	var form = document.getElementById('userInfoEdit');
+	var form = document.getElementById('date1');
 
 	var userName = form.userName.value;
 	var userId = form.userId.value;

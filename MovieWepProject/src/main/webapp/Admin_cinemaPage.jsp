@@ -110,106 +110,12 @@ td {
 		</div>
 	</header>
 	<div class="body_main">
-		<div class="form-floating mb-3">
-			<input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" width="30">
-			<label for="floatingInput">Email address</label>
-		</div>
-		<div class="table-container">
-			<table id="userInfoTable" class="table table-responsive table-hover">
-				<thead>
-					<tr>
-						<th class="">아이디</th>
-						<th class="">비밀번호</th>
-						<th class="">이름</th>
-						<th class="">생년월일</th>
-						<th class="">이메일</th>
-						<th class="">거주지</th>
-						<th class="">선호장르1</th>
-						<th class="">선호장르2</th>
-						<th class="">선호장르3</th>
-						<th class="">선호장르4</th>
-					</tr>
-				</thead>
-				<tbody>
-					<%
-					for (int i = 0; i < 50; i++) {
-					%>
-					<tr>
-						<%
-						for (int j = 0; j < 10; j++) {
-						%>
-						<td><%=i%>행 값<%=j + 1%></td>
-						<%
-						}
-						%>
-					</tr>
-					<%
-					}
-					%>
-				</tbody>
-			</table>
-		</div>
+		
 	</div>
 	<footer>
 		<div id="bottom">
 			<jsp:include page="loadFile/bottom.jsp" />
 		</div>
 	</footer>
-	<script type="text/javascript">
-	$(document).ready(function() {
-	    var modal = $('#myModal');
-	    var filterInput = $('#filterText'); // 검색어를 입력하는 입력 상자
-
-	    // '수정' 버튼을 클릭할 때 모달 내 데이터를 설정하는 JavaScript 코드를 추가합니다.
-	    $('.table tbody tr').click(function() {
-	        var rowData = $(this).find('td');
-	        modal.find('#data_1').val(rowData.eq(0).text());
-	        modal.find('#data_2').val(rowData.eq(1).text());
-	        modal.find('#data_3').val(rowData.eq(2).text());
-	        modal.modal('show');
-	    });
-
-	    // 모달 내의 '저장' 버튼을 클릭할 때 수정된 데이터를 테이블에 적용하는 코드를 추가합니다.
-	    $('.save-button').click(function() {
-	        var data_1 = modal.find('#data_1').val();
-	        var data_2 = modal.find('#data_2').val();
-	        var data_3 = modal.find('#data_3').val();
-
-	        var selectedRow = $('.table tr.active');
-	        selectedRow.find('td').eq(0).text(data_1);
-	        selectedRow.find('td').eq(1).text(data_2);
-	        selectedRow.find('td').eq(2).text(data_3);
-
-	        modal.modal('hide');
-	    });
-
-	    $('.closebtn').click(function() {
-	        modal.modal('hide');
-	    });
-
-	    // 테이블 행 클릭 시 선택한 행에 'active' 클래스를 추가하여 하이라이트 효과를 줍니다.
-	    $('.table tbody tr').click(function() {
-	        $('.table tbody tr').removeClass('active');
-	        $(this).addClass('active');
-	    });
-
-	    // 검색어 입력 상자의 내용이 변경될 때 테이블을 필터링합니다.
-	    filterInput.on('input', function() {
-	        var filterText = filterInput.val().toLowerCase();
-	        $('.table tbody tr').each(function() {
-	            var rowData = $(this).find('td').eq(0).text().toLowerCase(); // 첫 번째 열 값
-	            if (rowData.indexOf(filterText) !== -1) {
-	                $(this).show(); // 일치하는 경우 표시
-	            } else {
-	                $(this).hide(); // 일치하지 않는 경우 숨김
-	            }
-	        });
-	    });
-
-	    modal.on('hidden.bs.modal', function() {
-	        $(this).find('.inputTextData').val(''); // 입력 상자를 비우기
-	    });
-	});
-	</script>
 </body>
 </html>

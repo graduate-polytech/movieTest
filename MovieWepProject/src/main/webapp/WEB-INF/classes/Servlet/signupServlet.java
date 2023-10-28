@@ -4,6 +4,8 @@ import DB.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
+import org.json.simple.parser.ParseException;
 
 @WebServlet("/SignUp")
 public class signupServlet extends HttpServlet {
@@ -34,7 +37,18 @@ public class signupServlet extends HttpServlet {
 		String userId = json.getString("userId");
 		String userPw = json.getString("userPw");
 		String userEmail = json.getString("userEmail");
-		String birthDay = json.getString("birthDay");
+		Date birthDay = null;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date parsedDate;
+        try {
+            parsedDate = dateFormat.parse(json.getString("birthDay"));
+            // java.util.Date을 java.sql.Date로 변환
+            birthDay = new Date(parsedDate.getTime());
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		
 		String userAddress = json.getString("userAddress");
 		String Genre_1 = json.getString("Genre_1");
 		String Genre_2 = json.getString("Genre_2");

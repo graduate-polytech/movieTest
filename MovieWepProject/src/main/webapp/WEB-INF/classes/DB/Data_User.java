@@ -1,8 +1,19 @@
 package DB;
 
+import java.sql.Date;
 
 public class Data_User {
-	
+
+	private String id;
+	private String pw;
+	private String name;
+	private Date birthday;
+	private String email;
+	private String address;	
+	private String genre_1;
+	private String genre_2;
+	private String genre_3;
+	private String genre_4;
 	public Data_User() {
 		
 	}
@@ -11,7 +22,7 @@ public class Data_User {
 		this.id = id;
 		this.pw = pw;
 	}
-	public Data_User(String id, String pw, String name, String birthday, String email, String address, String genre_1,
+	public Data_User(String id, String pw, String name, Date birthday, String email, String address, String genre_1,
 			String genre_2, String genre_3, String genre_4) {
 		super();
 		this.id = id;
@@ -25,16 +36,6 @@ public class Data_User {
 		this.genre_3 = genre_3;
 		this.genre_4 = genre_4;
 	}
-	private String id;
-	private String pw;
-	private String name;
-	private String birthday;
-	private String email;
-	private String address;	
-	private String genre_1;
-	private String genre_2;
-	private String genre_3;
-	private String genre_4;
 	
 	public String getEmail() {
 		return email;
@@ -85,10 +86,10 @@ public class Data_User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(String date) {
+	public void setBirthday(Date date) {
 		this.birthday = date;
 	}
 	public String getAddress() {

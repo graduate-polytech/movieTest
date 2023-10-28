@@ -9,31 +9,61 @@ import org.json.simple.parser.*;
 
 public class LoadKMDBData {
 	private static final String API_KEY = "B40IP5NLA4A22KX077TM";
-	private static final String api_url = "https://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&detail=Y&ServiceKey=" + API_KEY;
-	
+	private static final String api_url = "https://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&detail=Y&ServiceKey="
+			+ API_KEY;
+
 	long totalCount;
 	long count;
 	ArrayList<KMDB_Data> KMDB_DataList = null;
 
 	public LoadKMDBData() {
-		
+
 //		KMDB_DataList = getKMDB_movieDOCID("B10374");	//아이디로 검새
 //		KMDB_DataList = getKMDB_title("아이언맨");	//제목으로 검색
 //		KMDB_DataList = getKMDB_director("봉준호");	//감독으로 검색
-		KMDB_DataList = getKMDB_titleData("그대들은 어떻게 살 것인가","20231025");	//제목과 감독으로 검색
-//		
-		if(KMDB_DataList!=null && KMDB_DataList.size()>0) {
-			for(KMDB_Data data : KMDB_DataList) {
-				//System.out.println(data.getDirectors().get(0).getDirectorNm());
-				//
-				System.out.println(data.toString());
-			}
+//		KMDB_DataList = getKMDB_titleData("그대들은 어떻게 살 것인가", "20231025"); // 제목과 감독으로 검색
+		for (int i = 0; i < 5; i++) {
+			getKMDB_title(" ");
 		}
-		
+		System.out.println("종료");
+//		Sys
+//		if (KMDB_DataList != null && KMDB_DataList.size() > 0) {
+//			for (KMDB_Data data : KMDB_DataList) {
+//				// System.out.println(data.getDirectors().get(0).getDirectorNm());
+//				//
+//				System.out.println(data.toString());
+//			}
+//		}
+
 	}
 
 	public static void main(String[] args) {
 		new LoadKMDBData();
+	}
+
+	public void getKMDB_arge(String genre) { // 감독명을 사용한 영화 검색
+		String url = "https://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&detail=Y&ServiceKey=B40IP5NLA4A22KX077TM";
+		StringBuilder urlBuilder = new StringBuilder(url);
+		urlBuilder.append(Condition("genre", genre));
+		// urlBuilder.append(Condition("nation", "대한민국"));
+
+		ArrayList<KMDB_Data> datas = loadApi(urlBuilder);
+
+		// System.out.println();
+		int count = 1;
+		for (KMDB_Data data : datas) {
+
+			String title = data.getTitle();
+			String docid = data.getDOCID();
+			String runtime = data.getRuntime();
+			if (runtime.length() > 0 && !runtime.equals("")) {
+				System.out.print("\"" + title + "\", \"" + docid + "\"");
+				count++;
+				if (count > 2)
+					return;
+				System.out.print("|");
+			}
+		}
 	}
 
 	public String Condition(String Key, String value) {
@@ -45,6 +75,7 @@ public class LoadKMDBData {
 			return "";
 		}
 	}
+
 	public String Condition(String Key, int value) {
 
 		try {
@@ -56,13 +87,10 @@ public class LoadKMDBData {
 	}
 
 	public ArrayList<KMDB_Data> getKMDB_movieDOCID(String DOCID) {
-		
 
 		String movieId = DOCID.substring(0, 1);
 		String movieSeq = DOCID.substring(1, 6);
-		
-		
-		
+
 		StringBuilder urlBuilder = new StringBuilder(api_url);
 		urlBuilder.append(Condition("movieId", movieId));
 		urlBuilder.append(Condition("movieSeq", movieSeq));
@@ -70,27 +98,30 @@ public class LoadKMDBData {
 		return loadApi(urlBuilder);
 
 	}
-	public ArrayList<KMDB_Data> getKMDB_title(String title) { //제목을 사용한 영화 검색
-		
+
+	public ArrayList<KMDB_Data> getKMDB_title(String title) { // 제목을 사용한 영화 검색
+
 		StringBuilder urlBuilder = new StringBuilder(api_url);
 		urlBuilder.append(Condition("title", title));
-		urlBuilder.append(Condition("sort", "prodYear,1"));	//최신영화 순으로 나열
-		//prodYear
+		urlBuilder.append(Condition("sort", "prodYear,1")); // 최신영화 순으로 나열
+		// prodYear
 
 		return loadApi(urlBuilder);
 
 	}
-	public ArrayList<KMDB_Data> getKMDB_director(String director) { //감독명을 사용한 영화 검색
-		
+
+	public ArrayList<KMDB_Data> getKMDB_director(String director) { // 감독명을 사용한 영화 검색
+
 		StringBuilder urlBuilder = new StringBuilder(api_url);
 		urlBuilder.append(Condition("director", director));
-		urlBuilder.append(Condition("sort", "prodYear,1"));	//최신영화 순으로 나열
+		urlBuilder.append(Condition("sort", "prodYear,1")); // 최신영화 순으로 나열
 
 		return loadApi(urlBuilder);
 
 	}
-	public ArrayList<KMDB_Data> getKMDB_titleData(String title,String date) { //제목과 개봉일을 사용한 영화 검색
-		
+
+	public ArrayList<KMDB_Data> getKMDB_titleData(String title, String date) { // 제목과 개봉일을 사용한 영화 검색
+
 		StringBuilder urlBuilder = new StringBuilder(api_url);
 		urlBuilder.append(Condition("title", title));
 		urlBuilder.append(Condition("prodYear", date));
@@ -103,7 +134,7 @@ public class LoadKMDBData {
 	public ArrayList<KMDB_Data> loadApi(StringBuilder urlBuilder) {
 		ArrayList<KMDB_Data> result = new ArrayList<KMDB_Data>();
 		try {
-			// System.out.println("전체 URL : " + urlBuilder.toString());
+			//System.out.println("전체 URL : " + urlBuilder.toString());
 
 			URL url = new URL(urlBuilder.toString());
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -126,43 +157,42 @@ public class LoadKMDBData {
 			conn.disconnect();
 
 			String responseJson = sb.toString();
-			
 
-			System.out.println(responseJson);
-			
+			//System.out.println(responseJson);
+			System.out.println("실행");
+
 			result = changeJsonData(responseJson);
-			
 
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 		return result;
 	}
 
 	public ArrayList<KMDB_Data> changeJsonData(String jsonData) {
-		
+
 		ArrayList<KMDB_Data> resultData = new ArrayList<KMDB_Data>();
-		
+
 		try {
 			JSONParser parser = new JSONParser();
 
-			JSONObject obj = (JSONObject) parser.parse(jsonData);	//에러 발생
+			JSONObject obj = (JSONObject) parser.parse(jsonData); // 에러 발생
 
 			org.json.simple.JSONArray dataArray = (org.json.simple.JSONArray) obj.get("Data");
-			long totalCount = (long)obj.get("TotalCount");
-			if(totalCount == 0) {
-				//KMDB_DataList = null;
+			long totalCount = (long) obj.get("TotalCount");
+			if (totalCount == 0) {
+				// KMDB_DataList = null;
 				System.out.println("데이터가 없습니다.");
 				return null;
 			}
-			
+
 			JSONObject kmdbData = (JSONObject) dataArray.get(0);
 
 			org.json.simple.JSONArray resultArray = (org.json.simple.JSONArray) kmdbData.get("Result");
 
 			totalCount = (long) kmdbData.get("TotalCount");
-			
+
 			count = (long) kmdbData.get("Count");
 
 			for (Object resultObj : resultArray) {
@@ -216,14 +246,14 @@ public class LoadKMDBData {
 				kmdb.setTitleOrg((String) result.get("titleOrg"));
 				kmdb.setType((String) result.get("type"));
 				kmdb.setUse((String) result.get("use"));
-				
-				//System.out.println(kmdb.getTitle());
-				
+
+				// System.out.println(kmdb.getTitle());
+
 //				String[] posters = kmdb.getStlls();
 //				for(String str : posters) {
 //					System.out.println(str);
 //				}
-				
+
 				resultData.add(kmdb);
 			}
 		} catch (Exception e) {

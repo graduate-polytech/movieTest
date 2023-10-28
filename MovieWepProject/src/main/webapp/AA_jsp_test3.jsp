@@ -105,10 +105,7 @@
                         <label for="data_4">데이터 수정:</label>
                         <input type="text" class="form-control inputTextData" id="data_4">
                     </div>
-                    <div class="form-group">
-                        <label for="data_5">데이터 수정:</label>
-                        <input type="text" class="form-control inputTextData" id="data_5">
-                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
@@ -119,43 +116,52 @@
     </div>
 
     <script>
-        $(document).ready(function() {
-            // '수정' 버튼을 클릭할 때 모달 내 데이터를 설정하는 JavaScript 코드를 추가합니다.
-            $('.edit-button').click(function() {
-                var button = $(this); // 클릭된 버튼
-                var rowData = button.closest('tr').find('td'); // 동일한 행의 데이터를 가져옵니다.
-                var modal = $('#myModal');
-                
-                var data_1 = modal.find('#data_1');
-                data_1(rowData.eq(0).text());
-                
-                var data_2 = modal.find('#data_2');
-                data_1(rowData.eq(1).text());
-                
-                var data_3 = modal.find('#data_3');
-                data_1(rowData.eq(2).text());
-                
-                var data_4 = modal.find('#data_4');
-                data_1(rowData.eq(3).text());
-                
-                var data_5 = modal.find('#data_5');
-                data_1(rowData.eq(4).text());
-            });
+    $(document).ready(function() {
+        var editedRow = null; // 수정 중인 행을 저장하기 위한 변수
 
-            // 모달 내의 '저장' 버튼을 클릭할 때 수정된 데이터를 테이블에 적용하는 코드를 추가합니다.
-            $('.save-button').click(function() {
-                var modal = $('#myModal');
-                var editedData = modal.find('#editData').val();
-                var rowData = $('.modal:visible').closest('tr'); // 수정 중인 모달의 부모 행
-                
-                // 수정된 데이터를 테이블에 적용합니다.
-                rowData.find('td').eq(3).text(editedData); // '열 5'에 해당하는 데이터를 수정
-                modal.modal('hide');
-            });
-            $('#myModal').on('hidden.bs.modal', function() {
-                $(this).find('.inputTextData').val(''); // 입력 상자를 비우기
-            });
+        // '수정' 버튼을 클릭할 때 모달 내 데이터를 설정하는 JavaScript 코드를 추가합니다.
+        $('.edit-button').click(function() {
+            var button = $(this); // 클릭된 버튼
+            var rowData = button.closest('tr').find('td'); // 동일한 행의 데이터를 가져옵니다.
+
+            var modal = $('#myModal'); // 모달 대화 상자 요소를 가져옵니다.
+
+            // 모달 내의 입력 상자에 데이터를 설정합니다.
+            modal.find('#data_1').val(rowData.eq(0).text());
+            modal.find('#data_2').val(rowData.eq(1).text());
+            modal.find('#data_3').val(rowData.eq(2).text());
+            modal.find('#data_4').val(rowData.eq(3).text());
+            //modal.find('#data_5').val(rowData.eq(4).text());
+
+            editedRow = button.closest('tr'); // 수정 중인 행을 저장합니다.
+            modal.modal('show'); // 모달 창을 표시합니다.
         });
+
+        // 모달 내의 '저장' 버튼을 클릭할 때 수정된 데이터를 테이블에 적용하는 코드를 추가합니다.
+        $('.save-button').click(function() {
+            var modal = $('#myModal');
+            var data_1 = modal.find('#data_1').val();
+            var data_2 = modal.find('#data_2').val();
+            var data_3 = modal.find('#data_3').val();
+            var data_4 = modal.find('#data_4').val();
+            //var data_5 = modal.find('#data_5').val();
+
+            // 수정된 데이터를 해당 행에 덮어씌웁니다.
+            editedRow.find('td').eq(0).text(data_1);
+            editedRow.find('td').eq(1).text(data_2);
+            editedRow.find('td').eq(2).text(data_3);
+            editedRow.find('td').eq(3).text(data_4);
+            //editedRow.find('td').eq(4).text(data_5);
+
+            modal.modal('hide');
+        });
+
+        $('#myModal').on('hidden.bs.modal', function() {
+            $(this).find('.inputTextData').val(''); // 입력 상자를 비우기
+        });
+    });
+
+
     </script>
 </body>
 </html>

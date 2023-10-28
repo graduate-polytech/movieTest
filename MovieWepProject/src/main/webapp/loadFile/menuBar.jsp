@@ -2,8 +2,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+>
 <link rel="stylesheet" href="../resource/css/styles1.css">
 <!-- 기존 CSS 스타일 시트 링크 -->
 </head>
@@ -84,13 +86,13 @@
 								data-bs-toggle="dropdown" aria-expanded="false"> 관리자 페이지 </a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<li>
-									<a class="dropdown-item" href="myPage.jsp">유저관리</a>
+									<a class="dropdown-item" href="Admin_userPage.jsp">유저관리</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="reviewPage.jsp">리뷰 관리</a>
+									<a class="dropdown-item" href="Admin_reviewPage.jsp">리뷰 관리</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="reviewPage.jsp">영화관 관리</a>
+									<a class="dropdown-item" href="Admin_cinemaPage.jsp">영화관 관리</a>
 								</li>
 							</ul>
 						</li>

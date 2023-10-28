@@ -1,6 +1,7 @@
 package DB;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DAO_UserDB extends DatabaseConnection {
 	private Connection conn = null;
@@ -9,6 +10,32 @@ public class DAO_UserDB extends DatabaseConnection {
 
 	public static void main(String[] args) {
 
+	}
+
+	public ArrayList<Data_User> loadUserDataList() {
+		ArrayList<Data_User> result = new ArrayList<Data_User>();
+		try {
+			conn = getConnection();
+
+			String checkIdSql = "SELECT * FROM moviedb.user";
+			pstmt = conn.prepareStatement(checkIdSql);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Data_User data = new Data_User();
+				data.setId(rs.getString(0));
+				data.setPw(rs.getString(1));
+				data.setName(rs.getString(2));
+				data.setBirthday(rs.getDate(3));
+				data.setId(rs.getString(0));
+				data.setId(rs.getString(0));
+				data.setId(rs.getString(0));
+				data.setId(rs.getString(0));
+				result.add(data);
+			}
+		} catch (Exception e) {
+		}
+		return result;
 	}
 
 	public int signupUser(Data_User u) {
@@ -31,7 +58,7 @@ public class DAO_UserDB extends DatabaseConnection {
 				pstmt.setString(1, u.getId());
 				pstmt.setString(2, u.getPw());
 				pstmt.setString(3, u.getName());
-				pstmt.setString(4, u.getBirthday());
+				pstmt.setDate(4, u.getBirthday());
 				pstmt.setString(5, u.getEmail());
 				pstmt.setString(6, u.getAddress());
 				pstmt.setString(7, u.getGenre_1());
@@ -46,20 +73,22 @@ public class DAO_UserDB extends DatabaseConnection {
 					result = -1;
 				}
 			}
-        } catch (SQLException e) {
-        	result = e.getErrorCode();
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+		} catch (SQLException e) {
+			result = e.getErrorCode();
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		return result;
 	}
 
-	
 }

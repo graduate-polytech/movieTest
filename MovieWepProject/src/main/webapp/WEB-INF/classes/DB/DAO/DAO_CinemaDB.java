@@ -9,18 +9,58 @@ import DB.Data.Data_Cinema;
 import DB.Data.Data_Review;
 
 public class DAO_CinemaDB extends DatabaseConnection{
+	
+	private static final int AddressIsNull = -2;
+	
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 	public static void main(String[] args) {
 		DAO_CinemaDB dao = new DAO_CinemaDB();
-		Data_Cinema data = new Data_Cinema("영화관","용마공원로 9길 29","010-0000-0000","WWW.");
-		System.out.println("영화관 DB"+dao.updateCinema(data));
+		Data_Cinema data = new Data_Cinema("영화관","경기도 광주시 도척면 534 번지 곤지암리조트 제1주차장","010-0000-0000","WWW.");
+		System.out.println("영화관 DB"+dao.insertCinema(data));
 	}
+	public int deleteReview(String[] datas) {
+		return deleteReview(new Data_Cinema(datas[0],datas[1],datas[2],datas[3]));
+	}
+	public int deleteReview(Data_Cinema data) {
+		int result = -1;
+		
+		String name = data.getName();
+		
+		
+		try {
+
+			conn = getConnection();
+			// "SELECT * FROM moviedb.review WHERE ? = ?"
+			String checkIdSql = "DELETE FROM moviedb.cinema WHERE name = ?";
+
+			pstmt = conn.prepareStatement(checkIdSql);
+
+			pstmt.setString(1, name);
+
+			int rs = pstmt.executeUpdate();
+
+			if (rs > 0) {
+				result = 0;
+			}
+
+		} catch (SQLException e) {
+			System.out.println("에러 : " + e.getMessage());
+			e.printStackTrace();
+			result = -1;
+		}
+
+		return result;
+	}
+	
 	public int insertCinema(String[] datas) {
-		return insertCinema(new Data_Cinema(datas));
+		return insertCinema(new Data_Cinema(datas[0],datas[1],datas[2],datas[3]));
 	}
 	public int insertCinema(Data_Cinema data) {
+		if(data.getName() == null || data.getName().equals("") || data.getName().isEmpty()) {
+			return AddressIsNull;
+		}
 		int result = -1;
 		float x = data.getlocation_x();
 		float y = data.getlocation_y();
@@ -36,7 +76,7 @@ public class DAO_CinemaDB extends DatabaseConnection{
 
 			conn = getConnection();
 			// "SELECT * FROM moviedb.review WHERE ? = ?"
-			String checkIdSql = "insert into moviedb.cinema(name,address,Area_1,Area_2,location_x,location_y,tel,wep) value(?,?,?,?,?,?,?)";
+			String checkIdSql = "insert into moviedb.cinema(name,address,Area_1,Area_2,location_x,location_y,tel,wep) value(?,?,?,?,?,?,?,?)";
 
 			pstmt = conn.prepareStatement(checkIdSql);
 
@@ -56,15 +96,23 @@ public class DAO_CinemaDB extends DatabaseConnection{
 			}
 
 		} catch (SQLException e) {
-			System.out.println("에러 : " + e.getMessage());
-			e.printStackTrace();
+			System.out.println("에러 : " + e.getErrorCode());
+			//e.printStackTrace();
 			result = -1;
 		}
 
 		return result;
 	}
-	
+	public int updateCinema(String[] datas) {
+		Data_Cinema data = new Data_Cinema(datas[0],datas[1],datas[2],datas[3]);
+		System.out.println("String[] (data) : " + data.toString());
+		return updateCinema(data);
+	}
 	public int updateCinema(Data_Cinema data) {
+		System.out.println("updateCinema(data) : " + data.toString());
+		if(data.getName() == null || data.getName().equals("") || data.getName().isEmpty()) {
+			return AddressIsNull;
+		}
 		int result = -1;
 		float x = data.getlocation_x();
 		float y = data.getlocation_y();
@@ -80,9 +128,11 @@ public class DAO_CinemaDB extends DatabaseConnection{
 
 			conn = getConnection();
 			String sql = "SELECT * FROM moviedb.cinema where name=?";
-			pstmt.setString(1, name);
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			
 			ResultSet resultSet = pstmt.executeQuery();
+			
 			if(resultSet.next()) { //동일한 이름이 존재
 				conn = getConnection();
 				//name,address,Area_1,Area_2,location_x,location_y,tel,wep
@@ -93,8 +143,9 @@ public class DAO_CinemaDB extends DatabaseConnection{
 						+ "	location_x=? ,\r\n"
 						+ "	location_y=? ,\r\n"
 						+ "	tel=?,"
-						+ " wep=?,\r\n"
-						+ "	WHERE name=?";
+						+ " wep=? \r\n"
+						+ "	where name=?";
+				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(8, name);
 				pstmt.setString(1, address);
 				pstmt.setString(2, Area_1);
@@ -103,8 +154,7 @@ public class DAO_CinemaDB extends DatabaseConnection{
 				pstmt.setFloat(5, y);
 				pstmt.setString(6, tel);
 				pstmt.setString(7, wep);
-				pstmt = conn.prepareStatement(sql);
-				pstmt = conn.prepareStatement(sql);
+				
 				result = pstmt.executeUpdate();
 				
 				if(result>0) {

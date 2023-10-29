@@ -23,8 +23,7 @@
 <!-- 기존 CSS 스타일 시트 링크 -->
 <script type="text/javascript">
 		
-		var userId = '<%=session.getAttribute("userId")%>
-		';
+		var userId = '<%=session.getAttribute("userId")%>';
 	if (userId != 'admin') {
 		alert("잘못된 접근입니다.");
 		location.href = "main.jsp";
@@ -239,7 +238,7 @@ td {
 				<input type="text" class="form-control filterText" id="findgener" placeholder="find">
 				<label for="floatingInput">선호장르</label>
 			</div>
-			<button type="button" id="filterResetBtn" class="btn btn-primary save-button">검색 초기화</button>
+			<button type="button" id="filterResetBtn" class="btn btn-primary">검색 초기화</button>
 		</div>
 		<span id="findResult">
 			검색결과 : <%=count%>개

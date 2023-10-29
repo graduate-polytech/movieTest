@@ -46,7 +46,7 @@ public class DAO_ReviewDB extends DatabaseConnection {
 		String review = data.getReview();
 		
 		if(no<=0) {
-			return insertReview(data);
+			//return insertReview(data); // ?
 		}
 		try {
 

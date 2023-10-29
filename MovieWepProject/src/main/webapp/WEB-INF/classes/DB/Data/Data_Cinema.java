@@ -11,46 +11,55 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import kakaoApi.GeoCodeApi;
+
 public class Data_Cinema {
-	
+
 	String name;
 	String address;
 	String Area_1;
 	String Area_2;
-	float location_x; // 변경: Float 대신에 float 사용
-	float location_y; // 변경: Float 대신에 float 사용
+	float location_x;
+	float location_y;
 	String tel;
 	String wep;
-	
+
 	public static void main(String[] agrs) {
-		Data_Cinema data = new Data_Cinema("영화관","서울특별시 중랑구 망우3동 용마공원로 9길 29","010-0000-0000","WWW.");
+		Data_Cinema data = new Data_Cinema("영화관", "경기도 용인시 처인구 역북동 89-18 번지", "010-0000-0000", "WWW.");
 		System.out.println(data.toString());
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Cinema [Area_1=" + Area_1 + ", Area_2=" + Area_2 + ", name=" + name + ", location_x=" + location_x
 				+ ", location_y=" + location_y + ", address=" + address + ", tel=" + tel + ", wep=" + wep + "]";
 	}
-	
+
 	public Data_Cinema(String[] datas) {
-		new Data_Cinema(datas[0],datas[1],datas[2],datas[3]);
+		System.out.println("String[]" + datas[0] +", "+datas[1] +", "+datas[2] +", "+datas[3]);
+		Data_Cinema data = new Data_Cinema(datas[0], datas[1], datas[2], datas[3]);
+		System.out.println("Data_Cinema : " + data.toString());
 	}
-	
-	
+
 	public Data_Cinema(String name, String address, String tel, String wep) {
+		GeoCodeApi geocode = new GeoCodeApi();
+		JSONObject addressJson = geocode.getGecodeAddress(address);
+		System.out.println("ddressJson == null : " + addressJson == null);
+		if (addressJson == null) {
+			System.out.println("주소를 찾을수 없습니다");
+			return;
+		}
 		this.name = name;
 		this.address = address;
 		this.tel = tel;
 		this.wep = wep;
-		
-		geocodeAddress geocode = new geocodeAddress();
-		JSONObject addressJson = geocode.getGecodeAddress(address);
-		this.Area_1 = (String)addressJson.get("level1");
-		this.Area_2 = (String)addressJson.get("level2");
-		this.location_x = Float.valueOf((String)addressJson.get("x"));
-		this.location_y = Float.valueOf((String)addressJson.get("y"));
+		this.Area_1 = (String) addressJson.get("area_1");
+		this.Area_2 = (String) addressJson.get("area_2");
+		this.location_x = Float.valueOf((String) addressJson.get("x"));
+		this.location_y = Float.valueOf((String) addressJson.get("y"));
+		System.out.println("String*4 : " + this.toString());
 	}
+
 	public Data_Cinema(String Area_1, String Area_2, String name, float location_x, float location_y, String address,
 			String tel, String wep) {
 

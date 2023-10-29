@@ -21,8 +21,7 @@
 <!-- 기존 CSS 스타일 시트 링크 -->
 <script type="text/javascript">
 		
-		var userId = '<%=session.getAttribute("userId")%>
-	';
+		var userId = '<%=session.getAttribute("userId")%>';
 	if (userId != 'admin') {
 		alert("잘못된 접근입니다.");
 		location.href = "main.jsp";
@@ -174,7 +173,7 @@ td {
 				<input type="text" class="form-control filterText" id="findreview" placeholder="find">
 				<label for="floatingInput">리뷰</label>
 			</div>
-			<button type="button" id="filterResetBtn" class="btn btn-primary save-button">검색 초기화</button>
+			<button type="button" id="filterResetBtn" class="btn btn-primary">검색 초기화</button>
 		</div>
 		
 		<span id="findResult">
@@ -186,7 +185,7 @@ td {
 			<table id="userInfoTable" class="table table-responsive table-hover">
 				<thead>
 					<tr>
-						<th class="">영화 번호</th>
+						<th class="">리뷰 번호</th>
 						<th class="">영화 코드</th>
 						<th class="">영화 제목</th>
 						<th class="">작성자</th>

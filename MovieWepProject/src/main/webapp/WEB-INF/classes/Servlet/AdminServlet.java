@@ -29,7 +29,7 @@ public class AdminServlet extends HttpServlet {
 
 		// JSON 데이터 파싱
 		JSONObject json = new JSONObject(requestData.toString());
-
+		System.out.println(json.toString());
 		// 데이터 확인 및 MySQL DB에 추가하는 로직 수행
 		String type = json.getString("type");
 		String doFun = json.getString("doFun");
@@ -56,14 +56,22 @@ public class AdminServlet extends HttpServlet {
 			DAO_UserDB dao = new DAO_UserDB();
 			if(doFun.equals("update"))
 				result = dao.updateUserData(datas);
-			if(doFun.equals("delete"))
+			else if(doFun.equals("delete"))
 				result = dao.deleteUserData(datas);
 		}else if(type.equals("review")) {
 			DAO_ReviewDB dao = new DAO_ReviewDB();
 			if(doFun.equals("update"))
 				result = dao.updateReview(datas);
-			if(doFun.equals("delete"))
+			else if(doFun.equals("delete"))
 				result = dao.deleteReview(datas);
+		}else if(type.equals("cinema")) {
+			DAO_CinemaDB dao = new DAO_CinemaDB();
+			if(doFun.equals("update"))
+				result = dao.updateCinema(datas);
+			else if(doFun.equals("delete"))
+				result = dao.deleteReview(datas);
+			else if(doFun.equals("insert"))
+				result = dao.insertCinema(datas);
 		}
 
 		System.out.println("리뷰 작성 서블렛 : " + result);

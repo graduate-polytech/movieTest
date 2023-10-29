@@ -15,8 +15,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/styles1.css">
+<link rel="stylesheet" href="resource/css/reviewStyle.css">
 <!-- 기존 CSS 스타일 시트 링크 -->
-
 </style>
 </head>
 <body>
@@ -35,12 +35,13 @@
 			window.location.href = 'signin.jsp';
 		}
 	</script>
-	<div class="reviews">
-		<!-- 다운후 변경 -->
+	<div id="showReviewListDiv">
 	<h1 style="display: flex; align-items: center; justify-content: center;">내 리뷰</h1>
-		<jsp:include page="loadFile/reviews_Test.jsp" />
+		<jsp:include page="loadFile/startImgTest.jsp">
+			<jsp:param name="type" value="user" />
+			<jsp:param name="data" value="data" />
+		</jsp:include>
 	</div>
-	
 	<footer>
 		<div id="bottom">
 			<jsp:include page="loadFile/bottom.jsp" />

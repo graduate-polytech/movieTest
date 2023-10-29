@@ -7,11 +7,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>영화 검색</title>
-<!-- 필요한 CSS 파일 링크 추가 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="resource/css/styles1.css">
-<!-- jQuery 추가 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap 5 JavaScript 링크 추가 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+>
+<link rel="stylesheet" href="resource/css/styles1.css">
+<link rel="stylesheet" href="resource/css/reviewStyle.css">
 <style>
 .movie-details {
 	display: flex;
@@ -47,7 +50,7 @@
 	<h1 id="title" class="text-center">영화 상세정보</h1>
 	<%
 	String movieDOCID = request.getParameter("DOCID");
-	
+
 	String director = request.getParameter("director");
 	String title = request.getParameter("title");
 
@@ -56,7 +59,7 @@
 	LoadKMDBData loadData = new LoadKMDBData();
 	KMDB_Data kmdbData = new KMDB_Data();
 	System.out.println("movieDOCID : " + movieDOCID);
-	if (movieDOCID != null && !movieDOCID.isEmpty()  && movieDOCID != "undefined") {
+	if (movieDOCID != null && !movieDOCID.isEmpty() && movieDOCID != "undefined") {
 		ArrayList<KMDB_Data> movieInfoList = loadData.getKMDB_movieDOCID(movieDOCID);
 		KMDB_Data data = movieInfoList.get(0);
 		// 영화 정보가 있을 때 처리
@@ -83,12 +86,13 @@
 					배우:[
 					<%
 				ArrayList<actor> ActorList = data.getActors();
-				for (int i = 0; i<ActorList.size();i++) {
+				for (int i = 0; i < ActorList.size(); i++) {
 				%>
 					<%=ActorList.get(i).getActorNm()%>
 					<%
-					if(i<ActorList.size()-1){
-						%>, <%
+					if (i < ActorList.size() - 1) {
+					%>,
+					<%
 					}
 					}
 					%>
@@ -106,17 +110,20 @@
 			</div>
 		</div>
 		<%
-		} else{
-			%>
-			<script type="text/javascript">
+		} else {
+		%>
+		<script type="text/javascript">
 			alert("영화 정보를 찾을수 없습니다.");
-			history.back();</script>
-			<%
+			history.back();
+		</script>
+		<%
 		}
 		%>
-		<div class="reviews">
-			<!-- 다운후 변경 -->
-			<jsp:include page="loadFile/reviews_Test.jsp" />
+		<div id="showReviewListDiv">
+			<jsp:include page="loadFile/startImgTest.jsp">
+				<jsp:param name="type" value="movie"/>
+				<jsp:param name="data" value="data"/>
+			</jsp:include>
 		</div>
 	</div>
 	<footer>

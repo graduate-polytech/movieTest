@@ -68,18 +68,6 @@
 								</li>
 							</ul>
 						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-								data-bs-toggle="dropdown" aria-expanded="false"> 마이 페이지 </a>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li>
-									<a class="dropdown-item" href="myPage.jsp">내 정보</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="reviewPage.jsp">내 리뷰</a>
-								</li>
-							</ul>
-						</li>
 						<%if(userid.equals("admin")) {%>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -93,6 +81,20 @@
 								</li>
 								<li>
 									<a class="dropdown-item" href="Admin_cinemaPage.jsp">영화관 관리</a>
+								</li>
+							</ul>
+						</li>
+						<%}else{%>
+						
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false"> 마이 페이지 </a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<li>
+									<a class="dropdown-item" href="myPage.jsp">내 정보</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="reviewPage.jsp">내 리뷰</a>
 								</li>
 							</ul>
 						</li>

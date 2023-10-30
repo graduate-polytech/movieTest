@@ -19,6 +19,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
 	integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
 	crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/styles1.css">
 <!-- 기존 CSS 스타일 시트 링크 -->
@@ -39,6 +41,55 @@
 			//alert(userId);
 		}
 	</script>
+	
+	
+	<div id="movieCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+  <!-- 인디케이터 -->
+  <ol class="carousel-indicators">
+    <li data-target="#movieCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#movieCarousel" data-slide-to="1"></li>
+    <li data-target="#movieCarousel" data-slide-to="2"></li>
+    <!-- 필요한 만큼 인디케이터를 추가하십시오 -->
+  </ol>
+
+  <!-- 슬라이드 -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="resource/images/스틸컷1.jpg" alt="30일" style="width: 100%;">
+      <div class="carousel-caption">
+        <h3>30일</h3>
+        <p>30일에 대한 설명.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="resource/images/스틸컷2.jpg" alt="용감한 시민" style="width: 100%;">
+      <div class="carousel-caption">
+        <h3>용감한 시민</h3>
+        <p>용감한 시민에 대한 설명.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="resource/images/스틸컷3.jpg" alt="플라워 킬링 문" style="width: 100%;">
+      <div class="carousel-caption">
+        <h3>플라워 킬링 문</h3>
+        <p>플라워 킬링 문에 대한 설명.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 컨트롤러 -->
+  <a class="carousel-control-prev" href="#movieCarousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">이전</span>
+  </a>
+  <a class="carousel-control-next" href="#movieCarousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">다음</span>
+  </a>
+</div>
+	
+	
+	
 	<div class="mainCenterDiv">
 				<div class="container mt-5">
 					<h2 class="text-center">인기 영화</h2>
@@ -53,15 +104,55 @@
 				<h2 class="text-center">나의 영화관</h2>
 				<div id="map" style="width: 80%; height: 250px; margin: 0 auto;"></div>
 				<!-- CGV 영화관 사진 및 링크 -->
+				<!-- 특별관 섹션 -->
 				<div class="container text-center mt-5">
-					<h2>지금 당장 영화관으로</h2>
-					<a href="https://www.cgv.co.kr/" target="_blank">
-						<img src="resource/images/cgv_movie_theater.jpg" alt="CGV 영화관 사진"
-							style="width: 80%; max-width: 800px; height: auto; margin: 0 auto;">
-					</a>
-				</div>
+   				 <h2>특별관</h2>
+    				<div class="row">
+        				<div class="col-md-6">
+            				<div id="theater-images">
+                			<img id="cgv-image" src="resource/images/cgv_logo1.jpg" alt="CGV 로고" width="660" height="320">
+                			<img id="lotte-image" src="resource/images/lotte_logo1.jpg" alt="롯데시네마 로고" width="660" height="320" style="display: none;">
+                			<img id="megabox-image" src="resource/images/megabox1_logo.jpg" alt "메가박스 로고" width="660" height="320" style="display: none;">
+            			</div>
+        			</div>
+        				<div class="col-md-6">
+           				<ul class="theater-list">
+                		<li><a href="#" class="theater-link" onclick="showTheaterImage('cgv');  scrollPrevent(event);"><strong>CGV</strong></a></li>
+                		<li><a href="#" class="theater-link" onclick="showTheaterImage('lotte');  scrollPrevent(event);"><strong>롯데시네마</strong></a></li>
+                		<li><a href="#" class="theater-link" onclick="showTheaterImage('megabox');  scrollPrevent(event);"><strong>메가박스</strong></a></li>
+            		</ul>
+        		</div>
+    		</div>
+		</div>
+
+				<style>
+    				.theater-list {
+        			list-style: none;
+        			padding: 0;
+   					 }
+    				.theater-list li {
+       				 margin-bottom: 10px;
+        			text-align: center;
+    				}
+    				.theater-link {
+        			display: block;
+        			font-size: 50px; /* 원하는 크기로 조정하세요 */
+        			text-decoration: none; /* 밑줄 없앰 */
+       			 	border: 2px solid transparent; /* 테두리 스타일 추가 */
+        			padding: 10px; /* 내부 여백 추가 */
+        			transition: border-color 0.3s; /* 테두리 색상 변경 애니메이션 */
+   					 }
+    			.theater-link:hover {
+        			border-color: #000; /* 마우스 호버 시 테두리 색상 변경 */
+        			font-weight: bold; /* 텍스트 굵게 표시 */
+    			}
+   
+				</style>
+
+
 				<script src="resource/js/script1.js"></script>
 				<!-- JavaScript 파일 링크  -->
+				
 				<script>
 					document.addEventListener("DOMContentLoaded", function() {
 						// 로그인 버튼 클릭 시 login.html로 이동
@@ -78,6 +169,12 @@
 							window.location.href = "signup.jsp";
 						});
 					});
+					
+					// 텍스트 클릭 시 스크롤 방지
+				    function scrollPrevent(event) {
+				        event.preventDefault();
+				    }
+															
 
 					$(document).ready(function() {
 						// 페이지 로드 시 실행할 내용
@@ -85,19 +182,19 @@
 					});
 
 					$(document).ready(function() {
-						// 좌우 화살표 클릭 이벤트 처리
-						$("#scroll-left").click(function() {
-							$(".movie-gallery").animate({
-								scrollLeft : "-=200"
-							}, "slow");
-						});
+					    // 캐러셀 초기화
+					    $('#movieCarousel').carousel();
+					  });
+					
+					  function showTheaterImage(theaterName) {
+					        // 모든 극장 이미지를 숨김
+					        document.getElementById("cgv-image").style.display = "none";
+					        document.getElementById("lotte-image").style.display = "none";
+					        document.getElementById("megabox-image").style.display = "none";
 
-						$("#scroll-right").click(function() {
-							$(".movie-gallery").animate({
-								scrollLeft : "+=200"
-							}, "slow");
-						});
-					});
+					        // 선택한 극장 이미지만 표시
+					        document.getElementById(theaterName + "-image").style.display = "block";
+					    }
 
 					function formatDate(date) {
 						// 날짜를 "yyyymmdd" 형식으로 변환

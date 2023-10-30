@@ -23,8 +23,17 @@ public class boxData2 {
     private String showTm; // 상영시간
     private String nationNm; // 제작국가명
     private String prdtStatNm; // 제작상태
+    private String salesAcc;
     
-    public String getRank() {
+    public String getSalesAcc() {
+		return salesAcc;
+	}
+
+	public void setSalesAcc(String salesAcc) {
+		this.salesAcc = salesAcc;
+	}
+
+	public String getRank() {
         return rank;
     }
 

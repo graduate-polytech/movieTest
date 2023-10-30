@@ -109,7 +109,7 @@
 					}
 						
 					function fetchMovieData() {
-						console.log("fetchMovieData : " + data);	
+						
 						var today = new Date();
 						var yesterday = new Date(today);
 						yesterday.setDate(today.getDate() - 1);
@@ -124,7 +124,7 @@
 							async: false, 
 							success : function(data) {
 								// 영화 정보를 성공적으로 받았을 때 실행될 함수
-								
+								console.log("fetchMovieData : " + data);
 								displayMovieData(data);
 							},
 							error : function() {
@@ -138,7 +138,7 @@
 					function displayMovieData(data) {
 						var movieList = $("#movie-list");
 						movieList.empty(); // 기존 데이터 삭제
-						console.log("movie-list : " + data);
+						//console.log("movie-list : " + data);
 						
 						var gallery = $("<div class='movie-gallery'></div>");
 

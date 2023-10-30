@@ -68,7 +68,7 @@ footer {
 	color: #fff;
 	text-align: center;
 	padding: 20px 0;
-	margin-top: 50px auto; /* Footer가 항상 화면 하단에 표시되도록 설정 */
+	margin-bottom: 0px auto; /* Footer가 항상 화면 하단에 표시되도록 설정 */
 }
 
 footer i {

@@ -179,7 +179,7 @@
             </div>
         </div>
         <div id="movieData" style="display: none;">
-            <table class="table" style="max-height: 620px;">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>랭킹</th>

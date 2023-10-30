@@ -20,6 +20,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center; /* 수평 가운데 정렬 추가 */
+	 font-size: 15pt; /* 텍스트 크기를 15pt로 조정 */
+    font-weight: bold; /* 글꼴을 굵게 만듭니다. */
 }
 
 .movie-poster {
@@ -36,6 +38,30 @@
 	font-size: 24px; /* 원하는 크기로 조정 */
 	font-weight: bold; /* 굵게 만들기 */
 }
+
+  /* 배우 목록 텍스트 스타일 조정 */
+.actors-list {
+        font-size: 15pt; /* 텍스트 크기를 15pt로 조정 */
+        font-weight: normal; /* 폰트 굵기를 기본값으로 설정합니다. */
+    }
+
+    /* 나머지 텍스트 스타일 조정 */
+p {
+        font-size: 15pt; /* 텍스트 크기를 15pt로 조정 */
+        font-weight: normal; /* 폰트 굵기를 기본값으로 설정합니다. */
+    }
+    
+     /* 나머지 줄거리 숨기기 */
+.plot-details {
+    display: none;
+  }
+
+  /* 더보기 링크 스타일 */
+.read-more {
+    color: #007bff;
+    cursor: pointer;
+  }
+    
 </style>
 </head>
 <body>
@@ -49,10 +75,12 @@
 	</header>
 	<h1 id="title" class="text-center">영화 상세정보</h1>
 	<%
-	
 	request.setCharacterEncoding("UTF-8");
 	String param_docid = request.getParameter("DOCID");
 	String param_title = request.getParameter("title");
+
+	String director = request.getParameter("director");
+	String title = request.getParameter("title");
 
 	ArrayList<KMDB_Data> ListData = new ArrayList<KMDB_Data>(); // ListData 리스트를 생성
 
@@ -105,8 +133,15 @@
 					개봉일 :
 					<%=data.getRepRlsDate()%></p>
 				<p>
-					줄거리 :
-					<%=data.getPlots().get(0).getPlotText()%></p>
+  					줄거리 : 
+  					<span class="plot-summary">
+    				<%= data.getPlots().get(0).getPlotText().substring(0, 150) %>
+  					</span>
+  					<span class="plot-details">
+    				<%= data.getPlots().get(0).getPlotText().substring(150) %>
+  					</span>
+  					<a href="javascript:void(0);" class="read-more" onclick="togglePlotSummary()">더보기</a>
+				</p>
 			</div>
 		</div>
 		<%
@@ -127,6 +162,23 @@
 			</jsp:include>
 		</div>
 	</div>
+	
+	<script>
+  function togglePlotSummary() {
+    var plotSummary = document.querySelector(".plot-summary");
+    var plotDetails = document.querySelector(".plot-details");
+    var readMoreLink = document.querySelector(".read-more");
+
+    if (plotDetails.style.display === "none") {
+      plotDetails.style.display = "inline"; // 나머지 줄거리를 보이게 함
+      readMoreLink.innerText = "간략히 보기";
+    } else {
+      plotDetails.style.display = "none"; // 나머지 줄거리를 숨김
+      readMoreLink.innerText = "더보기";
+    }
+  }
+	</script>
+	
 	<footer>
 		<div id="bottom">
 			<jsp:include page="loadFile/bottom.jsp" />

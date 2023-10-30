@@ -116,8 +116,7 @@
 			if (title.length == 0) {
 				return;
 			} else {
-				window.location.href = "http://localhost:9001/MovieWepProject/movietest.jsp?title="
-						+ title + "&types=title";
+				window.location.href = "movietest.jsp?title=" + title + "&types=title";
 			}
 		}
 

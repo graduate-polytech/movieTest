@@ -32,12 +32,21 @@ param_review = param_review==null?"":param_review;
 String param_date = request.getParameter("param_date");
 param_date = param_date==null?"":param_date;
 
+
+param_no = param_no=="-1"?"신규":param_no;
+
 %>
 </head>
 <body>
 <div class="reviewDivBox">
 			<div class="review_Top">
 			<%
+			if(param_userid.equals("")){
+				%>
+				<button type="button" class="btn btn-primary">로그인</button>
+			<%}else {
+			
+			
 			if(!param_type.equals("movie")){
 				String href="MovieInfoOfMovieSeq.jsp?DOCID="+param_docid+"&title="+param_title; %>
 				<a href="<%=href %>">
@@ -63,6 +72,7 @@ param_date = param_date==null?"":param_date;
 			<p class="review_Text">
 				<%=param_review%>
 			</p>
+			<%} %>
 		</div>
 </body>
 </html>

@@ -17,7 +17,7 @@
 	if(sessionId != null && !sessionId.equals("") && !sessionId.equals("null")){
 		userid = (String)sessionId;
 	} else{
-		userid = "";
+		userid = ""; 
 	}
 	
 	%>

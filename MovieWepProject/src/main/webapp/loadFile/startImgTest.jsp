@@ -123,7 +123,23 @@ param_title = param_title==null?"":param_title;
 		}
 	} else{
 		%>
-		
+		<div class="showListDiv">
+			<jsp:include page="reviewBox_final.jsp">
+				<jsp:param name="param_no" value="<%=-1%>" />
+				<jsp:param name="param_docid" value="<%=param_docid%>" />
+				<jsp:param name="param_title" value="<%=param_title%>" />
+				<jsp:param name="param_userid" value="<%=session_userid%>" />
+				<jsp:param name="param_score" value="<%=5%>" />
+				<jsp:param name="param_review" value="<%=-1%>" />
+				<%
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				
+				Date now = new Date();
+				String today = dateFormat.format(now).toString();
+				%>
+				<jsp:param name="param_date" value="<%=today%>" />
+			</jsp:include>
+		</div>
 		
 		<%
 	}

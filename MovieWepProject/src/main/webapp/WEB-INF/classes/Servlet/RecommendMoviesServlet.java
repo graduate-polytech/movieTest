@@ -1,8 +1,8 @@
 package Servlet;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
-
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,37 +15,46 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 
 import DB.*;
+import Office.MainBox;
+import Office.MainBoxCtor;
 
 @WebServlet("/RecommendMovies")
 public class RecommendMoviesServlet extends HttpServlet {
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// 클라이언트로부터 전송된 데이터 읽기
-		request.setCharacterEncoding("UTF-8");
-		BufferedReader reader = request.getReader();
-		StringBuilder requestData = new StringBuilder();
-		String line;
-		while ((line = reader.readLine()) != null) {
-			requestData.append(line);
-		}
-
-		// JSON 데이터 파싱
-		JSONObject json = new JSONObject(requestData.toString());
-
-		// 데이터 확인 및 MySQL DB에 추가하는 로직 수행
-		String userid = json.getString("userid");
-
-		JSONObject jsonResponse = new JSONObject();
-		
-		int result = 1;
-		System.out.println("영화 추천 서블렛 : " + userid);
-		// 응답 전송 (예: 성공 메시지)
-		
-		jsonResponse.put("message", result);
-
-		// JSON 응답을 클라이언트로 전송
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(jsonResponse.toString());
+
+		// 클라이언트에서 전달한 대상 날짜를 가져옵니다.
+		String userid = request.getParameter("userId");
+		System.out.println("RecommendMovies : " + userid);
+		if (userid != null) {
+			// 대상 날짜를 사용하여 영화 데이터를 가져오는 메소드 호출
+			UserGenreSimilarityFinder findData= new UserGenreSimilarityFinder();
+			List<MainBoxCtor> movieDataList =findData.resultInterestMovieData(userid);
+
+			if (movieDataList != null && !movieDataList.isEmpty()) {
+				// 영화 데이터를 JSON 형식으로 변환
+				String jsonData = convertToJSON(movieDataList);
+				System.out.println("인기영화" + jsonData);
+				// JSON 데이터를 응답으로 전송
+				response.getWriter().write(jsonData);
+			} else {
+				// 데이터가 없을 때 에러 메시지를 응답으로 전송
+				response.getWriter().write("{\"error\": \"No data available\"}");
+			}
+		} else {
+			// 대상 날짜가 전달되지 않았을 때 에러 메시지를 응답으로 전송
+			response.getWriter().write("{\"error\": \"Missing target date parameter\"}");
+		}
+	}
+
+	private String convertToJSON(List<MainBoxCtor> movieDataList) {
+		// Gson 라이브러리를 사용하여 영화 데이터를 JSON 형식으로 변환
+		Gson gson = new Gson();
+		String jsonData = gson.toJson(movieDataList);
+
+		// JSON 데이터를 반환
+		return jsonData;
 	}
 }

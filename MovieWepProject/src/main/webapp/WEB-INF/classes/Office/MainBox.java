@@ -47,7 +47,7 @@ public class MainBox {
 				for (int i = 0; i < dailyBoxOfficeList.length(); i++) {
 					JSONObject movieData = dailyBoxOfficeList.getJSONObject(i);
 					String movieTitle = movieData.getString("movieNm");
-					String releaseDt = movieData.getString("openDt");
+					String releaseDt = movieData.getString("openDt"); 
 
 					String[] data = searchMoviePoster(movieTitle, releaseDt);
 

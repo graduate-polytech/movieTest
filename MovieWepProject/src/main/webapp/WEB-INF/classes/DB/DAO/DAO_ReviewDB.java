@@ -15,10 +15,10 @@ public class DAO_ReviewDB extends DatabaseConnection {
 	public static void main(String[] args) {
 		DAO_ReviewDB d = new DAO_ReviewDB();
 //		ArrayList<Data_Review> reviewList = d.getReviewList();
-//		ArrayList<Data_Review> reviewList = d.getReviewList("userID");
-		ArrayList<Data_Review> reviewList = d.getReviewList("user0001", "아바타: 물의 길", "제임스 카메론");
+//		ArrayList<Data_Review> reviewList = d.getReviewList("userid","userid");
+		ArrayList<Data_Review> reviewList = d.getReviewList("movie", "userid", "docid");
 		for (Data_Review review : reviewList) {
-			System.out.println(review.toString());
+			System.out.println(review.toString()); 
 		}
 	}
 	
@@ -157,28 +157,24 @@ public class DAO_ReviewDB extends DatabaseConnection {
 		return result;
 	}
 
-	public ArrayList<Data_Review> getReviewList(String in_userid, String in_title, String in_DOCID) {
+	public ArrayList<Data_Review> getReviewList(String type, String userid, String DOCID) {
 		ArrayList<Data_Review> reviewList = new ArrayList<Data_Review>();
-		String userid = in_userid.trim();
-		String title = in_title.trim();
-		String DOCID = in_DOCID.trim();
+		
+		int dataCount = 0;
+
+		if (type.equals("")) {
+			dataCount = 0;
+		} else if (type.equals("movie")) {
+			dataCount = 2;
+		}else {
+			dataCount = 1;
+		}
+		
 		try {
 
 			conn = getConnection();
 			// "SELECT * FROM moviedb.review WHERE ? = ?"
 			String checkIdSql = "";
-
-			int dataCount = 0;
-
-			if (in_userid.length() == 0) {
-				dataCount = 0;
-			} else {
-				dataCount = 1;
-			}
-
-			if (title.length() > 0 && DOCID.length() > 0) {
-				dataCount = 2;
-			}
 
 			if (dataCount == 0) {
 				checkIdSql = "SELECT * FROM moviedb.review";
@@ -212,6 +208,7 @@ public class DAO_ReviewDB extends DatabaseConnection {
 				review.setScore(rs.getInt(5));
 				review.setReview(rs.getString(6));
 				review.setDate(rs.getDate(7));
+				//System.out.println(review.toString());
 				reviewList.add(review);
 			}
 

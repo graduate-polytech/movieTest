@@ -16,7 +16,7 @@ public class LoadKMDBData {
 	long count;
 	ArrayList<KMDB_Data> KMDB_DataList = null;
 
-	public LoadKMDBData() {
+	public LoadKMDBData() { 
 
 //		KMDB_DataList = getKMDB_movieDOCID("B10374");	//아이디로 검새
 //		KMDB_DataList = getKMDB_title("아이언맨");	//제목으로 검색

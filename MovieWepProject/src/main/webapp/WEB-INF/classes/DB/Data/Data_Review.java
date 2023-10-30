@@ -16,7 +16,7 @@ public class Data_Review extends DatabaseConnection {
 	public Data_Review() {
 
 	}
-
+ 
 	public Data_Review(String[] datas) {
 
 		this.no = StringParseInt(datas[0]);

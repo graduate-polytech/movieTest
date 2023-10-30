@@ -28,18 +28,25 @@
 			<jsp:include page="loadFile/menuBar.jsp" />
 		</div>
 	</header>
+	
+	<%
+	Object useridobj = session.getAttribute("userId");
+	String userid = useridobj == null ? "" : (String) useridobj;
+	
+	%>
+	
 	<script type="text/javascript">
 		
-		var userId = '<%=session.getAttribute("userId")%>';
-		if (userId == 'null') {
+		var userId = '<%=userid%>';
+		if (userId == "") {
 			window.location.href = 'signin.jsp';
 		}
 	</script>
 	<div id="showReviewListDiv">
 	<h1 style="display: flex; align-items: center; justify-content: center;">내 리뷰</h1>
 		<jsp:include page="loadFile/startImgTest.jsp">
-			<jsp:param name="type" value="user" />
-			<jsp:param name="data" value="data" />
+				<jsp:param name="type" value="user" />
+				<jsp:param name="data" value="<%=userid%>"/>
 		</jsp:include>
 	</div>
 	<footer>

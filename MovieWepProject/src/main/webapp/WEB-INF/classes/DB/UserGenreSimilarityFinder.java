@@ -2,6 +2,13 @@ package DB;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import KMDB.*;
+import Office.*;
 
 //영화 추천용 선호장르 유사 유저 검색
 public class UserGenreSimilarityFinder extends DatabaseConnection {
@@ -11,13 +18,38 @@ public class UserGenreSimilarityFinder extends DatabaseConnection {
 	public static void main(String[] args) {
 
 		UserGenreSimilarityFinder d = new UserGenreSimilarityFinder();
-		ArrayList<InterestMovieData> dataList = new ArrayList<UserGenreSimilarityFinder.InterestMovieData>();
 
-		dataList = d.getInterestMovieList("user0002");
-		for (InterestMovieData data : dataList) {
-			System.out.println(data.toString());
+//		String dataList = d.resultInterestMovieData("user0002");
+
+//		System.out.println(d.resultInterestMovieData(dataList));
+
+//		for (InterestMovieData data : dataList) {
+//			System.out.println(data.toString());
+//		}
+
+	}
+
+	public List<MainBoxCtor> resultInterestMovieData(String userid) {
+		return resultInterestMovieData(getInterestMovieList(userid));
+	}
+
+	public List<MainBoxCtor> resultInterestMovieData(ArrayList<InterestMovieData> datas) {
+		ArrayList<MainBoxCtor> result = new ArrayList<MainBoxCtor>();
+		JSONArray array = new JSONArray();
+		int count = 1;
+		for (InterestMovieData data : datas) {
+			LoadKMDBData load = new LoadKMDBData();
+			KMDB_Data movie = load.getKMDB_movieDOCID(data.getDocid()).get(0);
+			
+			MainBoxCtor mainData = new MainBoxCtor();
+			mainData.setMovieDOCID(movie.getDOCID());
+			mainData.setMovieNm(movie.getTitle());
+			mainData.setOpenDt(movie.getOpenThtr());
+			mainData.setPosterUrl(movie.getPosters()[0]);
+			mainData.setRank(count++ + "");
+			result.add(mainData);
 		}
-
+		return result;
 	}
 
 	public ArrayList<InterestMovieData> getInterestMovieList(String userId) {
@@ -35,7 +67,7 @@ public class UserGenreSimilarityFinder extends DatabaseConnection {
 		try {
 			connection = getConnection();
 
-			String checkIdSql = "SELECT DISTINCT title, director, score\r\n" + "	FROM moviedb.review\r\n"
+			String checkIdSql = "SELECT DISTINCT docid, score\r\n" + "	FROM moviedb.review\r\n"
 					+ "	WHERE userid IN (?, ?,?,?,?) AND score >= 5 ORDER BY score DESC limit 5";
 			PreparedStatement preparedStatement = connection.prepareStatement(checkIdSql);
 			preparedStatement.setString(1, userIds[0]);
@@ -47,7 +79,7 @@ public class UserGenreSimilarityFinder extends DatabaseConnection {
 
 			while (rs.next()) {
 				// System.out.print(rs.getString(1) + " : ");
-				InterestMovieData data = new InterestMovieData(rs.getString(1), rs.getString(2), rs.getInt(3));
+				InterestMovieData data = new InterestMovieData(rs.getString(1), rs.getInt(2));
 				result.add(data);
 				// System.out.println(rs.getInt(2));
 			}
@@ -124,28 +156,18 @@ public class UserGenreSimilarityFinder extends DatabaseConnection {
 	}
 
 	class InterestMovieData {
-		String title = "";
-		String director = "";
+		String docid = "";
 		int score = 0;
 
 		@Override
 		public String toString() {
 			// TODO Auto-generated method stub
-			return "[title : " + title + "] [director : " + director + "] [score : " + score + "]";
+			return "[docid : " + docid + "] [score : " + score + "]";
 		}
 
-		InterestMovieData(String title, String director,int score) {
-			this.title = title;
-			this.director = director;
+		InterestMovieData(String docid, int score) {
+			this.docid = docid;
 			this.score = score;
-		}
-
-		public String getTitle() {
-			return title;
-		}
-
-		public void setTitle(String title) {
-			this.title = title;
 		}
 
 		public int getScore() {
@@ -156,12 +178,12 @@ public class UserGenreSimilarityFinder extends DatabaseConnection {
 			this.score = score;
 		}
 
-		public String getDirector() {
-			return director;
+		public String getDocid() {
+			return docid;
 		}
 
-		public void setDirector(String director) {
-			this.director = director;
+		public void setvDocid(String docid) {
+			this.docid = docid;
 		}
 	}
 }

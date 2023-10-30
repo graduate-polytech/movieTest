@@ -4,13 +4,13 @@ div .reviewDivBox {
 	margin: 10px;
 	border: 1px solid #d8d8d8;
 	padding: 10px;
-	width: 80%;
+	width: 100%;
 	height: 150px;
 	position: relative;
 }
 
 #showReviewListDiv {
-	width: 80%;
+	width: 60%;
 	margin: 10px auto;
 	max-height: 100vh; /* 최소 높이를 윈도우 창 크기만큼 설정 */
     display: flex;

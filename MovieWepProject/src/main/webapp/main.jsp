@@ -107,13 +107,13 @@
 						var day = date.getUTCDate().toString().padStart(2, '0');
 						return year + month + day;
 					}
-
+						
 					function fetchMovieData() {
+						console.log("fetchMovieData : " + data);	
 						var today = new Date();
 						var yesterday = new Date(today);
 						yesterday.setDate(today.getDate() - 1);
 						var formattedDate = formatDate(yesterday);
-
 						$.ajax({
 							type : "GET",
 							url : "MainBoxServlet", // AJAX 요청을 처리하는 서블릿 경로
@@ -121,8 +121,10 @@
 								targetDate : formattedDate
 							}, // 날짜를 지정
 							dataType : "json",
+							async: false, 
 							success : function(data) {
 								// 영화 정보를 성공적으로 받았을 때 실행될 함수
+								
 								displayMovieData(data);
 							},
 							error : function() {
@@ -130,11 +132,14 @@
 							}
 						});
 					}
-
+					
+					
+					
 					function displayMovieData(data) {
 						var movieList = $("#movie-list");
 						movieList.empty(); // 기존 데이터 삭제
-
+						console.log("movie-list : " + data);
+						
 						var gallery = $("<div class='movie-gallery'></div>");
 
 						$
@@ -182,6 +187,31 @@
 						movieList.append(gallery);
 					}
 
+					if (userId != 'null' && false) {//로그인 상태일때 추천영화 진행
+						function fetchMovieData() {
+						
+							
+
+							$.ajax({
+								type : "GET",
+								url : "RecommendMovies", // AJAX 요청을 처리하는 서블릿 경로
+								data : {
+									"userId" : userId
+								}, // 날짜를 지정
+								dataType : "json",
+								async: false, 
+								success : function(data) {
+									// 영화 정보를 성공적으로 받았을 때 실행될 함수
+									console.log("RecommendMovies : " + data);
+									displayRecommendedMovieData(data);
+								},
+								error : function() {
+									alert("영화 정보를 불러오는데 실패했습니다.");
+								}
+							});
+						}
+					}
+					
 					//추천 영화 형식을 인기 영화 형식으로 만들었습니다.
 					function displayRecommendedMovieData(recommendedData) {
 						var recommendedMovieList = $("#recommended-movie-list");

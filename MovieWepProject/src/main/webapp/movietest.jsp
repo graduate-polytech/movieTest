@@ -11,20 +11,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/styles1.css">
 <!-- 새로운 CSS 파일 사용 가능 -->
-<script>
-	// JavaScript 함수를 사용하여 영화명을 클릭하면 MovieDetailTest.jsp로 이동하도록 합니다.
-	function redirectToMovieDetail(movieTitle, directorName) {
-		// 영화명과 감독명을 함께 전달합니다.
-		var queryParams = "?title=" + encodeURIComponent(movieTitle)
-				+ "&director=" + encodeURIComponent(directorName);
-		window.location.href = "MovieDetailTest.jsp" + queryParams;
-	}
 
-	function removeSpaces() {
-		var titleInput = document.getElementById("title");
-		titleInput.value = titleInput.value.trim();
-	}
-</script>
 </head>
 <body>
 	<!-- 로고 이미지 -->
@@ -105,7 +92,7 @@
 					if (posterUrl != null && !posterUrl.isEmpty() && !posterUrl.equals("")) {
 
 				// 포스터 이미지가 있는 경우
-				resultHtml += "<a href='MovieInfoOfMovieSeq.jsp?DOCID=" + DOCID + "'>";
+				resultHtml += "<a href='MovieInfoOfMovieSeq.jsp?DOCID=" + DOCID + "&title=" + title + "'>";
 				resultHtml += "<img class='poster-img' src='" + posterUrl + "' alt='포스터' style='max-width: 100%;'>";
 				resultHtml += "</a>";
 			} else {
@@ -114,7 +101,7 @@
 			}
 			resultHtml += "</div>";
 			resultHtml += "<div class='col-md-8'>";
-			resultHtml += "<h4><a href='MovieInfoOfMovieSeq.jsp?DOCID=" + DOCID + "&director=" + director + "&title=" + title + "'>" + title
+			resultHtml += "<h4><a href='MovieInfoOfMovieSeq.jsp?DOCID=" + DOCID + "&title=" + title + "'>" + title
 					+ " (" + prodYear + ")</a></h4>";
 			resultHtml += "<p>감독: " + director + "</p>";
 			resultHtml += "<p>장르: " + genre + "</p>";

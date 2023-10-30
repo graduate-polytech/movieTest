@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8	">
+<meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap 5 JavaScript 링크 추가 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -14,14 +14,16 @@
 >
 <title>Insert title here</title>
 <%
+request.setCharacterEncoding("UTF-8");
+
 Object useridobj = session.getAttribute("userId");
 //System.out.println(useridobj.toString());
-String userid = useridobj == null ? "" : (String) useridobj;
+String session_userid = useridobj == null ? "" : (String) useridobj;
 
 String type = request.getParameter("type"); // 영화리뷰 - 본인리뷰 구분 "movie":"my"
-String data = request.getParameter("data"); // DB검색 데이터	docid : userid
+String param_docid = request.getParameter("param_docid");
+String param_title = request.getParameter("param_title");
 
-System.out.println("type : " + type + ", data : " + data);
 %>
 </head>
 <body>
@@ -78,112 +80,103 @@ System.out.println("type : " + type + ", data : " + data);
 			</div>
 		</div>
 	</div>
-	<div class="showListDiv">
-		<%
-		DAO_ReviewDB reviewName = new DAO_ReviewDB();
-		ArrayList<Data_Review> reviewList = reviewName.getReviewList(type, userid, data);
-		System.out.println("getReviewList : " + type + " : " + userid + " : " + data);
-
+	<%
+	DAO_ReviewDB reviewName = new DAO_ReviewDB();
+	ArrayList<Data_Review> reviewList = reviewName.getReviewList(type, session_userid, param_docid);
+	System.out.println("getReviewList : " + type + " : " + session_userid + " : " + param_docid);
+	if (reviewList.size() > 0) {
 		for (Data_Review getData : reviewList) {
 
 			String title = "";
 			if (type.equals("movie")) {
-				title = getData.getUserid();
+		title = getData.getUserid();
 			} else {
-				title = getData.getTitle();
+		title = getData.getTitle();
 			}
 
 			int no = getData.getNo();
 			String DOCID = getData.getDOCID();
 			String DBTitle = getData.getTitle();
 			String DBUserid = getData.getUserid();
-			
+
 			int score = getData.getScore();
 			Date date = getData.getDate();
 			String review = getData.getUserid();
 		%>
-		<div class="reviewDivBox">
-			<div class="review_Top">
-			<%//movietest.jsp?title=여공의%20밤&types=title
-			if(!type.equals("movie")){
-				String href="MovieInfoOfMovieSeq.jsp?DOCID="+DOCID+"&title="+DBTitle; %>
-				<a href="<%=href %>">
-				<p><b><%=DBTitle%></b></p>
-				</a><%
-				} else {%>
-				<p><b><%=DBUserid%></b></p>
-				<%}%>
-				<jsp:include page="ShowStarImg.jsp">
-					<jsp:param name="score" value="<%=getData.getScore()%>" />
-				</jsp:include>
-				<%
-				if (userid.equals(getData.getUserid()) || userid.equals("admin")) {
-				%>
-				<button type="button" class="btn btn-primary review_editBtn" data-message="수정"
-				data-no="<%=no%>" data-DOCID="<%=DOCID%>"
-			data-DBTitle="<%=DBTitle%>" data-DBUserid="<%=DBUserid%>" data-score="<%=score%>"
-			data-date="<%=date%>" data-review="<%=review%>">수정</button>
-				<%
-				}
-				%>
-			</div>
-			<p class="review_Text">
-				<%=getData.getReview()%>
-			</p>
+		<div class="showListDiv">
+			<jsp:include page="reviewBox_final.jsp">
+				<jsp:param name="param_no" value="<%=getData.getNo()%>" />
+				<jsp:param name="param_docid" value="<%=getData.getDOCID()%>" />
+				<jsp:param name="param_title" value="<%=getData.getTitle()%>" />
+				<jsp:param name="param_userid" value="<%=getData.getUserid()%>" />
+				<jsp:param name="param_score" value="<%=getData.getScore()%>" />
+				<jsp:param name="param_review" value="<%=getData.getReview()%>" />
+				<jsp:param name="param_date" value="<%=getData.getDate()%>" />
+			</jsp:include>
 		</div>
 		<%
 		}
-		%>
-	</div>
+	}
+	%>
 	<script type="text/javascript">
 		$(document).ready(
 				function() {
 					// 페이지가 로드될 때 실행할 코드
 					var start_img_divs = $('.review_score_img');
 					var modal = $('#myModal');
-					start_img_divs.each(function() {
-						//review_score_int
+					start_img_divs
+							.each(function() {
+								//review_score_int
 
-						var start_img_color = $(this).find('.start_img_color');
-						var review_score_int = $(this).find('.review_score_int');
-						
-						
-						//alert("실행");
-						var width = start_img_color.css('width').split(
-								"p")[0];
-						var height = start_img_color.css('height')
-								.split("p")[0];
-						var score = start_img_color.data('score');
+								var start_img_color = $(this).find(
+										'.start_img_color');
+								var review_score_int = $(this).find(
+										'.review_score_int');
 
-						var top = start_img_color.css("position");
-						var right = start_img_color.css("right");
+								//alert("실행");
+								var width = start_img_color.css('width').split(
+										"p")[0];
+								var height = start_img_color.css('height')
+										.split("p")[0];
+								var score = start_img_color.data('score');
 
-						var scorewidth = score * (width / 10);
+								var top = start_img_color.css("position");
+								var right = start_img_color.css("right");
 
-						var clipText = "rect(0px, " + scorewidth
-								+ "px, " + height + "px, 0px)";
-						start_img_color.css('clip', clipText);
-						
-					});
+								var scorewidth = score * (width / 10);
+
+								var clipText = "rect(0px, " + scorewidth
+										+ "px, " + height + "px, 0px)";
+								start_img_color.css('clip', clipText);
+
+							});
 					var reviewDivBoxs = $(this).find('.reviewDivBox');
-					
+
 					reviewDivBoxs.each(function() {//각 리뷰박스 마다
 						var reviewModalBtn = $(this).find('.review_editBtn');//모달버튼
-						
-							reviewModalBtn.on("click",function() {
-								console.log($(this));
-								
-							modal.find('#no').val($(this).data("no"));
-							modal.find('#DOCID').val($(this).data("docid"));
-							modal.find('#reviewtitle').val($(this).data("dbtitle"));
-							modal.find('#userid').val($(this).data("dbuserid"));
-							modal.find('#score').val($(this).data("score"));;
-							modal.find('#review').val($(this).data("review"));
-							modal.find('#registration_date').val($(this).data("date"));
-							modal.modal('show');
-						});
+
+						reviewModalBtn.on("click",
+								function() {
+									console.log($(this));
+
+									modal.find('#no').val($(this).data("no"));
+									modal.find('#DOCID').val(
+											$(this).data("docid"));
+									modal.find('#reviewtitle').val(
+											$(this).data("dbtitle"));
+									modal.find('#userid').val(
+											$(this).data("dbuserid"));
+									modal.find('#score').val(
+											$(this).data("score"));
+									;
+									modal.find('#review').val(
+											$(this).data("review"));
+									modal.find('#registration_date').val(
+											$(this).data("date"));
+									modal.modal('show');
+								});
 					});
-					
+
 				});
 		//alert(clip);
 	</script>

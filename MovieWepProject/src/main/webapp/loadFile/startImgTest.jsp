@@ -27,7 +27,7 @@ param_type = param_type == null ? "" : param_type;
 String param_docid = request.getParameter("param_docid");
 param_docid = param_docid == null ? "" : param_docid;
 
-String param_title = request.getParameter("param_title");
+String param_title = request.getParameter("param_title"); 
 param_title = param_title == null ? "" : param_title;
 %>
 </head>

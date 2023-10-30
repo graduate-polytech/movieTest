@@ -18,6 +18,23 @@
     #movieDataBody tr {
     cursor: pointer;
 	}
+	#titleDiv {
+	display:flex;
+	margin-top:20px;
+	justify-content: center;
+	}
+	.nemo-box {
+            width: 70%; /* 테이블과 같은 길이로 설정 */
+		    max-width: 80%; /* 테이블과 동일한 최대 너비로 설정, 필요에 따라 조절 가능 */
+		    height: 10%; /* 테이블과 같은 높이로 설정 */
+		    margin: 20px auto; /* 가운데 정렬 및 위아래 여백 조절 */
+		    background-color: #f0f0f0; /* 배경 색상 */
+		    padding: 10px; /* 내부 여백 */
+		    font-size: 13px;
+        }
+    #downloadButton{
+    margin-left:10px;
+    }
 	#calendarDiv{
 	display:flex;
 	justify-content: center;
@@ -32,6 +49,20 @@
 	display:flex;
 	justify-content: center;
 	margin:20px;
+	border-top: 1px solid #000;
+	border-bottom:1px solid #000;
+	}
+	#posterDiv{
+	display: flex;
+  	justify-content: center; /* 가로 중앙 정렬 */
+  	align-items: center; 
+	}
+	#detailDiv{
+	display: flex;
+	min-width: 255px;
+	flex-direction: column;
+  	justify-content: center; /* 가로 중앙 정렬 */
+  	
 	}
 	#firstDiv{
 	display:flex;
@@ -46,16 +77,24 @@
 	justify-content: center; /* 수평 가운데 정렬 */
     width: 100%; /* 가로로 100% 크기 */
     height:30%;
+    margin: 60px;
 	}
 	#barDiv{
 	width:30vw;
 	height: 30vw;
+	margin-right:100px;
 	}
 	#pieDiv{
 	width:30vw;
 	height: 30vw;
 	}
-
+	#fileDiv {
+	display:flex;
+	
+	margin-top:20px;
+	justify-content: center;
+	width : 70%;
+	}
 
     </style>
 </head>
@@ -67,27 +106,49 @@
 			<jsp:include page="loadFile/menuBar.jsp" />
 		</div>
 	</header>
-    <h1>일별 박스오피스</h1>
+	<div id="titleDiv">
+	<h1 class="display-5"><hr class="titleHr">일별 박스오피스<hr class="my-2"></h1>
+	</div>
+	<div class="nemo-box">
+    [박스오피스]코너는 실시간 발권데이터를 전일기준까지 반영하여 각종 통계정보를 제공합니다.
+   	<br>
+	매일 24시 이후 전환/제공되는 [전일자 통계정보]는 상영마감 및 보정처리 등의 사유로 익일 오전까지 계속 업데이트 되며, 일마감 후 데이터보정 등의 사유로 통계정보는 변동 될 수 있음을 참고하시기 바랍니다.
+	<br>
+	<br>
+	통계이용안내
+	<br>
+	<br>
+	① [박스오피스]코너는 연도별 영화상영관 연동율에 따라 실시간 수집된 발권데이터를 전일기준까지 반영한 통계정보입니다.
+	<br>
+	② [공식통계]코너는 영진위에서 매년 발표하는 “한국영화연감”의 영화별 흥행기록을 참고한 것입니다.
+	<br>
+	한국영화연감(1971~2010) 통계를 기준으로 정리한 것이며, 2011년부터는 통합전산망을 기준으로 일정한 주기(매월, 매년)로 마감 처리하여 산출되는 통계정보입니다.
+	<br>
+	통계마감 주기(월별, 년별)에 따라 공식통계 수치는 추후 변동될 수 있습니다.
+	<br>
+    </div>
     <div id = "calendarDiv">
     <label for="targetDate" id="calLabel">날짜 선택 </label>
     <input type="date" id="targetDate" name="targetDate">
     <button id="getDataBtn" type="button" class="btn btn-outline-primary btn-sm">조회</button>
+    <button id="downloadButton" class="btn btn-outline-primary btn-sm" style="display: none;">엑셀 파일 다운로드</button>
     <div class="alert alert-warning alert-dismissible fade show" id="dataAlert" style="display: none;" role="alert">
     날짜를 확인 해주세요.
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 	</div>
-	<div id = "seleDate">
-	<span id="selectedDate"></span>
+	<div id = "seleDate" style="display: none;">
+	<strong><span id="selectedDate"></span></strong>
 	</div>
     <div id = "firstDiv">
         <div id = "secondDiv">
-           	<div>
-                <img id="posterImage" style="display: none; min-height:400px; min-width: 270px; max-width: 270px;" />
+           	<div id = "posterDiv">
+                <img id="posterImage" style="display: none; min-height:400px; min-width: 270px; max-width: 270px; max-height: 400px;"/>
             </div>
-            <div>
+            <div id = "detailDiv">
                 <div>
                     <h2 id="movieName" style="display: none;"></h2>
+                    <hr class="movieNameHr" style="display: none;">    
                 </div>
                 <div id="directorDiv" style="display: none;">
                     <p>
@@ -118,7 +179,7 @@
             </div>
         </div>
         <div id="movieData" style="display: none;">
-            <table class="table">
+            <table class="table" style="max-height: 620px;">
                 <thead>
                     <tr>
                         <th>랭킹</th>
@@ -140,9 +201,6 @@
 		<div id ="pieDiv">
 		    <canvas id="salesShareChart" style="width: 100%; height: 100%;"></canvas>
 		</div>
-	</div>
-	<div>
-	<button id="downloadButton" style="display: none;">엑셀 파일 다운로드</button>
 	</div>
 	<footer>
 		<div id="bottom">
@@ -180,6 +238,8 @@
             $('#getDataBtn').click(function () {
                 var targetDate = $('#targetDate').val().replace(/-/g, ''); // "-" 문자 제거
                 var targetDateSource = $('#targetDate').val();
+                var result = targetDateSource + "일 박스오피스";
+                console.log(result); // 또는 필요한 곳에서 결과를 사용
                 if (targetDate) {
                     $.ajax({
                         url: 'movieDataServlet?targetDate=' + targetDate,
@@ -191,10 +251,13 @@
                                 receivedData = data;
                                 console.log(data);
                                 displayMovieData(data);
+                                $('#seleDate').show();
                                 $('#movieData').show();
+                                $('.movieNameHr').show();
                                 $('#downloadButton').show();
                                 $('#dataAlert').hide();
-                                $('#selectedDate').text(targetDateSource);
+                                $('#selectedDate').text(result);
+                                
                             } else {
                                 $('#dataAlert').show();
                             }
@@ -413,10 +476,10 @@
                     data: {
                         labels: labels,
                         datasets: [{
-                            label: '매출액321',
+                            label: '매출액',
                             data: data,
                             backgroundColor: labels.map(label => (label === selectedMovieName) ? 'red' : 'rgba(75, 192, 192, 0.2)'),
-                            borderColor: 'rgba(255, 192, 192, 1)',
+                            borderColor: 'rgba(0, 0, 0, 0.25)',
                             borderWidth: 1
                         }]
                     },

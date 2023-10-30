@@ -49,6 +49,8 @@
 	</header>
 	<h1 id="title" class="text-center">영화 상세정보</h1>
 	<%
+	
+	request.setCharacterEncoding("UTF-8");
 	String param_docid = request.getParameter("DOCID");
 	String param_title = request.getParameter("title");
 

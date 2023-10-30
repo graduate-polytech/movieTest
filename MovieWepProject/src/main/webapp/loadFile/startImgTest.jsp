@@ -24,11 +24,10 @@ String session_userid = useridobj == null ? "" : (String) useridobj;
 String param_type = request.getParameter("param_type"); // 영화리뷰 - 본인리뷰 구분 "movie":"my"
 
 String param_docid = request.getParameter("param_docid");
-param_docid = param_docid==null?"":param_docid;
+param_docid = param_docid == null ? "" : param_docid;
 
 String param_title = request.getParameter("param_title");
-param_title = param_title==null?"":param_title;
-
+param_title = param_title == null ? "" : param_title;
 %>
 </head>
 <body>
@@ -88,15 +87,17 @@ param_title = param_title==null?"":param_title;
 	<%
 	DAO_ReviewDB reviewName = new DAO_ReviewDB();
 	ArrayList<Data_Review> reviewList = reviewName.getReviewList(param_type, session_userid, param_docid);
-	System.out.println("getReviewList : " + param_type + " : " + session_userid + " : " + param_docid);
+	//System.out.println("getReviewList 사이즈 : " + reviewList.size());
+
+	
 	if (reviewList.size() > 0) {
 		for (Data_Review getData : reviewList) {
 
 			String title = "";
 			if (param_type.equals("movie")) {
-		title = getData.getUserid();
+				title = getData.getUserid();
 			} else {
-		title = getData.getTitle();
+				title = getData.getTitle();
 			}
 
 			int no = getData.getNo();
@@ -117,16 +118,28 @@ param_title = param_title==null?"":param_title;
 				<jsp:param name="param_score" value="<%=getData.getScore()%>" />
 				<jsp:param name="param_review" value="<%=getData.getReview()%>" />
 				<jsp:param name="param_date" value="<%=getData.getDate()%>" />
+				<jsp:param name="param_type" value="<%=param_type%>" />
 			</jsp:include>
 		</div>
 		<%
 		}
-	} else{
-		%>
-		
-		
-		<%
+	} else {
+	%>
+	<div class="showListDiv">
+		<jsp:include page="reviewBox_final.jsp">
+			<jsp:param name="param_no" value="-1" />
+			<jsp:param name="param_docid" value="<%=param_docid%>" />
+			<jsp:param name="param_title" value="<%=param_title%>" />
+			<jsp:param name="param_userid" value="<%=session_userid%>" />
+			<jsp:param name="param_score" value="0" />
+			<jsp:param name="param_review" value="" />
+			<jsp:param name="param_date" value="" />
+			<jsp:param name="param_type" value="<%=param_type%>" />
+		</jsp:include>
+	</div>
+	<%
 	}
+	
 	%>
 	<script type="text/javascript">
 		$(document).ready(

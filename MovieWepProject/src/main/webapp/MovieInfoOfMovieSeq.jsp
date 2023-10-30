@@ -49,18 +49,16 @@
 	</header>
 	<h1 id="title" class="text-center">영화 상세정보</h1>
 	<%
-	String movieDOCID = request.getParameter("DOCID");
-
-	String director = request.getParameter("director");
-	String title = request.getParameter("title");
+	String param_docid = request.getParameter("DOCID");
+	String param_title = request.getParameter("title");
 
 	ArrayList<KMDB_Data> ListData = new ArrayList<KMDB_Data>(); // ListData 리스트를 생성
 
 	LoadKMDBData loadData = new LoadKMDBData();
 	KMDB_Data kmdbData = new KMDB_Data();
-	System.out.println("movieDOCID : " + movieDOCID);
-	if (movieDOCID != null && !movieDOCID.isEmpty() && movieDOCID != "undefined") {
-		ArrayList<KMDB_Data> movieInfoList = loadData.getKMDB_movieDOCID(movieDOCID);
+	System.out.println("movieDOCID : " + param_docid);
+	if (param_docid != null && !param_docid.isEmpty() && param_docid != "undefined") {
+		ArrayList<KMDB_Data> movieInfoList = loadData.getKMDB_movieDOCID(param_docid);
 		KMDB_Data data = movieInfoList.get(0);
 		// 영화 정보가 있을 때 처리
 	%>
@@ -121,8 +119,9 @@
 		%>
 		<div id="showReviewListDiv">
 			<jsp:include page="loadFile/startImgTest.jsp">
-				<jsp:param name="type" value="movie"/>
-				<jsp:param name="data" value="<%=movieDOCID%>"/>
+				<jsp:param name="param_type" value="movie"/>
+				<jsp:param name="param_docid" value="<%=param_docid%>"/>
+				<jsp:param name="param_title" value="<%=param_title%>"/>
 			</jsp:include>
 		</div>
 	</div>

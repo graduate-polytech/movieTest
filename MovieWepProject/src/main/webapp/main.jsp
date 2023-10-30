@@ -110,9 +110,9 @@
     				<div class="row">
         				<div class="col-md-6">
             				<div id="theater-images">
-                			<img id="cgv-image" src="resource/images/cgv_logo1.jpg" alt="CGV 로고" width="660" height="320">
-                			<img id="lotte-image" src="resource/images/lotte_logo1.jpg" alt="롯데시네마 로고" width="660" height="320" style="display: none;">
-                			<img id="megabox-image" src="resource/images/megabox1_logo.jpg" alt "메가박스 로고" width="660" height="320" style="display: none;">
+                			<img id="cgv-image" src="resource/images/cgv_logo1.jpg" alt="CGV 로고" width="660" height="320"  onclick="navigateToTheaterWebsite('cgv');">
+                			<img id="lotte-image" src="resource/images/lotte_logo1.jpg" alt="롯데시네마 로고" width="660" height="320" style="display: none;" onclick="navigateToTheaterWebsite('lotte');">
+                			<img id="megabox-image" src="resource/images/megabox1_logo.jpg" alt "메가박스 로고" width="660" height="320" style="display: none;" onclick="navigateToTheaterWebsite('megabox');">
             			</div>
         			</div>
         				<div class="col-md-6">
@@ -195,6 +195,26 @@
 					        // 선택한 극장 이미지만 표시
 					        document.getElementById(theaterName + "-image").style.display = "block";
 					    }
+					  
+
+					  function navigateToTheaterWebsite(theaterName) {
+					      // 극장 이름에 따라 URL 설정
+					      var theaterURLs = {
+					          cgv: "https://www.cgv.co.kr",
+					          lotte: "https://www.lottecinema.co.kr",
+					          megabox: "https://www.megabox.co.kr"
+					      };
+
+					      // 선택한 극장의 URL로 이동
+					      var theaterURL = theaterURLs[theaterName];
+					      if (theaterURL) {
+					          window.location.href = theaterURL;
+					      } else {
+					          alert("해당 극장의 홈페이지 URL이 설정되어 있지 않습니다.");
+					      }
+					  }
+					  
+					  
 
 					function formatDate(date) {
 						// 날짜를 "yyyymmdd" 형식으로 변환

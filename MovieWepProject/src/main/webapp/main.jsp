@@ -171,7 +171,7 @@
 											var title = $("<p class='movie-title'><strong>"
 													+ movieData.movieNm
 													+ "</strong></p>");
-											var releaseDate = $("<p class='movie-release-date'><strong>"
+											var releaseDate = $("<p class='movie-release-date'><strong>" 
 													+ movieData.openDt
 													+ "</strong></p>");
 

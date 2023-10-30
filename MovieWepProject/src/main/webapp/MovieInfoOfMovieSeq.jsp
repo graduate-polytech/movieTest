@@ -72,6 +72,7 @@ p {
 			<jsp:include page="loadFile/menuBar.jsp" />
 		</div>
 	</header>
+	<body_main>
 	<h1 id="title" class="text-center">영화 상세정보</h1>
 	<%
 	request.setCharacterEncoding("UTF-8");
@@ -191,6 +192,7 @@ p {
 			}
 		}
 	</script>
+	</body_main>
 	<footer>
 		<div id="bottom">
 			<jsp:include page="loadFile/bottom.jsp" />

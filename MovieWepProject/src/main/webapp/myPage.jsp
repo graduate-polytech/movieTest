@@ -51,6 +51,7 @@ label {
 </style>
 </head>
 <body>
+<main>
 	<datalist id="email-domain">
 		<option value="직접입력" />
 		<option value="gmail.com" />
@@ -231,5 +232,6 @@ label {
 		document.getElementById('Genre_4').value = '<%=session.getAttribute("Genre_4")%>';
 	});
 	</script>
+	</main>
 </body>
 </html>

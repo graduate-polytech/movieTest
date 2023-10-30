@@ -39,16 +39,21 @@ param_no = param_no=="-1"?"신규":param_no;
 </head>
 <body>
 <div class="reviewDivBox">
-			<div class="review_Top">
+			
 			<%
 			if(param_userid.equals("")){
 				%>
-				<button type="button" class="btn btn-primary">로그인</button>
+				<div class="review_center">
+				<button type="button" class="btn btn-primary" style="margin: 0px; width: 10%;" onclick="location.href='../MovieWepProject/signin.jsp'">로그인</button>
+				</div>
 			<%}else {
-			
+			%>
+			<div class="review_Top">
+			<%
 			
 			if(!param_type.equals("movie")){
 				String href="MovieInfoOfMovieSeq.jsp?DOCID="+param_docid+"&title="+param_title; %>
+				
 				<a href="<%=href %>">
 				<p><b><%=param_title%></b></p>
 				</a><%

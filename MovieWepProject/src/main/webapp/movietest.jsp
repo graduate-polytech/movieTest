@@ -13,9 +13,21 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/styles1.css">
 <!-- 새로운 CSS 파일 사용 가능 -->
-
+<style>
+	/* 이미지 호버 효과 정의 */
+	.poster-img {
+		max-width: 100%;
+		transition: transform 0.3s ease-in-out; /* 호버 시에 변화를 부드럽게 적용 */
+	}
+	
+	/* 호버 시 이미지 크기 확대 */
+	.poster-img:hover {
+		transform: scale(1.1); /* 이미지 크기를 1.1배 확대 */
+	}
+</style>
 </head>
 <body>
+<main>
 	<!-- 로고 이미지 -->
 	<header>
 		<div id="top">
@@ -24,20 +36,7 @@
 			<jsp:include page="loadFile/menuBar.jsp" />
 		</div>
 	</header>
-	<body_main>
-	<style>
-/* 이미지 호버 효과 정의 */
-.poster-img {
-	max-width: 100%;
-	transition: transform 0.3s ease-in-out; /* 호버 시에 변화를 부드럽게 적용 */
-}
-
-/* 호버 시 이미지 크기 확대 */
-.poster-img:hover {
-	transform: scale(1.1); /* 이미지 크기를 1.1배 확대 */
-}
-</style>
-
+	
 	<div class="container mt-5">
 		<h2 class="text-center">영화 검색</h2>
 		<form action="movietest.jsp" method="GET" onsubmit="removeSpaces()"
@@ -131,5 +130,6 @@
 			<jsp:include page="loadFile/bottom.jsp" />
 		</div>
 	</footer>
+	</main>
 </body>
 </html>

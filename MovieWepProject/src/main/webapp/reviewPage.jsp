@@ -22,6 +22,7 @@
 </head>
 
 <body>
+<main>
 	<!-- 로고 이미지 -->
 	<header>
 		<div id="top">
@@ -41,20 +42,18 @@
 			window.location.href = 'signin.jsp';
 		}
 	</script>
-	<body_main>
 	<div id="showReviewListDiv">
 		<h1 style="display: flex; align-items: center; justify-content: flex-start;">내 리뷰</h1>
 		<jsp:include page="loadFile/startImgTest.jsp">
 			<jsp:param name="param_type" value="my" />
 		</jsp:include>
 	</div>
-	</body_main>
 	<footer>
 		<div id="bottom">
 			<jsp:include page="loadFile/bottom.jsp" />
 		</div>
 	</footer>
-
+</main>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 $(document).ready(function() {
-	setFooterLocation();
+	//setFooterLocation();
+	allHeight();
 });
 function setFooterLocation() {
 	var htmlyHeight = Number($('html').css('height').split("p")[0]);
@@ -24,4 +25,18 @@ function setFooterLocation() {
 		console.log("높이 설정 안함");
 	}
 
+}
+
+function allHeight() {
+	var body = $('body')
+	var main = $('main')
+	var bodyHeight = body.outerHeight();
+	var mainHeight = main.outerHeight();
+
+	console.log("bodyHeight : " + bodyHeight);
+	console.log("mainHeight : " + mainHeight);
+	if(bodyHeight > mainHeight){
+		$('body').find('footer').css('position','absolute');
+		$('body').find('footer').css('bottom','0');
+	}
 }

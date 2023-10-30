@@ -143,6 +143,7 @@ param_title = param_title == null ? "" : param_title;
 		} else if(param_type.equals("my")){
 			%>
 			<p>작성한 리뷰가 없습니다.</p>
+			<p>리뷰 작성은 상단 메뉴바의 [영화 - 영화 검색] 페이지에서 작성하실수 있습니다.</p>
 			<%
 		}
 	}

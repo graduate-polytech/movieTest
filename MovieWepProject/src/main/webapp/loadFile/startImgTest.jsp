@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="DB.Data.*"%>
 <%@ page import="DB.DAO.*"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html>
@@ -20,9 +21,13 @@ Object useridobj = session.getAttribute("userId");
 //System.out.println(useridobj.toString());
 String session_userid = useridobj == null ? "" : (String) useridobj;
 
-String type = request.getParameter("type"); // 영화리뷰 - 본인리뷰 구분 "movie":"my"
+String param_type = request.getParameter("param_type"); // 영화리뷰 - 본인리뷰 구분 "movie":"my"
+
 String param_docid = request.getParameter("param_docid");
+param_docid = param_docid==null?"":param_docid;
+
 String param_title = request.getParameter("param_title");
+param_title = param_title==null?"":param_title;
 
 %>
 </head>
@@ -82,13 +87,13 @@ String param_title = request.getParameter("param_title");
 	</div>
 	<%
 	DAO_ReviewDB reviewName = new DAO_ReviewDB();
-	ArrayList<Data_Review> reviewList = reviewName.getReviewList(type, session_userid, param_docid);
-	System.out.println("getReviewList : " + type + " : " + session_userid + " : " + param_docid);
+	ArrayList<Data_Review> reviewList = reviewName.getReviewList(param_type, session_userid, param_docid);
+	System.out.println("getReviewList : " + param_type + " : " + session_userid + " : " + param_docid);
 	if (reviewList.size() > 0) {
 		for (Data_Review getData : reviewList) {
 
 			String title = "";
-			if (type.equals("movie")) {
+			if (param_type.equals("movie")) {
 		title = getData.getUserid();
 			} else {
 		title = getData.getTitle();
@@ -116,6 +121,11 @@ String param_title = request.getParameter("param_title");
 		</div>
 		<%
 		}
+	} else{
+		%>
+		
+		
+		<%
 	}
 	%>
 	<script type="text/javascript">

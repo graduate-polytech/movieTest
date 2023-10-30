@@ -187,7 +187,7 @@
 						movieList.append(gallery);
 					}
 
-					if (userId != 'null') {//로그인 상태일때 추천영화 진행
+					if (userId != 'null' && false) {//로그인 상태일때 추천영화 진행
 						function fetchMovieData() {
 						
 							

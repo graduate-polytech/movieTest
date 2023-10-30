@@ -119,7 +119,7 @@
 		%>
 		<div id="showReviewListDiv">
 			<jsp:include page="loadFile/startImgTest.jsp">
-				<jsp:param name="type" value="movie"/>
+				<jsp:param name="param_type" value="movie"/>
 				<jsp:param name="param_docid" value="<%=param_docid%>"/>
 				<jsp:param name="param_title" value="<%=param_title%>"/>
 			</jsp:include>

@@ -276,10 +276,47 @@ button.btn-primary {
     background: #555;
 }
 
-
-.movie-details {
-    font-size: 14px; /* 필요에 따라 글꼴 크기 조절 */
+/* 특별관 영화관 이미지들 */
+.cinema-logo {
+    width: 350px; /*크기 조정*/
+    height: 300px; 
 }
+
+.cinema-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.cinema-overlay {
+    display: none;
+}
+
+.cinema-link:hover .cinema-overlay {
+    display: block;
+}
+
+css
+Copy code
+/* 영화 상세정보 페이지 스타일 수정 */
+.movie-details {
+    font-size: 15pt; /* 텍스트 크기를 15pt로 조정 */
+    font-weight: bold; /* 글꼴을 굵게 만듭니다. */
+}
+    /* 배우 목록 텍스트 스타일 조정 */
+.actors-list {
+        font-size: 15pt; /* 텍스트 크기를 15pt로 조정 */
+        font-weight: normal; /* 폰트 굵기를 기본값으로 설정합니다. */
+    }
+
+    /* 나머지 텍스트 스타일 조정 */
+p {
+        font-size: 15pt; /* 텍스트 크기를 15pt로 조정 */
+        font-weight: normal; /* 폰트 굵기를 기본값으로 설정합니다. */
+    }
+
 
 /* 하위 메뉴 스타일 */
 .submenu {

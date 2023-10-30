@@ -35,10 +35,16 @@
     #downloadButton{
     margin-left:10px;
     }
+    #dataAlert {
+            width: 500px; /* 가로 길이를 500px로 설정 */
+            margin: 0 auto; /* 가로 가운데 정렬을 위해 margin 속성 사용 */
+    }
+
 	#calendarDiv{
 	display:flex;
 	justify-content: center;
 	}
+
 	#calLabel{
 	margin-right: 20px;
 	}
@@ -62,7 +68,11 @@
 	min-width: 255px;
 	flex-direction: column;
   	justify-content: center; /* 가로 중앙 정렬 */
-  	
+  	margin-left:20px;
+  	margin-right:20px;
+	}
+	#movieData{
+	max-width:50%;
 	}
 	#firstDiv{
 	display:flex;
@@ -83,6 +93,17 @@
 	width:30vw;
 	height: 30vw;
 	margin-right:100px;
+	}
+	#barLetter{
+	display:flex;
+	justify-content:center;
+	font-size: 15px; /* 글자 크기를 15px로 설정 */
+    
+	}
+	#pieLetter{
+	display:flex;
+	justify-content:center;
+	font-size: 15px; /* 글자 크기를 15px로 설정 */
 	}
 	#pieDiv{
 	width:30vw;
@@ -132,20 +153,28 @@
     <input type="date" id="targetDate" name="targetDate">
     <button id="getDataBtn" type="button" class="btn btn-outline-primary btn-sm">조회</button>
     <button id="downloadButton" class="btn btn-outline-primary btn-sm" style="display: none;">엑셀 파일 다운로드</button>
-    <div class="alert alert-warning alert-dismissible fade show" id="dataAlert" style="display: none;" role="alert">
+	</div>
+	<div class="alert alert-warning alert-dismissible fade show" id="dataAlert" style="display: none;" role="alert">
     날짜를 확인 해주세요.
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+	<div class="loading" id="loading" style="display:flex;justify-content: center;">
+	    <div class="loading-content">
+	        <div id ="spinner" class="spinner-border text-primary" role="status" >
+	        	<span class="visually-hidden" >Loading...</span>
+			</div>
+	    </div>
 	</div>
 	<div id = "seleDate" style="display: none;">
-	<strong><span id="selectedDate"></span></strong>
+	<h3 id="selectedDate">></h3>
 	</div>
+	<div id="container" style="display: flex; flex-wrap: wrap;">
     <div id = "firstDiv">
         <div id = "secondDiv">
            	<div id = "posterDiv">
                 <img id="posterImage" style="display: none; min-height:400px; min-width: 270px; max-width: 270px; max-height: 400px;"/>
             </div>
-            <div id = "detailDiv">
+            <div id = "detailDiv" >
                 <div>
                     <h2 id="movieName" style="display: none;"></h2>
                     <hr class="movieNameHr" style="display: none;">    
@@ -179,7 +208,7 @@
             </div>
         </div>
         <div id="movieData" style="display: none;">
-            <table class="table" style="max-height: 620px;">
+            <table id="rankTable" class="table">
                 <thead>
                     <tr>
                         <th>랭킹</th>
@@ -196,11 +225,14 @@
     </div>
     <div id="graphDiv">
 	    <div id ="barDiv">
+	    	<p id = "barLetter" style="display:none;">영화 매출액</p>
 		    <canvas id="salesChart" style="width: 100%; height: 100%;"></canvas>
 		</div>
 		<div id ="pieDiv">
+			<p id="pieLetter" style="display:none">당일 매출 점유율</p>
 		    <canvas id="salesShareChart" style="width: 100%; height: 100%;"></canvas>
 		</div>
+	</div>
 	</div>
 	<footer>
 		<div id="bottom">
@@ -236,6 +268,8 @@
             }
             
             $('#getDataBtn').click(function () {
+            	showSpinner();
+            	
                 var targetDate = $('#targetDate').val().replace(/-/g, ''); // "-" 문자 제거
                 var targetDateSource = $('#targetDate').val();
                 var result = targetDateSource + "일 박스오피스";
@@ -247,27 +281,36 @@
                         dataType: 'json',
                         async: false,
                         success: function (data) {
+                        	hideSpinner();
+                        	
                         	if (data.length > 0) {
                                 receivedData = data;
                                 console.log(data);
                                 displayMovieData(data);
                                 $('#seleDate').show();
+                                $('#pieLetter').show();
+                                $('#barLetter').show();
+                                
                                 $('#movieData').show();
                                 $('.movieNameHr').show();
                                 $('#downloadButton').show();
                                 $('#dataAlert').hide();
                                 $('#selectedDate').text(result);
+                                TrueDate = targetDate;
                                 
                             } else {
                                 $('#dataAlert').show();
+                                hideSpinner();
                             }
                         },
                         error: function () {
                             alert('데이터를 가져오는 중에 오류가 발생했습니다.');
+                            hideSpinner();
                         }
                     });
                 } else {
                     alert('날짜를 입력해 주세요.');
+                    hideSpinner();
                 }
             });
 
@@ -329,7 +372,7 @@
             });
             
             $('#downloadButton').click(function () {
-            	var ButtonDate = $('#targetDate').val();
+            	var ButtonDate = TrueDate;
                 console.log(receivedData);
 
                 if (receivedData && receivedData.length > 0) {
@@ -364,7 +407,7 @@
                     // XLSX 워크북을 만들고 워크시트를 추가합니다.
                     var workbook = XLSX.utils.book_new();
                     
-                    var title = ButtonDate + " 박스 오피스 일간 데이터"; // 제목 생성
+                    var title = ButtonDate + " 일간 박스 오피스 데이터"; // 제목 생성
                     XLSX.utils.book_append_sheet(workbook, ws, title);
 
                     // 워크북을 Excel 파일로 저장합니다.
@@ -373,7 +416,14 @@
                     alert("내보낼 영화 데이터가 없거나 데이터를 먼저 가져와야 합니다.");
                 }
             });
+            
+            function showSpinner() {
+                $('#loading').show();
+            }
 
+            function hideSpinner() {
+                $('#loading').hide();
+            }
 
             function displayMovieData(data) {
                 var tableBody = $('#movieDataBody');

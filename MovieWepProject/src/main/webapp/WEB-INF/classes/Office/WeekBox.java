@@ -113,6 +113,7 @@ public class WeekBox {
                         Daydata.setAudiChange(movieData.getString("audiChange"));
                         Daydata.setSalesAmt(movieData.getString("salesAmt"));
                         Daydata.setSalesAcc(movieData.getString("salesAcc"));
+                        
                         Daydata.setSalesShare(movieData.getString("salesShare"));
                         Daydata.setSalesChange(movieData.getString("salesChange"));
                         Daydata.setDirectors(directors);

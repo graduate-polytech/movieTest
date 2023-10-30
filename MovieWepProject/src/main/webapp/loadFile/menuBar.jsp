@@ -4,10 +4,13 @@
 <head>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	rel="stylesheet"
 >
 <link rel="stylesheet" href="../resource/css/styles1.css">
 <!-- 기존 CSS 스타일 시트 링크 -->
+<script src="resource/js/setFooter.js">/*푸터 위치 설정용*/</script>
 </head>
 <body>
 	<%

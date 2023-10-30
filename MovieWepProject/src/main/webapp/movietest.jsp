@@ -8,6 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>영화 상세 정보</title>
 <!-- 필요한 CSS 파일 링크 추가 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/styles1.css">
 <!-- 새로운 CSS 파일 사용 가능 -->
@@ -22,6 +24,7 @@
 			<jsp:include page="loadFile/menuBar.jsp" />
 		</div>
 	</header>
+	<body_main>
 	<style>
 /* 이미지 호버 효과 정의 */
 .poster-img {
@@ -34,6 +37,7 @@
 	transform: scale(1.1); /* 이미지 크기를 1.1배 확대 */
 }
 </style>
+
 	<div class="container mt-5">
 		<h2 class="text-center">영화 검색</h2>
 		<form action="movietest.jsp" method="GET" onsubmit="removeSpaces()"
@@ -121,6 +125,7 @@
 			<%=resultHtml%>
 		</div>
 	</div>
+	
 	<footer>
 		<div id="bottom">
 			<jsp:include page="loadFile/bottom.jsp" />

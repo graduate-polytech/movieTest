@@ -204,6 +204,8 @@ td {
 			<jsp:include page="loadFile/menuBar.jsp" />
 		</div>
 	</header>
+	
+	<body_main>
 	<%
 	DAO_UserDB userData = new DAO_UserDB();
 	ArrayList<Data_User> userList = userData.loadUserDataList();
@@ -287,6 +289,7 @@ td {
 			</table>
 		</div>
 	</div>
+	</body_main>
 	<footer>
 		<div id="bottom">
 			<jsp:include page="loadFile/bottom.jsp" />
@@ -489,5 +492,6 @@ td {
 		}
 	});
 	</script>
+
 </body>
 </html>

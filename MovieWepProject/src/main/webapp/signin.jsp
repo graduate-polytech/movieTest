@@ -14,6 +14,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/styles1.css" type="text/css">
 <script src="resource/js/signin.js"></script>
+
+
 <script type="text/javascript">
 		
 var userId = '<%=session.getAttribute("userId")%>';
@@ -29,17 +31,19 @@ var userId = '<%=session.getAttribute("userId")%>';
 			<jsp:include page="loadFile/menuBar.jsp" />
 		</div>
 	</header>
-	<div class="login-box" style="margin-top: 50px auto;">
-		<img class="logo-title" src="resource/images/Title.png" alt="로고 이미지">
-		<div id="form-floating mb-3" style="margin-top: 20px auto;">
-			<form id="signinForm" name="signinForm" method="post" action="main.jsp" style="margin: 40px auto;" onsubmit="return trySignIn()">
-				<input type="text" class="form-control" id="userId" name="userId" placeholder="ID" style="height: 40px; font-size: 20px; padding: 5px;">
-				<input type="password" class="form-control" id="userPw" name="userPw" placeholder="Password" style="height: 40px; font-size: 20px; padding: 5px;">
-				<input id="login-btn" type="submit" class="btn btn-outline-primary" style="margin: 30px; margin-bottom: 5px; height: 50px; width: 60%; margin: 5px;" value="로그인">
-				<a href="signup.jsp" style="text-align: end; width: 80%; display: flex; flex-direction: row-reverse;">회원가입</a>
-			</form>
+	<body_main>
+		<div class="login-box" style="margin-top: 50px auto;">
+			<img class="logo-title" src="resource/images/Title.png" alt="로고 이미지">
+			<div id="form-floating mb-3" style="margin-top: 20px auto;">
+				<form id="signinForm" name="signinForm" method="post" action="main.jsp" style="margin: 40px auto;" onsubmit="return trySignIn()">
+					<input type="text" class="form-control" id="userId" name="userId" placeholder="ID" style="height: 40px; font-size: 20px; padding: 5px;">
+					<input type="password" class="form-control" id="userPw" name="userPw" placeholder="Password" style="height: 40px; font-size: 20px; padding: 5px;">
+					<input id="login-btn" type="submit" class="btn btn-outline-primary" style="margin: 30px; margin-bottom: 5px; height: 50px; width: 60%; margin: 5px;" value="로그인">
+					<a href="signup.jsp" style="text-align: end; width: 80%; display: flex; flex-direction: row-reverse;">회원가입</a>
+				</form>
+			</div>
 		</div>
-	</div>
+	</body_main>
 	<footer>
 		<div id="bottom">
 			<jsp:include page="loadFile/bottom.jsp" />

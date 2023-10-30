@@ -18,6 +18,7 @@ request.setCharacterEncoding("utf-8");
 <script src="resource/js/signin.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <script type="text/javascript">
 
 	function sample4_execDaumPostcode() {
@@ -112,6 +113,7 @@ label {
 			<jsp:include page="loadFile/menuBar.jsp" />
 		</div>
 	</header>
+	<body_main>
 	<div class="signup-layout">
 		<h1>내 정보</h1>
 		<form id="userInfoEdit" name="userInfoEdit" method="post" action="main.jsp" onsubmit="return userInfoEdit_F()"><!-- userInfoEdit() -->
@@ -187,6 +189,7 @@ label {
 			</div>
 		</form>
 	</div>
+	</body_main>
 	<footer>
 		<p>&copy; 시네마 위키</p>
 	</footer>

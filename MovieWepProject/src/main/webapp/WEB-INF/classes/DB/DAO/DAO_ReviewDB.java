@@ -166,7 +166,7 @@ public class DAO_ReviewDB extends DatabaseConnection {
 			dataCount = 0;
 		} else if (type.equals("movie")) {
 			dataCount = 2;
-		}else {
+		}else if (type.equals("my")) {
 			dataCount = 1;
 		}
 		
@@ -187,6 +187,7 @@ public class DAO_ReviewDB extends DatabaseConnection {
 				//System.out.println("리뷰 불러오기(영화 본인)");
 			}
 
+			System.out.println("checkIdSql : " + checkIdSql);
 			pstmt = conn.prepareStatement(checkIdSql);
 
 			if (dataCount == 1) {

@@ -18,6 +18,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="stylesheet" href="resource/css/styles1.css">
 <script src="resource/js/admin.js"></script>
+
 <!-- 기존 CSS 스타일 시트 링크 -->
 <script type="text/javascript">
 		
@@ -144,6 +145,7 @@ td {
 			<jsp:include page="loadFile/menuBar.jsp" />
 		</div>
 	</header>
+	</body_main>
 	<%
 	DAO_ReviewDB reviewData = new DAO_ReviewDB();
 	ArrayList<Data_Review> reviewList = reviewData.getReviewList();
@@ -214,6 +216,7 @@ td {
 			</table>
 		</div>
 	</div>
+	</body_main>
 	<footer>
 		<div id="bottom">
 			<jsp:include page="loadFile/bottom.jsp" />
@@ -376,5 +379,6 @@ td {
 			}
 		});
 	</script>
+
 </body>
 </html>

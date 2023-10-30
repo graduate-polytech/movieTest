@@ -161,7 +161,7 @@ public class DAO_ReviewDB extends DatabaseConnection {
 		ArrayList<Data_Review> reviewList = new ArrayList<Data_Review>();
 		
 		int dataCount = 0;
-
+		System.out.println("getReviewList 실행 type : " + type);
 		if (type.equals("")) {
 			dataCount = 0;
 		} else if (type.equals("movie")) {

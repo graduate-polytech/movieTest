@@ -150,13 +150,15 @@
 											//
 											//alert(movieData);
 											var movieDOCID = movieData.movieDOCID;
+											var movieTitle = movieData.movieNm;
 											if(movieDOCID == undefined){
 												movieDOCID = "";
 											}
 											
 											var posterDiv = $("<div class='text-center'>");
 											//MovieInfoOfMovieSeq.jsp?movieSeq=55873
-											var url = "MovieInfoOfMovieSeq.jsp?DOCID=" + movieDOCID;
+											var url = "MovieInfoOfMovieSeq.jsp?DOCID=" + movieDOCID + "&title=" +  encodeURIComponent(movieTitle);
+											console.log(url);
 											//onclick='"+url+""'
 											//alert(url);
 											var movieDiv = $("<div class='col-md-3 movie-item' onclick=location.href='"+url+"';>");
@@ -190,8 +192,6 @@
 					if (userId != 'null' && false) {//로그인 상태일때 추천영화 진행
 						function fetchMovieData() {
 						
-							
-
 							$.ajax({
 								type : "GET",
 								url : "RecommendMovies", // AJAX 요청을 처리하는 서블릿 경로

@@ -22,6 +22,7 @@ Object useridobj = session.getAttribute("userId");
 String session_userid = useridobj == null ? "" : (String) useridobj;
 
 String param_type = request.getParameter("param_type"); // 영화리뷰 - 본인리뷰 구분 "movie":"my"
+param_type = param_type == null ? "" : param_type;
 
 String param_docid = request.getParameter("param_docid");
 param_docid = param_docid == null ? "" : param_docid;

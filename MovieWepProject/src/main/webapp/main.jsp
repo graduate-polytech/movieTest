@@ -380,6 +380,7 @@
 							});
 			recommendedMovieList.append(recommendedGallery);
 		}
+		
 	</script>
 	</main>
 </body>

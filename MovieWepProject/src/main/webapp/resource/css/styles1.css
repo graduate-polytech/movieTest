@@ -11,12 +11,47 @@ header {
 /* 전체 페이지 스타일 */
 body {
 	font-family: Arial, sans-serif;
-    background-color: #ffffff;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh; /* 최소 높이를 윈도우 창 크기만큼 설정 */
-    display: flex;
-    flex-direction: column;
+	background-color: #ffffff;
+	margin: 0;
+	padding: 0;
+	min-height: 100vh; /* 최소 높이를 윈도우 창 크기만큼 설정 */
+	display: flex;
+	flex-direction: column;
+}
+
+.shadowBox {
+	border: 1px solid black;
+	box-shadow: 2px 3px 5px 0px black;
+}
+
+.mar-tb-10 {
+	margin: 10px 0px;
+}
+
+.myInfoBox label,h1,h2,h3,h4,h5{
+	margin: 0px;
+}
+
+.myInfoBox #noMargin{
+	margin: 0px;
+}
+
+.myInfoBox {
+	width: 40%;
+	margin: 50px auto;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.myInfoBox-60 {
+	width: 60%;
+	height: 80%;
+	margin : 20px auto;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin: 20px auto;
 }
 
 footer {
@@ -25,15 +60,16 @@ footer {
 	text-align: center;
 	padding: 20px 0;
 	position: relative;
-    bottom: 0;
-    width: 100%;
+	bottom: 0;
+	width: 100%;
 }
 
 footer i {
 	margin-right: 5px;
 	font-size: 18px;
 }
-#title{
+
+#title {
 	margin: 40px;
 }
 
@@ -76,7 +112,6 @@ header img {
 	margin-top: 0;
 }
 
-
 .login-help-text {
 	text-align: center;
 	font-size: 12px;
@@ -85,8 +120,7 @@ header img {
 
 #signupForm {
 	display: flex;
-	width: 100%
-	flex-direction: column;
+	width: 100% flex-direction: column;
 }
 
 .signup-layout {
@@ -158,8 +192,6 @@ header img {
 	height: 800px; /* 높이를 500px로 설정 */
 }
 
-
-
 .ml5 {
 	margin-left: 5px;
 }
@@ -188,7 +220,6 @@ button.btn-primary {
 }
 
 #side-right {
-	
 	background-color: #f0f0f0; /* 배경색 설정 (선택사항) */
 }
 
@@ -238,13 +269,13 @@ button.btn-primary {
 
 /* 갤러리 스타일 */
 .movie-gallery {
-  overflow-x: scroll; /* 가로 스크롤 활성화 */
-  white-space: nowrap; /* 요소들이 줄 바꿈되지 않도록 함 */
-  width: 100%; /* 가로 스크롤이 활성화된 영역의 너비를 조절합니다. */
-  display: flex; /* 내부 요소들을 가로로 나란히 표시 */
+	overflow-x: scroll; /* 가로 스크롤 활성화 */
+	white-space: nowrap; /* 요소들이 줄 바꿈되지 않도록 함 */
+	width: 100%; /* 가로 스크롤이 활성화된 영역의 너비를 조절합니다. */
+	display: flex; /* 내부 요소들을 가로로 나란히 표시 */
 }
 
-.poster{
+.poster {
 	width: 210px;
 	height: 300px;
 }
@@ -252,73 +283,72 @@ button.btn-primary {
 /*인기영화*/
 .movie-item {
 	display: flex;
-    align-items: center;
-    flex-direction: column;
+	align-items: center;
+	flex-direction: column;
 }
 /* 포스터 이미지에 호버 효과 추가 */
 .movie-item:hover {
-  transform: scale(1.1); /* 호버 시 이미지 크기를 확대합니다. */
-  transition: transform 0.3s ease-in-out; /* 부드러운 전환 효과를 추가합니다. */
-  cursor: pointer; /* 호버 시 커서를 포인터로 변경합니다. */
+	transform: scale(1.1); /* 호버 시 이미지 크기를 확대합니다. */
+	transition: transform 0.3s ease-in-out; /* 부드러운 전환 효과를 추가합니다. */
+	cursor: pointer; /* 호버 시 커서를 포인터로 변경합니다. */
 }
+
 .movie-gallery::-webkit-scrollbar {
-    width: 0; /* Webkit 브라우저에서 스크롤바 숨기기 */
+	width: 0; /* Webkit 브라우저에서 스크롤바 숨기기 */
 }
 
 /* 갤러리 내부 스크롤링 설정 */
 .movie-gallery::-webkit-scrollbar-track {
-    background: #f1f1f1;
+	background: #f1f1f1;
 }
 
 .movie-gallery::-webkit-scrollbar-thumb {
-    background: #888;
+	background: #888;
 }
 
 .movie-gallery::-webkit-scrollbar-thumb:hover {
-    background: #555;
+	background: #555;
 }
 
 /* 특별관 영화관 이미지들 */
 .cinema-logo {
-    width: 350px; /*크기 조정*/
-    height: 300px; 
+	width: 350px; /*크기 조정*/
+	height: 300px;
 }
 
 .cinema-link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    margin: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	cursor: pointer;
+	margin: 10px;
 }
 
 .cinema-overlay {
-    display: none;
+	display: none;
 }
 
 .cinema-link:hover .cinema-overlay {
-    display: block;
+	display: block;
 }
 
 css
-Copy code
-/* 영화 상세정보 페이지 스타일 수정 */
+Copy code /* 영화 상세정보 페이지 스타일 수정 */ 
 .movie-details {
-    font-size: 15pt; /* 텍스트 크기를 15pt로 조정 */
-    font-weight: bold; /* 글꼴을 굵게 만듭니다. */
+	font-size: 15pt; /* 텍스트 크기를 15pt로 조정 */
+	font-weight: bold; /* 글꼴을 굵게 만듭니다. */
 }
-    /* 배우 목록 텍스트 스타일 조정 */
+/* 배우 목록 텍스트 스타일 조정 */
 .actors-list {
-        font-size: 15pt; /* 텍스트 크기를 15pt로 조정 */
-        font-weight: normal; /* 폰트 굵기를 기본값으로 설정합니다. */
-    }
+	font-size: 15pt; /* 텍스트 크기를 15pt로 조정 */
+	font-weight: normal; /* 폰트 굵기를 기본값으로 설정합니다. */
+}
 
-    /* 나머지 텍스트 스타일 조정 */
+/* 나머지 텍스트 스타일 조정 */
 p {
-        font-size: 15pt; /* 텍스트 크기를 15pt로 조정 */
-        font-weight: normal; /* 폰트 굵기를 기본값으로 설정합니다. */
-    }
-
+	font-size: 15pt; /* 텍스트 크기를 15pt로 조정 */
+	font-weight: normal; /* 폰트 굵기를 기본값으로 설정합니다. */
+}
 
 /* 하위 메뉴 스타일 */
 .submenu {

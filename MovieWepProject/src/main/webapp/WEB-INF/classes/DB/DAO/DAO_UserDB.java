@@ -17,9 +17,44 @@ public class DAO_UserDB extends DatabaseConnection {
 	private ResultSet rs = null;
 
 	public static void main(String[] args) {
-
+		new DAO_UserDB();
 	}
+	public DAO_UserDB(){
+		//System.out.println(loadUserData("user0001").toString());
+	}
+	public Data_User loadUserData(String userid) {
+		System.out.println("loadUserData 호출");
+		Data_User data = new Data_User();
+		
+		try {
+			conn = getConnection();
 
+			String checkIdSql = "SELECT * FROM moviedb.user where userid=?";
+			pstmt = conn.prepareStatement(checkIdSql);
+			pstmt.setString(1, userid);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				
+				data.setId(rs.getString(1));
+				data.setPw(rs.getString(2));
+				data.setName(rs.getString(3));
+				data.setBirthday(rs.getDate(4));
+				data.setEmail(rs.getString(5));
+				data.setAddress(rs.getString(6));
+				data.setGenre_1(rs.getString(7));
+				data.setGenre_2(rs.getString(8));
+				data.setGenre_3(rs.getString(9));
+				data.setGenre_4(rs.getString(10));
+				// System.out.println(data.toString());
+			}
+		} catch (Exception e) {
+			System.out.println("에러 발생" + e.getMessage());
+		}
+		System.out.println("loadUserData 종료 [" + data.getBirthday() + "] 불러옴");
+		return data;
+	}
+	
 	public ArrayList<Data_User> loadUserDataList() {
 		ArrayList<Data_User> result = new ArrayList<Data_User>();
 		System.out.println("loadUserDataList 호출");

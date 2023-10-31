@@ -20,26 +20,6 @@
 
 <!-- 기존 CSS 스타일 시트 링크 -->
 </head>
-<script type="text/javascript">
-$(document).ready(function() {
-	allHeight();
-});
-
-function allHeight() {
-	var body = $('body')
-	var main = $('main')
-	var bodyHeight = body.outerHeight();
-	var mainHeight = main.outerHeight();
-
-	console.log("bodyHeight : " + bodyHeight);
-	console.log("mainHeight : " + mainHeight);
-	if(bodyHeight > mainHeight){
-		$('body').find('footer').css('position','absolute');
-		$('body').find('footer').css('bottom','0');
-	}
-}
-
-</script>
 <body>
 	<!-- 로고 이미지 -->
 	<main>
@@ -47,26 +27,16 @@ function allHeight() {
 		<div id="top">
 			<!-- 다운후 변경 -->
 			<jsp:include page="loadFile/top.jsp" />
-			<!-- < jsp:include page="loadFile/menuBar.jsp" /> -->
+			<jsp:include page="loadFile/menuBar.jsp" />
 		</div>
 	</header>
-	<%
-	Object useridobj = session.getAttribute("userId");
-	String userid = useridobj == null ? "" : (String) useridobj;
-	%>
-	<script type="text/javascript">
-		
-		var userId = '<%=userid%>';
-		if (userId == "") {
-			window.location.href = 'signin.jsp';
-		}
-	</script>
-	<div id="showReviewListDiv">
-		<h1 style="display: flex; align-items: center; justify-content: flex-start;">내 리뷰</h1>
-		<jsp:include page="loadFile/startImgTest.jsp">
-			<jsp:param name="param_type" value="my" />
-		</jsp:include>
-	</div>
+		<div class="shadowBox myInfoBox">
+		<!-- 내 정보 불러오기 load -->
+		<!-- 내 정보 등록하기(회원가입) insert -->
+			<jsp:include page="loadFile/myInfoBox.jsp">
+				<jsp:param name="type" value="load" />
+			</jsp:include>
+		</div>
 	<footer>
 		<div id="bottom">
 			<jsp:include page="loadFile/bottom.jsp" />

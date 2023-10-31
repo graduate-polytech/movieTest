@@ -5,7 +5,7 @@
 <!-- css작업시작 -->
 <html>
 <head>
-    <title>Box Office Data</title>
+    <title>일별 박스 오피스</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -120,6 +120,7 @@
     </style>
 </head>
 <body>
+<main>
 	<header>
 		<div id="top">
 			<!-- 다운후 변경 -->
@@ -147,6 +148,7 @@
 	<br>
 	통계마감 주기(월별, 년별)에 따라 공식통계 수치는 추후 변동될 수 있습니다.
 	<br>
+
     </div>
     <div id = "calendarDiv">
     <label for="targetDate" id="calLabel">날짜 선택 </label>
@@ -194,7 +196,7 @@
                     </p>
                     <p>
                         <strong>상영시간</strong>
-                        <span id="showTm"></span>
+                        <span id="showTm"></span>분
                     </p>
                     <p>
                         <strong>제작국가</strong>
@@ -225,11 +227,11 @@
     </div>
     <div id="graphDiv">
 	    <div id ="barDiv">
-	    	<p id = "barLetter" style="display:none;">영화 매출액</p>
+	    	<p id = "barLetter" style="display:none; font-size: 19px; font-weight: bold;">일일 영화 매출액</p>
 		    <canvas id="salesChart" style="width: 100%; height: 100%;"></canvas>
 		</div>
 		<div id ="pieDiv">
-			<p id="pieLetter" style="display:none">당일 매출 점유율</p>
+			<p id="pieLetter" style="display:none; font-size: 19px; font-weight: bold;">일일 영화 매출 점유율</p>
 		    <canvas id="salesShareChart" style="width: 100%; height: 100%;"></canvas>
 		</div>
 	</div>
@@ -383,11 +385,11 @@
                         	"순위": movie.rank,
                             "영화명": movie.movieNm,
                             "개봉일": movie.openDt,
-                            "당일 매출액": movie.salesAmt,
-                            "당일 매출액 점유율(%)": movie.salesShare,
+                            "일일 매출액": movie.salesAmt,
+                            "일일 매출액 점유율(%)": movie.salesShare,
                             "전일대비 매출액 즘강율(%)": movie.salesChange,
                             "누적 매출액": movie.salesAcc,
-                            "당일 관객 수": movie.audiCnt,
+                            "일일 관객 수": movie.audiCnt,
                             "전일 대비 관객수 증감 비율":movie.audiChange,
                             "누적 관객 수":movie.audiAcc,
                             "감독": movie.directors.join(', '), // 감독 정보 추가
@@ -589,5 +591,6 @@
         });
     
     </script>
+    </main>
 </body>
 </html>

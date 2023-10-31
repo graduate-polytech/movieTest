@@ -36,7 +36,7 @@ public class WeekBox {
         List<boxData2> movieDayDataList = new ArrayList<>();
 
         try {
-            String apiUrl = BASE_API_URL + "?key=" + API_KEY + "&targetDt=" + targetDt;
+            String apiUrl = BASE_API_URL + "?key=" + API_KEY + "&targetDt=" + targetDt + "&weekGb=0";
             HttpGet httpGet = new HttpGet(apiUrl);
             HttpResponse response = httpClient.execute(httpGet);
 
@@ -199,7 +199,7 @@ public class WeekBox {
         return null;
     }
     public static void main(String[] args) throws IOException {
-        List<boxData2> movieDataList = fetchDataByDate("20231015");
+        List<boxData2> movieDataList = fetchDataByDate("20231027");
 
         for (boxData2 movieData : movieDataList) {
             System.out.println("랭킹: " + movieData.getRank());

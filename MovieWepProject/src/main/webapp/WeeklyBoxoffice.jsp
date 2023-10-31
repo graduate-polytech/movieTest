@@ -119,6 +119,7 @@
     </style>
 </head>
 <body>
+<main>
 	<header>
 		<div id="top">
 			<!-- 다운후 변경 -->
@@ -146,6 +147,7 @@
 	<br>
 	통계마감 주기(월별, 년별)에 따라 공식통계 수치는 추후 변동될 수 있습니다.
 	<br>
+	
     </div>
     <div id = "calendarDiv">
     <label for="targetDate" id="calLabel">날짜 선택 </label>
@@ -193,7 +195,7 @@
                     </p>
                     <p>
                         <strong>상영시간</strong>
-                        <span id="showTm"></span>
+                        <span id="showTm"></span>분
                     </p>
                     <p>
                         <strong>제작국가</strong>
@@ -224,11 +226,11 @@
     </div>
     <div id="graphDiv">
 	    <div id ="barDiv">
-	    	<p id = "barLetter" style="display:none;">영화 매출액</p>
+	    	<p id = "barLetter" style="display:none; font-size: 19px; font-weight: bold;">주간 영화 매출액</p>
 		    <canvas id="salesChart" style="width: 100%; height: 100%;"></canvas>
 		</div>
 		<div id ="pieDiv">
-			<p id="pieLetter" style="display:none">당일 매출 점유율</p>
+			<p id="pieLetter" style="display:none; font-size: 19px; font-weight: bold;">주간 영화 매출 점유율</p>
 		    <canvas id="salesShareChart" style="width: 100%; height: 100%;"></canvas>
 		</div>
 	</div>
@@ -249,22 +251,22 @@
             var targetDate = $('#targetDate').val();
             var targetDateSource = $('#targetDate').val();
 
-            // 만약 날짜 필드가 비어 있다면 어제 날짜를 설정합니다.
+            // 만약 날짜 필드가 비어 있다면 일주일 날짜를 설정합니다.
             if (targetDate === "") {
-                // 오늘 날짜를 얻습니다.
-                var today = new Date();
+			    // 오늘 날짜를 얻습니다.
+			    var today = new Date();
+			
+			    // 일주일 전의 날짜를 계산합니다.
+			    var lastWeek = new Date(today);
+			    lastWeek.setDate(today.getDate() - 7);
+			
+			    // 일주일 전의 날짜를 "YYYY-MM-DD" 형식의 문자열로 변환합니다.
+			    var lastWeekString = lastWeek.toISOString().split('T')[0];
+			
+			    // 일주일 전의 날짜를 입력 필드에 설정합니다.
+			    $('#targetDate').val(lastWeekString);
+			}
 
-                // 어제 날짜를 계산합니다.
-                var yesterday = new Date(today);
-                yesterday.setDate(today.getDate() - 1);
-
-                // 어제 날짜를 "YYYY-MM-DD" 형식의 문자열로 변환합니다.
-                var yesterdayString = yesterday.toISOString().split('T')[0];
-
-                // 어제 날짜를 입력 필드에 설정합니다.
-                $('#targetDate').val(yesterdayString);
-                
-            }
             
             $('#getDataBtn').click(function () {
             	showSpinner();
@@ -384,12 +386,12 @@
                         	"순위": movie.rank,
                             "영화명": movie.movieNm,
                             "개봉일": movie.openDt,
-                            "당일 매출액": movie.salesAmt,
-                            "당일 매출액 점유율(%)": movie.salesShare,
-                            "전일대비 매출액 즘강율(%)": movie.salesChange,
+                            "주간 매출액": movie.salesAmt,
+                            "주간 매출액 점유율(%)": movie.salesShare,
+                            "전주 대비 매출액 즘강율(%)": movie.salesChange,
                             "누적 매출액": movie.salesAcc,
-                            "당일 관객 수": movie.audiCnt,
-                            "전일 대비 관객수 증감 비율":movie.audiChange,
+                            "주간 관객 수": movie.audiCnt,
+                            "전주 대비 관객수 증감 비율":movie.audiChange,
                             "누적 관객 수":movie.audiAcc,
                             "감독": movie.directors.join(', '), // 감독 정보 추가
                             "상영 시간(분)":movie.showTm,
@@ -508,13 +510,13 @@
 
                 var weekNumber = getWeekNumber(dateObject);
 
-                // 해당 주의 시작 날짜 계산
+                // 해당 주의 시작 날짜 계산 (월요일)
                 var startDate = new Date(dateObject);
-                startDate.setDate(dateObject.getDate() - dateObject.getDay()); // 해당 주의 첫 번째 날
+                startDate.setDate(dateObject.getDate() - dateObject.getDay() + (dateObject.getDay() === 0 ? -6 : 1));
 
-                // 해당 주의 끝 날짜 계산
+                // 해당 주의 끝 날짜 계산 (일요일)
                 var endDate = new Date(startDate);
-                endDate.setDate(startDate.getDate() + 6); // 해당 주의 마지막 날
+                endDate.setDate(startDate.getDate() + 6);
 
                 return {
                     weekNumber: weekNumber,
@@ -619,5 +621,6 @@
         });
     
     </script>
+    </main>
 </body>
 </html>

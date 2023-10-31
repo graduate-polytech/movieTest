@@ -166,14 +166,13 @@
 	border: 2px solid transparent; /* 테두리 스타일 추가 */
 	padding: 10px; /* 내부 여백 추가 */
 	transition: border-color 0.3s; /* 테두리 색상 변경 애니메이션 */
-	
 }
 
 .theater-link:hover {
 	border-color: #000; /* 마우스 호버 시 테두리 색상 변경 */
 	font-weight: bold; /* 텍스트 굵게 표시 */
 }
-
+ 
 
 </style>
 	<script src="resource/js/script1.js"></script>

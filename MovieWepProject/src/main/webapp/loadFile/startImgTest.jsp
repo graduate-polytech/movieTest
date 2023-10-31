@@ -75,7 +75,7 @@ param_title = param_title == null ? "" : param_title;
 					</div>
 					<div class="input-group mb-3">
 						<span class="input-group-text my-span">작성일자</span>
-						<input type="text" id="registration_date" class="form-control">
+						<input type="text" id="registration_date" class="form-control" disabled="disabled">
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -149,66 +149,110 @@ param_title = param_title == null ? "" : param_title;
 	}
 	%>
 	<script type="text/javascript">
-		$(document).ready(
-				function() {
-					// 페이지가 로드될 때 실행할 코드
-					var start_img_divs = $('.review_score_img');
-					var modal = $('#myModal');
-					start_img_divs
-							.each(function() {
-								//review_score_int
+		$(document).ready(function() {
+			// 페이지가 로드될 때 실행할 코드
+			var start_img_divs = $('.review_score_img');
+			var modal = $('#myModal');
+			start_img_divs.each(function() {
+				//review_score_int
 
-								var start_img_color = $(this).find(
-										'.start_img_color');
-								var review_score_int = $(this).find(
-										'.review_score_int');
+				var start_img_color = $(this).find('.start_img_color');
+				var review_score_int = $(this).find('.review_score_int');
 
-								//alert("실행");
-								var width = start_img_color.css('width').split(
-										"p")[0];
-								var height = start_img_color.css('height')
-										.split("p")[0];
-								var score = start_img_color.data('score');
+				//alert("실행");
+				var width = start_img_color.css('width').split("p")[0];
+				var height = start_img_color.css('height').split("p")[0];
+				var score = start_img_color.data('score');
 
-								var top = start_img_color.css("position");
-								var right = start_img_color.css("right");
+				var top = start_img_color.css("position");
+				var right = start_img_color.css("right");
 
-								var scorewidth = score * (width / 10);
+				var scorewidth = score * (width / 10);
 
-								var clipText = "rect(0px, " + scorewidth
-										+ "px, " + height + "px, 0px)";
-								start_img_color.css('clip', clipText);
+				var clipText = "rect(0px, " + scorewidth + "px, " + height + "px, 0px)";
+				start_img_color.css('clip', clipText);
 
-							});
-					var reviewDivBoxs = $(this).find('.reviewDivBox');
+			});
+			var reviewDivBoxs = $(this).find('.reviewDivBox');
 
-					reviewDivBoxs.each(function() {//각 리뷰박스 마다
-						var reviewModalBtn = $(this).find('.review_editBtn');//모달버튼
+			reviewDivBoxs.each(function() {//각 리뷰박스 마다
+				var reviewModalBtn = $(this).find('.review_editBtn');//모달버튼
 
-						reviewModalBtn.on("click",
-								function() {
-									console.log($(this));
+				reviewModalBtn.on("click", function() {
+					console.log($(this));
 
-									modal.find('#no').val($(this).data("no"));
-									modal.find('#DOCID').val(
-											$(this).data("docid"));
-									modal.find('#reviewtitle').val(
-											$(this).data("dbtitle"));
-									modal.find('#userid').val(
-											$(this).data("dbuserid"));
-									modal.find('#score').val(
-											$(this).data("score"));
-									;
-									modal.find('#review').val(
-											$(this).data("review"));
-									modal.find('#registration_date').val(
-											$(this).data("date"));
-									modal.modal('show');
-								});
-					});
-
+					modal.find('#no').val($(this).data("no"));
+					modal.find('#DOCID').val($(this).data("docid"));
+					modal.find('#reviewtitle').val($(this).data("dbtitle"));
+					modal.find('#userid').val($(this).data("dbuserid"));
+					modal.find('#score').val($(this).data("score"));
+					modal.find('#review').val($(this).data("review"));
+					modal.find('#registration_date').val($(this).data("date"));
+					modal.modal('show');
 				});
-		//alert(clip);
+			});
+			
+			$('.save-button').click(function() {
+				var data = {
+			            "number": modal.find('#no').val(),
+			            "title": modal.find('#reviewtitle').val(),
+			            "userid": modal.find('#userid').val(),
+			            "DOCID": modal.find('#DOCID').val(),
+			            "review": modal.find('#review').val(),
+			            "score": modal.find('#score').val()
+					};
+				reviewUpdate("save",data);
+				modal.modal('hide');
+			});
+			$('.deletebtn').click(function() {
+				var data = {
+			            "number": modal.find('#no').val(),
+			            "title": modal.find('#reviewtitle').val(),
+			            "userid": modal.find('#userid').val(),
+			            "DOCID": modal.find('#DOCID').val(),
+			            "review": modal.find('#review').val(),
+			            "score": modal.find('#score').val()
+					};
+				reviewUpdate("del",data);
+				modal.modal('hide');
+			});
+		});
+		function reviewUpdate(fun,data) {
+		
+		//return false;
+		
+		var postData = data;
+		postData.fun = fun;
+		console.log(postData);
+		//return false;
+			var result = -1;
+			$.ajax({
+		        type: "POST",
+		        url: "ReviewUpdate", // 서블릿 경로
+		        data: JSON.stringify(postData), // JSON 형식으로 데이터 전송
+		        contentType: "application/json",
+		        async: false, 
+		        success: function(response) {
+		            // 서버로부터의 응답 처리
+		        	result = response.message;
+		        	
+		        	// alert(response.message + ":" + (result == 1)); // 서버의 응답 메시지 출력
+		        }
+		    });
+			
+			if(result == 0) {
+				alert("리뷰가 등록되었습니다.");
+				location.reload();
+			} else if(result == 1) {
+				alert("리뷰를 등록할수 없습니다.");
+				return false;
+			} else {
+				alert("리뷰 등록중 오류가 발생했습니다.");
+				return false;
+			}
+			// DB등록
+			return true; // 유효성 검사 통과
+		}
 	</script>
 </body>
 </html>

@@ -37,7 +37,7 @@ request.setCharacterEncoding("utf-8");
 
 		if (sessionData.trim() == 'null') {
 			// 세션에 데이터가 없는 경우, 'signin.jsp'로 리다이렉트
-			window.location.href = 'signin.jsp';
+			//window.location.href = 'signin.jsp';
 		}
 	}
 </script>
@@ -108,8 +108,8 @@ label {
 		</datalist>
 		<header>
 			<div id="top">
-				<jsp:include page="loadFile/top.jsp" />
-				<jsp:include page="loadFile/menuBar.jsp" />
+				<jsp:include page="top.jsp" />
+				<jsp:include page="menuBar.jsp" />
 			</div>
 		</header>
 		<body_main>
@@ -159,7 +159,7 @@ label {
 					<!-- 생일 birthDay -->
 					<label for="birthDay">생년월일</label>
 					<br>
-					<input id="birthDay" type="date" style="width: 100%" required>
+					<jsp:include page="selectDate.jsp" />
 				</div>
 				<div class="rowMargin">
 					<!-- 주소 userAddress -->

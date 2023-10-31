@@ -2,53 +2,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-.sub-container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-.sub-div {
-	display: inline-block;
-	padding: 10px;
-	position: relative; /* 부모 요소를 relative로 설정 */
-}
-
-.sub-div img {
-	max-width: 100%;
-	max-height: 100%;
-	height: auto;
-	width: auto;
-	position: absolute; /* 이미지 요소를 absolute로 설정 */
-}
-
-
-body, html {
-	height: 100%;
-	margin: 0;
-}
-
-#container {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-</style>
+    <title>Main Page</title>
 </head>
 <body>
-	<div id="container">
-		<div class="sub-container">
-			<div class="sub-div">
-				<img src="your_image_url_1.jpg" alt="Image 1">
-			</div>
-			<div class="sub-div">
-				<img src="your_image_url_2.jpg" alt="Image 2">
-			</div>
-			<!-- 추가하려는 하위 div 계속 추가 -->
-		</div>
-	</div>
+    <h1>Main Page</h1>
+    
+    <!-- "dateInputForm.jsp" 파일을 포함 -->
+    <jsp:include page="selectDate.jsp" />
+
+    <script>
+        var selectedDate; // 선택한 날짜를 저장할 JavaScript 변수
+
+        // "dateInputForm.jsp"에서 선택한 날짜를 가져와 JavaScript 변수에 할당
+        function setSelectedDate(date) {
+            selectedDate = date;
+            alert(selectedDate);
+        }
+
+        // 선택한 날짜를 사용할 예제
+        function selectedDate() {
+            if (selectedDate) {
+                alert("선택한 날짜: " + selectedDate);
+                // 여기에서 선택한 날짜를 사용하실 수 있습니다.
+            } else {
+                alert("날짜를 먼저 선택하세요.");
+            }
+        }
+    </script>
 </body>
 </html>

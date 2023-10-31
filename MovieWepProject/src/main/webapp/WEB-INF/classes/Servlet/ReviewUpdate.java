@@ -45,12 +45,12 @@ public class ReviewUpdate extends HttpServlet {
 		String number = json.getString("number");
 		String title = json.getString("title");
 		String userid = json.getString("userid");
-		String director = json.getString("director");
+		String DOCID = json.getString("DOCID");
 		String review = json.getString("review");
 		String score = json.getString("score");
 		// String no, String userid, String title, String director, String score, String
 		// review
-		Data_Review reviewData = new Data_Review(number, userid, title, director, score, review);
+		Data_Review reviewData = new Data_Review(number, userid, title, DOCID, score, review);
 		DAO_ReviewDB db = new DAO_ReviewDB();
 		JSONObject jsonResponse = new JSONObject();
 		int result = 0;

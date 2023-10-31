@@ -28,6 +28,7 @@
 <!-- 기존 CSS 스타일 시트 링크 -->
 </head>
 <body>
+	<main>
 	<!-- 로고 이미지 -->
 	<header>
 		<div id="top">
@@ -106,13 +107,13 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div id="theater-images">
-						<img id="cgv-image" src="resource/images/cgv_logo1.jpg" alt="CGV 로고" width="660" height="320"
+						<img id="cgv-image" src="resource/images/cgv_logo1.jpg" alt="CGV 로고" width="560" height="320"
 							onclick="navigateToTheaterWebsite('cgv');"
 						>
-						<img id="lotte-image" src="resource/images/lotte_logo1.jpg" alt="롯데시네마 로고" width="660"
+						<img id="lotte-image" src="resource/images/lotte_logo1.jpg" alt="롯데시네마 로고" width="560"
 							height="320" style="display: none;" onclick="navigateToTheaterWebsite('lotte');"
 						>
-						<img id="megabox-image" src="resource/images/megabox1_logo.jpg" alt "메가박스 로고" width="660"
+						<img id="megabox-image" src="resource/images/megabox1_logo.jpg" alt "메가박스 로고" width="560"
 							height="320" style="display: none;" onclick="navigateToTheaterWebsite('megabox');"
 						>
 					</div>
@@ -165,12 +166,15 @@
 	border: 2px solid transparent; /* 테두리 스타일 추가 */
 	padding: 10px; /* 내부 여백 추가 */
 	transition: border-color 0.3s; /* 테두리 색상 변경 애니메이션 */
+	
 }
 
 .theater-link:hover {
 	border-color: #000; /* 마우스 호버 시 테두리 색상 변경 */
 	font-weight: bold; /* 텍스트 굵게 표시 */
 }
+
+
 </style>
 	<script src="resource/js/script1.js"></script>
 	<!-- JavaScript 파일 링크  -->
@@ -378,5 +382,6 @@
 			recommendedMovieList.append(recommendedGallery);
 		}
 	</script>
+	</main>
 </body>
 </html>

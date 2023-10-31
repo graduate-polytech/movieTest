@@ -77,11 +77,10 @@ public class DAO_ReviewDB extends DatabaseConnection {
 	}
 	public int updateReview(Data_Review data) {
 		int result = -1;
+		
 		int no = data.getNo();
+		
 		int score = data.getScore();
-		
-		//System.out.println(data.toString());
-		
 		String userid = data.getUserid();
 		String title = data.getTitle();
 		String DOCID = data.getDOCID();

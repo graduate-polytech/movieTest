@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../resource/css/styles1.css">
 <!-- 기존 CSS 스타일 시트 링크 -->
+<script src="resource/js/signin.js">/*로그인, 로그아웃*/</script>
 <script src="resource/js/setFooter.js">/*푸터 위치 설정용*/</script>
 </head>
 <body>
@@ -110,6 +111,7 @@
 					</form>
 				</div>
 			</div>
+			<button class="btn btn-secondary" type="button" onclick="trySignOut('<%=userid%>')">로그아웃</button>
 		</div>
 	</nav>
 	<script type="text/javascript">

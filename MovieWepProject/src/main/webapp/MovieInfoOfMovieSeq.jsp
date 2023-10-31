@@ -64,6 +64,7 @@ p {
 </style>
 </head>
 <body>
+<main>
 	<!-- 로고 이미지 -->
 	<header>
 		<div id="top">
@@ -198,5 +199,6 @@ p {
 			<jsp:include page="loadFile/bottom.jsp" />
 		</div>
 	</footer>
+	</main>
 </body>
 </html>

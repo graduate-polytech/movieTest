@@ -27,7 +27,7 @@ String sessionId = sessionObj == null ? "" : (String) sessionObj;
 DAO_UserDB userDB = new DAO_UserDB();
 Data_User userData = userDB.loadUserData(sessionId);
 
-String pram_userName = userData.getName();
+String pram_userName = userData.getName(); 
 
 String pram_userId = userData.getId();
 

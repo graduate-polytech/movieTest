@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="Office.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="DB.*"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html lang="UTF-8">
 <head>
@@ -113,7 +117,54 @@
 			</div>
 			<div class="container mt-5 ">
 				<h2 class="text-center">추천 영화</h2>
-				<div id="recommended-movie-list" class="row"></div>
+				<div id="recommended-movie-list" class="row">
+					<div class="container mt-5 "
+						style="border: 1px solid black; margin-bottom: 40px; padding: 20px;"
+					>
+						<div id="recommended-movie-list" class="row"
+							style="display: flex; flex-direction: column; align-items: center; flex-wrap: nowrap; min-height: 200px; width: 100%; justify-content: space-evenly;"
+						>
+							<%
+							if (session.getAttribute("userId") != null) {
+
+								UserGenreSimilarityFinder d = new UserGenreSimilarityFinder();
+
+								List<MainBoxCtor> dataList = d.resultInterestMovieData("user0002");
+
+								//				System.out.println(d.resultInterestMovieData(dataList));
+
+								for (MainBoxCtor data : dataList) {
+									System.out.println(data.toString());
+							%>
+							<div class="movie-gallery">
+								<div class="col-md-3 movie-item"
+									onclick="location.href='MovieWepProject/MovieInfoOfMovieSeq.jsp?DOCID='<%=data.getMovieDOCID()%>'&title='<%=data.getMovieNm()%>'';"
+								>
+									<img src="<%=data.getPosterUrl()%>" alt="포스터" class="poster">
+									<div class="movie-info text-center">
+										<p class="movie-title">
+											<strong><%=data.getMovieNm()%></strong>
+										</p>
+										<p class="movie-release-date">
+											<strong><%=data.getOpenDt()%></strong>
+										</p>
+									</div>
+								</div>
+							</div>
+							<%
+							}
+							} else {
+							%>
+							<h3>로그인이 필요합니다.</h3>
+							<button type="button" class="btn btn-primary"
+								onclick="location.href='/MovieWepProject/signin.jsp'"
+							>로그인</button>
+							<%
+							}
+							%>
+						</div>
+					</div>
+				</div>
 			</div>
 			<h2 class="text-center">나의 영화관</h2>
 			<div id="map" style="width: 80%; height: 250px; margin: 0 auto;"></div>
@@ -367,44 +418,7 @@
 			}
 
 			//추천 영화 형식을 인기 영화 형식으로 만들었습니다.
-			function displayRecommendedMovieData(recommendedData) {
-				var recommendedMovieList = $("#recommended-movie-list");
-				recommendedMovieList.empty(); // 기존 데이터 삭제
-
-				var recommendedGallery = $("<div class='movie-gallery'>");
-
-				$
-						.each(
-								recommendedData,
-								function(index, movieData) {
-									var recommendedPosterDiv = $("<div class='text-center'>");
-									var recommendedMovieDiv = $("<div class='col-md-3 movie-item'>");
-									var posterUrl = movieData.posterUrl
-											|| "resource/images/흑백로고.png";
-									var poster = $("<img src='" + posterUrl + "' alt='포스터' class='poster'>");
-
-									var infoDiv = $("<div class='movie-info text-center'>");
-									var title = $("<p class='movie-title'><strong>"
-											+ movieData.movieNm
-											+ "</strong></p>");
-									var releaseDate = $("<p class='movie-release-date'><strong>"
-											+ movieData.openDt
-											+ "</strong></p>");
-
-									recommendedPosterDiv.append(poster);
-									infoDiv.append(title);
-									infoDiv.append(releaseDate);
-
-									recommendedMovieDiv
-											.append(recommendedPosterDiv);
-									recommendedMovieDiv.append(infoDiv);
-									recommendedMovieList
-											.append(recommendedMovieDiv);
-									recommendedGallery
-											.append(recommendedMovieDiv);
-								});
-				recommendedMovieList.append(recommendedGallery);
-			}
+			
 		</script>
 	</main>
 </body>

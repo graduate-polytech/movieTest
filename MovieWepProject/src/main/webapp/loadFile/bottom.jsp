@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <style>
+
 .footer-box {
             width: 70%; /* 테이블과 같은 길이로 설정 */
 		    max-width: 80%; /* 테이블과 동일한 최대 너비로 설정, 필요에 따라 조절 가능 */

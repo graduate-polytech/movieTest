@@ -123,7 +123,7 @@
 					>
 						<div id="recommended-movie-list" class="row"
 							style="display: flex; flex-direction: column; align-items: center; flex-wrap: nowrap; min-height: 200px; width: 100%; justify-content: space-evenly;"
-						>
+						><div class="movie-gallery">
 							<%
 							if (session.getAttribute("userId") != null) {
 
@@ -136,7 +136,7 @@
 								for (MainBoxCtor data : dataList) {
 									System.out.println(data.toString());
 							%>
-							<div class="movie-gallery">
+							
 								<div class="col-md-3 movie-item"
 									onclick="location.href='MovieWepProject/MovieInfoOfMovieSeq.jsp?DOCID='<%=data.getMovieDOCID()%>'&title='<%=data.getMovieNm()%>'';"
 								>
@@ -150,11 +150,12 @@
 										</p>
 									</div>
 								</div>
-							</div>
+							
 							<%
 							}
 							} else {
 							%>
+							</div>
 							<h3>로그인이 필요합니다.</h3>
 							<button type="button" class="btn btn-primary"
 								onclick="location.href='/MovieWepProject/signin.jsp'"

@@ -51,6 +51,8 @@
 				<li data-target="#movieCarousel" data-slide-to="0" class="active"></li>
 				<li data-target="#movieCarousel" data-slide-to="1"></li>
 				<li data-target="#movieCarousel" data-slide-to="2"></li>
+				<li data-target="#movieCarousel" data-slide-to="3"></li>
+				<li data-target="#movieCarousel" data-slide-to="4"></li>
 				<!-- 필요한 만큼 인디케이터를 추가하십시오 -->
 			</ol>
 			<!-- 슬라이드 -->
@@ -59,21 +61,36 @@
 					<img src="resource/images/스틸컷1.jpg" alt="30일" style="width: 100%;">
 					<div class="carousel-caption">
 						<h3>30일</h3>
-						<p>30일에 대한 설명.</p>
+						<p>기억도 로맨스도 날리고 웃음만 남긴 이들의 제대로 터지는 코미디가 온다!.</p>
 					</div>
 				</div>
 				<div class="carousel-item">
 					<img src="resource/images/스틸컷2.jpg" alt="용감한 시민" style="width: 100%;">
 					<div class="carousel-caption">
 						<h3>용감한 시민</h3>
-						<p>용감한 시민에 대한 설명.</p>
+						<p>"선은 네가 먼저 넘었다. 말이 안 통하면 혼나야지!"</p>
 					</div>
 				</div>
 				<div class="carousel-item">
 					<img src="resource/images/스틸컷3.jpg" alt="플라워 킬링 문" style="width: 100%;">
 					<div class="carousel-caption">
 						<h3>플라워 킬링 문</h3>
-						<p>플라워 킬링 문에 대한 설명.</p>
+						<p>진정한 사랑과 말할 수 없는 배신이 교차하는 서부 범죄극!!</p>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="resource/images/스틸컷4.jpg" alt="보스턴 1947" style="width: 100%;">
+					<div class="carousel-caption">
+						<h3>보스턴 1947</h3>
+						<p>1947년 태극마크를 달고 달렸던 마라토너들의 가슴 벅찬 여정! 올 추석, 단 하나의 감동 실화가 온다!
+</p>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="resource/images/스틸컷5.jpg" alt="그대들은 어떻게 살 것인가" style="width: 100%;">
+					<div class="carousel-caption">
+						<h3>그대들은 어떻게 살 것인가</h3>
+						<p>일본 애니메이션 거장 미야자키 하야오 10년 만의 신작! 미야자키 하야오의 모든 것을 담은 자전적 판타지!</p>
 					</div>
 				</div>
 			</div>

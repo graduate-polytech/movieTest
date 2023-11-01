@@ -112,21 +112,37 @@ p {
 					감독명:
 					<%=data.getDirectors().get(0).getDirectorNm()%></p>
 				<p>
-					배우:[
-					<%
-				ArrayList<actor> ActorList = data.getActors();
-				for (int i = 0; i < ActorList.size(); i++) {
-				%>
-					<%=ActorList.get(i).getActorNm()%>
-					<%
-					if (i < ActorList.size() - 1) {
-					%>,
-					<%
-					}
-					}
-					%>
-					]
-				</p>
+    배우:[
+    <%
+    ArrayList<actor> ActorList = data.getActors();
+    String actorListText = ""; // 배우 목록 텍스트를 초기화
+
+    for (int i = 0; i < ActorList.size(); i++) {
+        actorListText += ActorList.get(i).getActorNm();
+        if (i < ActorList.size() - 1) {
+            actorListText += ", ";
+        }
+    }
+    // 배우 목록이 50자 이상인 경우
+    if (actorListText.length() > 50) {
+    %>
+        <span class="actors-list">
+            <%=actorListText.substring(0, 50)%>
+        </span>
+        <span class="actors-details" style="display: none;">
+            <%=actorListText.substring(50)%>
+        </span>
+        <a href="javascript:void(0);" class="read-more-actors" onclick="toggleActorsList()">더보기</a>
+    <%
+    } else {
+    %>
+        <%=actorListText%>
+    <%
+    }
+    %>
+    ]
+</p>
+
 				<p>
 					장르 :
 					<%=data.getGenre()%></p>
@@ -192,7 +208,23 @@ p {
 				readMoreLink.innerText = "더보기";
 			}
 		}
+		
+	
+	    function toggleActorsList() {
+	        var actorsList = document.querySelector(".actors-list");
+	        var actorsDetails = document.querySelector(".actors-details");
+	        var readMoreActorsLink = document.querySelector(".read-more-actors");
+
+	        if (actorsDetails.style.display === "none") {
+	            actorsDetails.style.display = "inline"; // 나머지 배우 목록을 보이게 함
+	            readMoreActorsLink.innerText = "간략히 보기";
+	        } else {
+	            actorsDetails.style.display = "none"; // 나머지 배우 목록을 숨김
+	            readMoreActorsLink.innerText = "더보기";
+	        }
+	    }
 	</script>
+	
 	</body_main>
 	<footer>
 		<div id="bottom">

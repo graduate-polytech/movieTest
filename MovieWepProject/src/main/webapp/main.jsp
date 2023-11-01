@@ -122,8 +122,10 @@
 						style=" margin-bottom: 40px; padding: 20px;"
 					>
 						<div id="recommended-movie-list" class="row"
-							style="display: flex; flex-direction: column; align-items: center; flex-wrap: nowrap; min-height: 200px; width: 100%; justify-content: space-evenly;"
-						><div class="movie-gallery">
+							style="display: flex; flex-direction: column; align-items: center; flex-wrap: nowrap; min-height: 200px; width: 100%; justify-content: space-evenly; 
+							<% if(session.getAttribute("userId") ==  null){ %>
+							border: 1px solid black; <%} %>
+						"><div class="movie-gallery">
 							<%
 							if (session.getAttribute("userId") != null) {
 

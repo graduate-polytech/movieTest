@@ -268,7 +268,7 @@ button.btn-primary {
 
 /* 갤러리 스타일 */
 .movie-gallery {
-	overflow-x: scroll; /* 가로 스크롤 활성화 */
+	overflow-x: auto; /* 가로 스크롤 활성화 */
 	white-space: nowrap; /* 요소들이 줄 바꿈되지 않도록 함 */
 	width: 100%; /* 가로 스크롤이 활성화된 영역의 너비를 조절합니다. */
 	display: flex; /* 내부 요소들을 가로로 나란히 표시 */

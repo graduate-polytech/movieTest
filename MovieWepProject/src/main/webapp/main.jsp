@@ -166,8 +166,6 @@
 					</div>
 				</div>
 			</div>
-			<h2 class="text-center">나의 영화관</h2>
-			<div id="map" style="width: 80%; height: 250px; margin: 0 auto;"></div>
 			<!-- CGV 영화관 사진 및 링크 -->
 			<!-- 특별관 섹션 -->
 			<div class="container text-center mt-5">
@@ -242,6 +240,12 @@
 .theater-link:hover {
 	border-color: #000; /* 마우스 호버 시 테두리 색상 변경 */
 	font-weight: bold; /* 텍스트 굵게 표시 */
+}
+
+#cgv-image,
+#lotte-image,
+#megabox-image {
+    cursor: pointer;
 }
 </style>
 		<script src="resource/js/script1.js"></script>

@@ -131,7 +131,7 @@
 
 								List<MainBoxCtor> dataList = d.resultInterestMovieData("user0002");
 
-								//				System.out.println(d.resultInterestMovieData(dataList));
+								//System.out.println(d.resultInterestMovieData(dataList));
 
 								for (MainBoxCtor data : dataList) {
 									System.out.println(data.toString());

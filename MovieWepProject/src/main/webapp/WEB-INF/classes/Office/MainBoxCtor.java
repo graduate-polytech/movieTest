@@ -28,7 +28,7 @@ public class MainBoxCtor {
     }
 
     public void setPosterUrl(String posterUrl) {
-        this.posterUrl = posterUrl;
+        this.posterUrl = posterUrl.equals("")?"resource/images/흑백로고.png":posterUrl;
     }
 
    

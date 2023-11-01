@@ -449,6 +449,9 @@ public class KMDB_Data {
 	public void setPosters(String posters) {
 
 		this.posters = posters.split("\\|");
+		if(this.posters.length == 0) {
+			this.posters[0] = "resource/images/흑백로고.png";
+		}
 	}
 
 	public void setProdYear(String prodYear) {

@@ -56,8 +56,10 @@ System.out.println("마이페이지 로드 : [" + userid + "]");
             %>
         </div>
         <footer>
-            <p>&copy; 시네마 위키</p>
-        </footer>
+			<div id="bottom">
+				<jsp:include page="loadFile/bottom.jsp" />
+			</div>
+		</footer>
     </main>
 </body>
 </html>

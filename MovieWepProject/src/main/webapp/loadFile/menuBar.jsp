@@ -25,7 +25,9 @@
 	
 	%>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	 	<a href="main.jsp">
 	<img class="logo-title" src="resource/images/Title_black.png" alt="로고 이미지" width="400px" height="400px">
+	 	</a>
 		<div class="container">
 			<div class="container-fluid">
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"

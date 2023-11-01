@@ -19,8 +19,10 @@ import org.json.simple.parser.ParseException;
 
 @WebServlet("/SignUp")
 public class signupServlet extends HttpServlet {
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("회원가입 서블렛 실행");
 		// 클라이언트로부터 전송된 데이터 읽기
 		request.setCharacterEncoding("UTF-8");
 		BufferedReader reader = request.getReader();

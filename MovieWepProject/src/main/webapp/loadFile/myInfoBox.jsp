@@ -8,14 +8,16 @@ request.setCharacterEncoding("utf-8");
 <html>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap 5 JavaScript 링크 추가 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/styles1.css" type="text/css">
 <script src="resource/js/signin.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="resource/js/signup.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <%
 String parm_type = request.getParameter("type");
@@ -25,37 +27,31 @@ Object sessionObj = session.getAttribute("userId");
 String sessionId = sessionObj == null ? "" : (String) sessionObj;
 
 DAO_UserDB userDB = new DAO_UserDB();
+
 Data_User userData = userDB.loadUserData(sessionId);
 
-String pram_userName = userData.getName(); 
+String pram_userName = userDB.setData(parm_type, userData.getName());
 
-String pram_userId = userData.getId();
+String pram_userId = userDB.setData(parm_type, userData.getId());
+String pram_userPw = userDB.setData(parm_type, userData.getPw());
 
-String pram_email = userData.getEmail();
+String pram_email = userDB.setData(parm_type, userData.getEmail());
 String[] email = {"", ""};
 if (!pram_email.equals("")) {
 	email = pram_email.split("@");
 }
-String pram_birthDay = userData.getBirthday().toString();
+String pram_birthDay = userDB.setData(parm_type, userData.getBirthday().toString());
 
-String pram_adress = userData.getAddress();
-String pram_genre_1 = userData.getGenre_1();
-String pram_genre_2 = userData.getGenre_2();
-String pram_genre_3 = userData.getGenre_3();
-String pram_genre_4 = userData.getGenre_4();
+String pram_adress = userDB.setData(parm_type, userData.getAddress());
 
-System.out.println("myInfoBox에서 출력[" + parm_type + "]");
-System.out.println("pram_userName : " + pram_userName);
-System.out.println("pram_userId : " + pram_userId);
-System.out.println("pram_email : " + pram_email);
-System.out.println("pram_birthDay : " + pram_birthDay);
-System.out.println("pram_adress : " + pram_adress);
-System.out.println("pram_genre_1 : " + pram_genre_1);
-System.out.println("pram_genre_2 : " + pram_genre_2);
-System.out.println("pram_genre_3 : " + pram_genre_3);
-System.out.println("pram_genre_4 : " + pram_genre_4);
+String pram_genre_1 = userDB.setData(parm_type, userData.getGenre_1());
+String pram_genre_2 = userDB.setData(parm_type, userData.getGenre_2());
+String pram_genre_3 = userDB.setData(parm_type, userData.getGenre_3());
+String pram_genre_4 = userDB.setData(parm_type, userData.getGenre_4());
 %>
 <script type="text/javascript">
+	var parm_type = '<%=parm_type%>';
+
 	function sample4_execDaumPostcode() {
 		new daum.Postcode( {
 				oncomplete : function(data) {
@@ -81,8 +77,8 @@ System.out.println("pram_genre_4 : " + pram_genre_4);
 </datalist>
 <div class="myInfoBox-60">
 	<h1 id="noMargin">내 정보</h1>
-	<form id="userInfoEdit" name="userInfoEdit" method="post" action="main.jsp"
-		onsubmit="return userInfoEdit_F()"
+	<form id="userInfoForm" name="userInfoForm" method="post" action="main.jsp"
+		onsubmit="return checkUserInfoLoad()"
 	>
 		<!-- userInfoEdit() -->
 		<!--request.getRequestURI()I() %> -->
@@ -97,18 +93,30 @@ System.out.println("pram_genre_4 : " + pram_genre_4);
 		<div class="mar-tb-10">
 			<!-- 이름 userName -->
 			<label for="userName">이름</label>
-			<input type="text" id="userName" name="userName" class="genreList form-control"
-				value="<%=pram_userName%>" required
+			<input type="text" id="userName" name="userName" class="form-control" value="<%=pram_userName%>"
+				required
 			>
 		</div>
 		<div class="mar-tb-10">
 			<!-- 아이디 userId -->
 			<label>아이디</label>
-			<input type="text" id="userId" name="userId" class="genreList form-control"
-				value="<%=pram_userId%>" required disabled='<%=parm_type.equals("load") ? "disabled" : ""%>'
+			<input type="text" id="userId" name="userId" class="form-control" value="<%=pram_userId%>"
+				required
+			<%=parm_type.equals("load") ? "disabled='disabled'" : ""%>'
 			>
 		</div>
-		<input type="hidden" id="userPw" name="userPw" style="width: 100%" required>
+		<div class="password">
+			<div class="mar-tb-10">
+				<label>패스워드</label>
+				<input type="password" id="userPw" name="userPw" class="form-control" value="<%=pram_userPw%>">
+			</div>
+			<div class="mar-tb-10">
+				<label>패스워드 확인</label>
+				<input type="password" id="checkPassword" name="checkPassword" class="form-control"
+					value="<%=pram_userPw%>"
+				><span id="passwordGuide" style="color: red; display: none;"> </span>
+			</div>
+		</div>
 		<div class="mar-tb-10">
 			<!-- 이메일 userEmail_1 userEmail_2 -->
 			<label>이메일</label>
@@ -163,7 +171,7 @@ System.out.println("pram_genre_4 : " + pram_genre_4);
 			</div>
 		</div>
 		<div style="display: flex; width: 100%; flex-direction: row-reverse;">
-			<button id="login-btn" type="submit" class="btn btn-primary"
+			<button id="login-btn" type="submit" onsubmit="false" class="btn btn-primary"
 				style="margin: 10px auto; margin-right: 0px;"
 			>
 				<h5>저장</h5>
@@ -172,13 +180,7 @@ System.out.println("pram_genre_4 : " + pram_genre_4);
 	</form>
 </div>
 <script type="text/javascript">
-	function enterBreak(event) {
-		if (event === 'Enter') {
-			event.preventDefault();
-			//idcheck_f();
-			// 원하는 작업을 수행하세요.
-		}
-	}
+	
 	var email = [];
 	email.push("직접입력");
 	email.push("naver.com");
@@ -256,7 +258,36 @@ System.out.println("pram_genre_4 : " + pram_genre_4);
 			});
 			
 		});
+		/*
+		$("#login-btn").on("click", function() {
+			//alert("");
+			//console.log("값 출력 전");
+			//console.log($("#year").val());
+			//console.log("값 출력 후");
+			var year = $("#year").val();
+			var month = $("#month").val();
+			var day = $("#day").val();
+		});*/
 	});
+	
+	function checkUserInfoLoad(){
+		alert("checkUserInfoLoad");
+		console.log("checkUserInfoLoad");
+		var year = $("#year").val();
+		var month = $("#month").val();
+		var day = $("#day").val();
+		alert(year +"-"+ month +"-"+ day);
+		//return false;
+		if(parm_type == 'load' || parm_type == "load"){
+			alert("userInfoEdit_F");
+			return userInfoEdit_F(year,month,day);
+		} else {
+			alert("checkSignUpDataJsFile");
+			return checkSignUpDataJsFile(year,month,day);
+		}
+		
+	}
+	
 	function updateDataList(dataListName,arr) {
 		console.log(dataListName);
 		var dataList = document.getElementById(dataListName);
@@ -268,5 +299,10 @@ System.out.println("pram_genre_4 : " + pram_genre_4);
 			dataList.appendChild(optionElement);
 		});
 	}
+	
+	document.getElementById('userPw').addEventListener('input',
+			checkPassword_f);
+	document.getElementById('checkPassword').addEventListener('input',
+			checkPassword_f);
 	</script>
 </html>

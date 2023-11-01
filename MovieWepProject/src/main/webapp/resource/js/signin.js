@@ -1,24 +1,32 @@
-function displayErrorMessages(messages) {
-	alert(messages);
-	// DBConTest();
-}
 
-function userInfoEdit_F() {
-
-//	alert("userInfoEdit");
-	var form = document.getElementById('date1');
+function userInfoEdit_F(year,month,day) {
+	
+	//alert("정보 수정");
+	
+	var form = document.getElementById('userInfoForm');
 
 	var userName = form.userName.value;
+	//alert(userName);
 	var userId = form.userId.value;
+	//alert(userName);
 	var userPw = form.userPw.value;
+	//alert(userName);
 	var userEmail_1 = form.userEmail_1.value;
+	//alert(userName);
 	var userEmail_2 = form.userEmail_2.value;
-	var birthDay = form.birthDay.value;
+	//alert(userName);
+	var birthDay = year + "-" + month + "-" + day;
+	//alert(userName);
 	var userAddress = form.userAddress.value;
+	//alert(userName);
 	var Genre_1 = form.Genre_1.value;
+	//alert(userName);
 	var Genre_2 = form.Genre_2.value;
+	//alert(userName);
 	var Genre_3 = form.Genre_3.value;
+	//alert(userName);
 	var Genre_4 = form.Genre_4.value;
+	//alert(userName);
 	var errorMessages = "";
 	var data = {
 		"userName" : userName,
@@ -59,8 +67,7 @@ function userInfoEdit_F() {
 	}
 
 	if (errorMessages.length > 0) {
-		// 에러 메시지를 화면에 표시하거나 다른 방법으로 사용자에게 알릴 수 있습니다.
-		displayErrorMessages(errorMessages);
+		// 에러 메시지를 화면에 표시하거나 다른 방법으로 사용자에게 알릴 수 있습니다.		alerts(errorMessages);
 		return false; // 폼 제출을 막음
 	}
 	var result = -1;
@@ -74,14 +81,14 @@ function userInfoEdit_F() {
 			// 서버로부터의 응답 처리
 			result = response.result;
 
-			// alert(response.message + ":" + (result == 1)); // 서버의 응답 메시지 출력
+			//alert(errorMessages);
 		}
 	});
 
 	if (result == 0) {
 		alert("정보를 수정했습니다.");
 	} else if (result == 1) {
-		alert("정보를 수정할수 없습니다.");
+		alert("잘못된 정보가 포함되있습니다.");
 		return false;
 	} else {
 		alert("정보 수정중 문제가 발생했습니다.");
@@ -143,13 +150,13 @@ function trySignIn() {
 	});
 
 	if (result == 0) {
-		alert("로그인 성공");
+		//alert("로그인 성공");
 		history.back();
 	} else if (result == 1) {
-		alert("로그인 실패");
+		alert("회원정보를 찾을 수 없습니다.");
 		return false;
 	} else {
-		alert("로그인 에러");
+		alert("로그인중 오류가 발생했습니다.\n다시 시도해 주세요");
 		return false;
 	}
 	// 로그인

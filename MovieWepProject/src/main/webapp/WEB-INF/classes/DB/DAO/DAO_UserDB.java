@@ -22,8 +22,17 @@ public class DAO_UserDB extends DatabaseConnection {
 	public DAO_UserDB(){
 		//System.out.println(loadUserData("user0001").toString());
 	}
+	
+	public String setData(String type,String dbData){
+		String result = "";
+		if(type.equals("load")){
+			result = dbData;
+		}
+		return result;
+	}
+	
 	public Data_User loadUserData(String userid) {
-		System.out.println("loadUserData 호출");
+		//System.out.println("loadUserData 호출");
 		Data_User data = new Data_User();
 		
 		try {
@@ -51,7 +60,9 @@ public class DAO_UserDB extends DatabaseConnection {
 		} catch (Exception e) {
 			System.out.println("에러 발생" + e.getMessage());
 		}
-		System.out.println("loadUserData 종료 [" + data.getBirthday() + "] 불러옴");
+		System.out.println("loadUserData 반환값");
+		System.out.println(data.toString());
+		
 		return data;
 	}
 	

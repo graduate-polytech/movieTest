@@ -3,7 +3,13 @@ package Office;
 import java.util.List;
 
 public class MainBoxCtor {
-    private String rank;
+    @Override
+	public String toString() {
+		return "MainBoxCtor [rank=" + rank + ", movieNm=" + movieNm + ", openDt=" + openDt + ", posterUrl=" + posterUrl
+				+ ", movieDOCID=" + movieDOCID + "]";
+	}
+
+	private String rank;
     private String movieNm;
     private String openDt;
     private String posterUrl;

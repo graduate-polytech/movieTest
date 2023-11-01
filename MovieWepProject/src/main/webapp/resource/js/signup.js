@@ -1,10 +1,5 @@
-function displayErrorMessages(messages) {
-	alert(messages);
-//	DBConTest();
-}
-
-function checkSignUpData() {
-	var form = document.getElementById('signupForm');
+function checkSignUpDataJsFile(year,month,day) {
+	var form = document.getElementById('userInfoForm');
 
 	var userName = form.userName.value;
 	var userId = form.userId.value;
@@ -12,13 +7,13 @@ function checkSignUpData() {
 	var checkPassword = form.checkPassword.value;
 	var userEmail_1 = form.userEmail_1.value;
 	var userEmail_2 = form.userEmail_2.value;
-	var birthDay = form.birthDay.value;
+	var birthDay = year + "-" + month + "-" + day;
 	var userAddress = form.userAddress.value;
 	var Genre_1 = form.Genre_1.value;
 	var Genre_2 = form.Genre_2.value;
 	var Genre_3 = form.Genre_3.value;
 	var Genre_4 = form.Genre_4.value;
-
+	
 	var errorMessages = "";
 	var data = {
             "userName":userName,
@@ -33,6 +28,7 @@ function checkSignUpData() {
             "Genre_4": Genre_4
         };
 	// 이름 길이 검사
+	//alert("이름 검사");
 	if (userName.length < 2 || userName.length > 10) {
 		errorMessages = errorMessages + "\n" + "이름은 2글자 이상 10글자 이하여야 합니다.";
 	}
@@ -40,7 +36,8 @@ function checkSignUpData() {
 	if (!isValidName(userName)) {
 		errorMessages = errorMessages + "\n" + "이름은 특수문자가 포함될 수 없습니다.";
 	}
-	
+
+	//alert("아이디 검사");
 	// 아이디 길이 검사
 	if (userId.length < 8 || userId.length > 20) {
 		errorMessages = errorMessages + "\n" + "아이디는 8글자 이상 20글자 이하여야 합니다.";
@@ -49,7 +46,8 @@ function checkSignUpData() {
 	if (!isValidIdPw(userId)) {
 		errorMessages = errorMessages + "\n" + "아이디는 영어와 숫자만 사용할수 있습니다.";
 	}
-	
+
+	//alert("패스워드 검사");
 	// 패스워드 길이 검사
 	if (userPw.length < 8 || userPw.length > 20) {
 		errorMessages = errorMessages + "\n" + "패스워드는 8글자 이상 20글자 이하여야 합니다.";
@@ -62,18 +60,20 @@ function checkSignUpData() {
 	if(!(userPw===checkPassword)){
 		errorMessages = errorMessages + "\n" + "패스워드가 일치하지 않습니다.";
 	}
-	
+
+	//alert("이메일 검사");
 	if (!isValidEmail(userEmail_1, userEmail_2)) {
 		errorMessages = errorMessages + "\n" + "올바른 이메일 주소 형식이 아닙니다.";
 	}
 
+	//alert("날짜 검사");
 	if (!isValidBirthDay(birthDay)) {
 		errorMessages = errorMessages + "\n" + '잘못된 날짜입니다.';
 	}
 
 	if (errorMessages.length > 0) {
 		// 에러 메시지를 화면에 표시하거나 다른 방법으로 사용자에게 알릴 수 있습니다.
-		displayErrorMessages(errorMessages);
+		alert(errorMessages);
 		return false; // 폼 제출을 막음
 	}
 	var result = -1;
@@ -87,7 +87,7 @@ function checkSignUpData() {
             // 서버로부터의 응답 처리
         	result = response.message;
         	
-        	// alert(response.message + ":" + (result == 1)); // 서버의 응답 메시지 출력
+        	//alert(response.message + ":" + result); // 서버의 응답 메시지 출력
         }
     });
 	

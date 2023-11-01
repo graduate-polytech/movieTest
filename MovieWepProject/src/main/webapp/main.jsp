@@ -335,7 +335,7 @@
 							"userId" : userId
 						}, // 날짜를 지정
 						dataType : "json",
-						async : false,
+						//async : false,
 						success : function(data) {
 							// 영화 정보를 성공적으로 받았을 때 실행될 함수
 							console.log("RecommendMovies : " + data);

@@ -19,13 +19,13 @@ public class UserGenreSimilarityFinder extends DatabaseConnection {
 
 		UserGenreSimilarityFinder d = new UserGenreSimilarityFinder();
 
-//		String dataList = d.resultInterestMovieData("user0002");
+		List<MainBoxCtor> dataList = d.resultInterestMovieData("user0002");
 
 //		System.out.println(d.resultInterestMovieData(dataList));
 
-//		for (InterestMovieData data : dataList) {
-//			System.out.println(data.toString());
-//		}
+		for (MainBoxCtor data : dataList) {
+			System.out.println(data.toString());
+		}
 
 	}
 
@@ -33,7 +33,7 @@ public class UserGenreSimilarityFinder extends DatabaseConnection {
 		return resultInterestMovieData(getInterestMovieList(userid));
 	}
 
-	public List<MainBoxCtor> resultInterestMovieData(ArrayList<InterestMovieData> datas) {
+	public List<MainBoxCtor> resultInterestMovieData(ArrayList<InterestMovieData> datas) {//추천되는 영화의 정보를 리스트로 반환(docid, 제목, 개봉일, 포스터, 랭크(순서))
 		ArrayList<MainBoxCtor> result = new ArrayList<MainBoxCtor>();
 		JSONArray array = new JSONArray();
 		int count = 1;
@@ -46,13 +46,13 @@ public class UserGenreSimilarityFinder extends DatabaseConnection {
 			mainData.setMovieNm(movie.getTitle());
 			mainData.setOpenDt(movie.getOpenThtr());
 			mainData.setPosterUrl(movie.getPosters()[0]);
-			mainData.setRank(count++ + "");
+			mainData.setRank((count++) + "");
 			result.add(mainData);
 		}
 		return result;
 	}
 
-	public ArrayList<InterestMovieData> getInterestMovieList(String userId) {
+	public ArrayList<InterestMovieData> getInterestMovieList(String userId) {//입력한 아이디에게 추천하는 영화 5개를 출력(docid,점수)
 		ArrayList<InterestMovieData> result = new ArrayList<InterestMovieData>();
 		String[] userIds = { "", "", "", "", "" };
 		ArrayList<SimilarInterestUserData> SimilarUserList = getSimilarInterestUsers(userId);
@@ -94,7 +94,7 @@ public class UserGenreSimilarityFinder extends DatabaseConnection {
 		return result;
 	}
 
-	public ArrayList<SimilarInterestUserData> getSimilarInterestUsers(String userId) {
+	public ArrayList<SimilarInterestUserData> getSimilarInterestUsers(String userId) {	//선호장르가 가장 비슷한 유저 최대 5명까지 불러옴 (유저아이디,유사도)
 		ArrayList<SimilarInterestUserData> result = new ArrayList<SimilarInterestUserData>();
 
 		try {

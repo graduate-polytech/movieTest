@@ -7,25 +7,34 @@ import org.json.simple.parser.ParseException;
 
 import DB.DatabaseConnection;
 
-public class Data_User extends DatabaseConnection{
+public class Data_User extends DatabaseConnection {
 
-	private String id;
-	private String pw;
-	private String name;
-	private Date birthday;
-	private String email;
-	private String address;
-	private String genre_1;
-	private String genre_2;
-	private String genre_3;
-	private String genre_4;
+	private String id = "";
+	private String pw = "";
+	private String name = "";
+	private Date birthday = Date.valueOf("2000-01-01");
+	private String email = "";
+	private String address = "";
+	private String genre_1 = "";
+	private String genre_2 = "";
+	private String genre_3 = "";
+	private String genre_4 = "";
 
 	public Data_User() {
-
+		this.id = "";
+		this.pw = "";
+		this.name = "";
+		this.birthday = Date.valueOf("1900-01-01");
+		this.email = "";
+		this.address = "";
+		this.genre_1 = "";
+		this.genre_2 = "";
+		this.genre_3 = "";
+		this.genre_4 = "";
 	}
-	
+
 	public Data_User(String[] datas) {
-		
+
 		this.id = datas[0];
 		this.pw = datas[1];
 		this.name = datas[2];

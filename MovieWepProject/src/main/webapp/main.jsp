@@ -115,11 +115,11 @@
 					<!-- 여기에 랜덤한 10개의 인기 영화 포스터가 추가됩니다. -->
 				</div>
 			</div>
-			<div class="container mt-5 ">
+			<div class="container mt-5" >
 				<h2 class="text-center">추천 영화</h2>
 				<div id="recommended-movie-list" class="row">
-					<div class="container mt-5 "
-						style="border: 1px solid black; margin-bottom: 40px; padding: 20px;"
+					<div class="container"
+						style=" margin-bottom: 40px; padding: 20px;"
 					>
 						<div id="recommended-movie-list" class="row"
 							style="display: flex; flex-direction: column; align-items: center; flex-wrap: nowrap; min-height: 200px; width: 100%; justify-content: space-evenly;"
@@ -129,16 +129,16 @@
 
 								UserGenreSimilarityFinder d = new UserGenreSimilarityFinder();
 
-								List<MainBoxCtor> dataList = d.resultInterestMovieData("user0002");
+								List<MainBoxCtor> dataList = d.resultInterestMovieData(session.getAttribute("userId").toString());
 
-								//				System.out.println(d.resultInterestMovieData(dataList));
+								//System.out.println(d.resultInterestMovieData(dataList));
 
 								for (MainBoxCtor data : dataList) {
 									System.out.println(data.toString());
 							%>
 							
 								<div class="col-md-3 movie-item"
-									onclick="location.href='MovieWepProject/MovieInfoOfMovieSeq.jsp?DOCID='<%=data.getMovieDOCID()%>'&title='<%=data.getMovieNm()%>'';"
+									onclick="location.href='/MovieWepProject/MovieInfoOfMovieSeq.jsp?DOCID=<%=data.getMovieDOCID()%>&title=<%=data.getMovieNm()%>';"
 								>
 									<img src="<%=data.getPosterUrl()%>" alt="포스터" class="poster">
 									<div class="movie-info text-center">

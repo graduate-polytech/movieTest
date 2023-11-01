@@ -65,10 +65,7 @@
 								data-bs-toggle="dropdown" aria-expanded="false"> 극장 </a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<li>
-									<a class="dropdown-item" href="map.jsp">주변 영화관</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="map.jsp">지역별 영화관</a>
+									<a class="dropdown-item" href="Map.jsp">영화관 찾기</a>
 								</li>
 							</ul>
 						</li>

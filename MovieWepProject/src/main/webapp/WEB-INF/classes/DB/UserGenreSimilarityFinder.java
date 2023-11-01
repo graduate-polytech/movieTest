@@ -44,7 +44,7 @@ public class UserGenreSimilarityFinder extends DatabaseConnection {
 			MainBoxCtor mainData = new MainBoxCtor();
 			mainData.setMovieDOCID(movie.getDOCID());
 			mainData.setMovieNm(movie.getTitle());
-			mainData.setOpenDt(movie.getOpenThtr());
+			mainData.setOpenDt(movie.getRepRlsDate());
 			mainData.setPosterUrl(movie.getPosters()[0]);
 			mainData.setRank((count++) + "");
 			result.add(mainData);

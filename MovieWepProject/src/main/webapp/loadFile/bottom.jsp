@@ -20,7 +20,7 @@
 }
 </style>
 <html>
-<div class="footer-box">
+<div class="footer-box-gray">
 	(21417)인천광역시 부평구 무네미로 448번길 56, 인천폴리텍
 	<br>
 	대표이사 황민기 최선호 천현기 한승민 사업자등록번호 00-123-45678

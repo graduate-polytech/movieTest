@@ -171,9 +171,8 @@ String pram_genre_4 = userDB.setData(parm_type, userData.getGenre_4());
 			</div>
 		</div>
 		<div style="display: flex; width: 100%; flex-direction: row-reverse;">
-			<button id="login-btn" type="submit" onsubmit="false" class="btn btn-primary"
-				style="margin: 10px auto; margin-right: 0px;"
-			>
+			<button id="login-btn" type="submit" onsubmit="checkUserInfoLoad" class="btn btn-primary"
+				style="margin: 10px auto; margin-right: 0px;">
 				<h5>저장</h5>
 			</button>
 		</div>
@@ -271,18 +270,18 @@ String pram_genre_4 = userDB.setData(parm_type, userData.getGenre_4());
 	});
 	
 	function checkUserInfoLoad(){
-		alert("checkUserInfoLoad");
+		//alert("checkUserInfoLoad");
 		console.log("checkUserInfoLoad");
 		var year = $("#year").val();
 		var month = $("#month").val();
 		var day = $("#day").val();
-		alert(year +"-"+ month +"-"+ day);
+		//alert(year +"-"+ month +"-"+ day);
 		//return false;
 		if(parm_type == 'load' || parm_type == "load"){
-			alert("userInfoEdit_F");
+			//alert("userInfoEdit_F");
 			return userInfoEdit_F(year,month,day);
 		} else {
-			alert("checkSignUpDataJsFile");
+			//alert("checkSignUpDataJsFile");
 			return checkSignUpDataJsFile(year,month,day);
 		}
 		

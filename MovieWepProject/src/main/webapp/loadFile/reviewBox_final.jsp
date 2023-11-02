@@ -64,7 +64,9 @@ param_no = param_no=="-1"?"신규":param_no;
 					<jsp:param name="score" value="<%=param_score%>" />
 				</jsp:include>
 				<%
-				if (param_userid.equals(session_userid) || param_userid.equals("admin")) {
+				System.out.println(session_userid);
+				if (param_userid.equals(session_userid) || session_userid.equals("admin") || session_userid=="admin") {
+					
 				%>
 				<button type="button" class="btn btn-primary review_editBtn" data-message="수정"
 				data-no="<%=param_no%>" data-DOCID="<%=param_docid%>"

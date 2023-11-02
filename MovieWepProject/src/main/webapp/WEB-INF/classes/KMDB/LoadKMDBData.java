@@ -16,16 +16,18 @@ public class LoadKMDBData {
 	long count;
 	ArrayList<KMDB_Data> KMDB_DataList = null;
 
-	public LoadKMDBData() { 
+	public LoadKMDBData() {
+
+		getKMDB_arge("드라마");
 
 //		KMDB_DataList = getKMDB_movieDOCID("B10374");	//아이디로 검새
 //		KMDB_DataList = getKMDB_title("아이언맨");	//제목으로 검색
 //		KMDB_DataList = getKMDB_director("봉준호");	//감독으로 검색
 //		KMDB_DataList = getKMDB_titleData("그대들은 어떻게 살 것인가", "20231025"); // 제목과 감독으로 검색
-		for (int i = 0; i < 5; i++) {
-			getKMDB_title(" ");
-		}
-		System.out.println("종료");
+//		for (int i = 0; i < 5; i++) {
+//			getKMDB_title(" ");
+//		}
+//		System.out.println("종료");
 //		Sys
 //		if (KMDB_DataList != null && KMDB_DataList.size() > 0) {
 //			for (KMDB_Data data : KMDB_DataList) {
@@ -42,7 +44,7 @@ public class LoadKMDBData {
 	}
 
 	public void getKMDB_arge(String genre) { // 감독명을 사용한 영화 검색
-		String url = "https://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&detail=Y&ServiceKey=B40IP5NLA4A22KX077TM";
+		String url = "https://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&detail=Y&ServiceKey=B40IP5NLA4A22KX077TM&releaseDts=20200101";
 		StringBuilder urlBuilder = new StringBuilder(url);
 		urlBuilder.append(Condition("genre", genre));
 		// urlBuilder.append(Condition("nation", "대한민국"));
@@ -56,12 +58,13 @@ public class LoadKMDBData {
 			String title = data.getTitle();
 			String docid = data.getDOCID();
 			String runtime = data.getRuntime();
+			String[] posters = data.getPosters();
 			if (runtime.length() > 0 && !runtime.equals("")) {
-				System.out.print("\"" + title + "\", \"" + docid + "\"");
-				count++;
-				if (count > 2)
-					return;
-				System.out.print("|");
+				if (posters.length > 1) {
+					System.out.print("\"" + title + "\", \"" + docid + "\"");
+					System.out.print("|");
+				}
+				
 			}
 		}
 	}
@@ -134,7 +137,7 @@ public class LoadKMDBData {
 	public ArrayList<KMDB_Data> loadApi(StringBuilder urlBuilder) {
 		ArrayList<KMDB_Data> result = new ArrayList<KMDB_Data>();
 		try {
-			//System.out.println("전체 URL : " + urlBuilder.toString());
+			// System.out.println("전체 URL : " + urlBuilder.toString());
 
 			URL url = new URL(urlBuilder.toString());
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -158,7 +161,7 @@ public class LoadKMDBData {
 
 			String responseJson = sb.toString();
 
-			//System.out.println(responseJson);
+			// System.out.println(responseJson);
 			System.out.println("실행");
 
 			result = changeJsonData(responseJson);

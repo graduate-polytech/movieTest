@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="DB.*" %>
+<%@ page import="com.google.gson.Gson" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Set" %>
+<%@ page import="java.util.HashSet" %>
+<%@ page import="java.util.ArrayList" %>
 
 <!DOCTYPE html>
 <html lang="UTF-8">
@@ -35,42 +39,104 @@
             text-decoration: none;
         }
     </style>
+    <style>
+    #uniqueAreaButtons button {
+        width: 100px; /* 원하는 너비로 조정 */
+        height: 50px; /* 원하는 높이로 조정 */
+        font-size: 20px; /* 원하는 글꼴 크기로 조정 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
     <link rel="stylesheet" href="resource/css/styles1.css">
 </head>
 <body>
-<main>
 <header>
     <div id="top">
         <!-- 다운후 변경 -->
         <jsp:include page="loadFile/top.jsp" /> 
         <jsp:include page="loadFile/menuBar.jsp" />
     </div>
+    
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFWttU33_ZQvbz5cU1vdkdtcyPL2Tr53U&callback=initMap&libraries=geometry"></script>
 </header>
 
-<div style="display: flex;
-    width: 20%;
-    margin-left: 10%;
-    align-items: center;">
-    <input type="text" id="markerSearch" placeholder="Google 지도 검색" style="width: 75%;" onkeydown="if(event.keyCode==13){Search()}">
-    <button onclick="Search()" style="width: 25%;">검색</button>
+<div class="container mt-5">
+<h2 class="text-center">영화관 검색</h2>
+<div class="form-group" style="width: 80%; display: flex; align-content: center; align-items: center; justify-content: center; margin: 0 auto;">
+    <input type="text" class="form-control1" id="markerSearch" placeholder="Google 지도 검색 " onkeydown="if(event.keyCode==13){Search()}" style="width: 80%;" >
+    <button onclick="Search()" class="btn btn-primary" style="margin-left: 10px;">검색</button>
+</div>
 </div>
 
+<div style="display: flex; align-items: center; justify-content: center; " id="uniqueAreaButtons"></div>
 <div id="map" style="width: 80%;  margin: 0 auto;"></div>
+
+
 <footer>
     <div id="bottom">
         <jsp:include page="loadFile/bottom.jsp" />
     </div>
 </footer>
-<%
-CinemaDataAccess2 cinemaDataAccess2 = CinemaDataAccess2.createInstance();
-%>
+	<%
+	CinemaDataAccess2 cinemaDataAccess2 = CinemaDataAccess2.createInstance();
+	List<Cinema3> Area = cinemaDataAccess2.getAllCinema3Data();
+	Set<String> uniqueArea = new HashSet<>();
+	for (Cinema3 cinema3 : Area) {
+	    uniqueArea.add(cinema3.getArea1());
+	}
+	List<String> uniqueArea1List = new ArrayList<>(uniqueArea);
+	%>
+		
     <script>
+ 	var selectedArea = '';
+ 	
+ 	function createUniqueAreaButtons() {
+ 	    var uniqueAreas = <%
+ 	        String uniqueArea1ListJSON = new Gson().toJson(uniqueArea1List);
+ 	        out.print(uniqueArea1ListJSON);
+ 	    %>;
+
+ 	    uniqueAreas.sort();
+
+ 	    var buttonsContainer = document.getElementById("uniqueAreaButtons");
+ 	    buttonsContainer.innerHTML = '';
+
+ 	    // 각 고유한 지역 정보에 대한 버튼을 생성 및 추가
+ 	    for (var i = 0; i < uniqueAreas.length; i++) {
+ 	        var area = uniqueAreas[i];
+ 	        
+ 	        // '시'를 삭제한 지역 이름 생성
+ 	        var areaWithoutSi = area.replace("시", ""); // '시'를 빈 문자열로 대체하여 삭제
+ 	        areaWithoutSi = areaWithoutSi.replace("제주도", "제주");
+ 	        areaWithoutSi = areaWithoutSi.replace("강원도", "강원");
+ 	        areaWithoutSi = areaWithoutSi.replace("경기도", "경기");
+ 	        var button = document.createElement("button");
+ 	        button.textContent = areaWithoutSi; // 수정된 텍스트 설정
+ 	        button.addEventListener("click", function (event) {
+ 	            var selectedArea = event.target.textContent; // 클릭된 버튼의 수정된 텍스트를 가져와서 사용
+ 	            SearchByArea(selectedArea); // 검색 함수를 호출하여 선택된 지역을 기반으로 마커 필터링
+ 	        });
+ 	        buttonsContainer.appendChild(button); // 버튼을 컨테이너에 추가
+ 	    }
+
+ 	    function SearchByArea(area) {
+ 	        var searchInput = document.getElementById("markerSearch");
+ 	        searchInput.value = area;
+ 	        Search();
+ 	    }
+ 	}
+
+
+ 	createUniqueAreaButtons();
     window.onload = function () {
         getCurrentLocation(initMap);
     };
     var markers = [];
 	var map;
+	var infoWindow; // infoWindow 변수를 전역으로 선언
+
 	var NameList = <%
 	List<Cinema2> NameList = cinemaDataAccess2.getAllCinema2Data();
 	out.print("[");
@@ -135,13 +201,14 @@ CinemaDataAccess2 cinemaDataAccess2 = CinemaDataAccess2.createInstance();
     	}
 	}
 	function initMap(userLocation) {
-		var infoWindow = new google.maps.InfoWindow();
+		infoWindow = new google.maps.InfoWindow(); 
 		// userCircle 변수를 initMap 함수 내에서 초기화
 	
     	var userCircle = new google.maps.Circle({
         	center: userLocation,
         	radius: 5000
     	});
+		
     	var cinema5List = <%
         	List<Cinema5> X_List = new CinemaDataAccess2().getAllCinema5Data();
         	out.print("[");
@@ -166,6 +233,7 @@ CinemaDataAccess2 cinemaDataAccess2 = CinemaDataAccess2.createInstance();
         	}
         out.print("]");
     	%>;
+    	
     	var TelList = <%
     	List<Cinema8> TelList = cinemaDataAccess2.getAllCinema8Data();
     	out.print("[");
@@ -189,10 +257,12 @@ CinemaDataAccess2 cinemaDataAccess2 = CinemaDataAccess2.createInstance();
     	}
     	out.print("]");
 		%>;
+		
 		// 변환된 좌표 데이터를 초기화합니다.
     	var locations = []; //좌표
     	var locationsinfo = [];// 좌표의 정보
     	var userCircle;
+    	
     	for (var i = 0; i < cinema5List.length; i++) {
         	var location = { x: parseFloat(cinema5List[i]), y: parseFloat(cinema6List[i]) };
         	var locationinfo = 
@@ -241,18 +311,24 @@ CinemaDataAccess2 cinemaDataAccess2 = CinemaDataAccess2.createInstance();
             	var userMarkerPosition = userMarker.getPosition();
             	var distance = google.maps.geometry.spherical.computeDistanceBetween(markerPosition, userMarkerPosition);
 
-        		var content = '<h1>' + name + '</h1>' + '<p>주소: ' + address + '</p>';
+        		var content =
+        			'<div style="width: 200px;">' +
+        			'<h1 style="font-size: 20px; margin: 5px 0;">' + name + '</h1>' +
+        			'<p style="font-size: 15px; margin: 5px 0;">주소: ' + address + '</p>';
             	if (tel) {
-                	content += '<p>전화번호: ' + tel + '</p>';
+                	content += '<p style="font-size: 15px; margin: 5px 0;">전화번호: ' + tel + '</p>';
             	}
             	if (wep) {
-                	content += '<p>웹사이트: <a href="' + wep + '" target="_blank">' + wep + '</a></p>';
+                	content += '<p style="font-size: 15px; margin: 5px 0;">웹사이트: <a href="' + wep + '" target="_blank">' + wep + '</a></p>';
             	}
-            	content += '<p>현재 나와의 거리: ' + (distance / 1000).toFixed(2) + ' km</p>';
+            	content += '<p style="font-size: 15px; margin: 5px 0;">현재 나와의 거리: ' + (distance / 1000).toFixed(2) + ' km</p>';
             	// InfoWindow에 정보를 표시합니다.
             	infoWindow.setContent(content);
             	// InfoWindow를 현재 클릭한 마커의 위치에 열고 표시합니다.
             	infoWindow.open(map, this);
+            	google.maps.event.addListener(map, 'click', function () {
+                    infoWindow.close();
+                });
         	});
         	markers.push(marker);
      		// 이 함수를 호출하여 원 밖의 마커를 숨깁니다.
@@ -268,8 +344,13 @@ CinemaDataAccess2 cinemaDataAccess2 = CinemaDataAccess2.createInstance();
         	center: userLocation,
         	radius: 5000
     	});
+    	userCircle.addListener('click', function () {
+    	    infoWindow.close(); // 클릭 시 InfoWindow를 닫습니다.
+    	});
 	}
+	
 	initMap();
+	
 	function hideMarkersOutsideRadius(markers, userCircle) {
     	var userCircleCenter = userCircle.getCenter();
     	var userCircleRadius = userCircle.getRadius();
@@ -288,8 +369,10 @@ CinemaDataAccess2 cinemaDataAccess2 = CinemaDataAccess2.createInstance();
         	}
     	}
 	}
+	
 	function Search() {
 	    var searchKeyword = document.getElementById("markerSearch").value.toLowerCase();
+	    var visibleMarkers = []; // 검색 결과로 표시된 마커들을 저장할 배열
 	    for (var i = 0; i < markers.length; i++) {
 	        var marker = markers[i];
 	        var markerName = marker.get("name") || '';
@@ -307,24 +390,28 @@ CinemaDataAccess2 cinemaDataAccess2 = CinemaDataAccess2.createInstance();
 	            marker.setVisible(false);
 	        }
 	    }
+	    infoWindow.close();
+	    fitMapBounds(markers);
 	}
+	
 	function clearSearch() {
 	    document.getElementById("markerSearch").value = "";
 	    Search();
 	}
-	function filterMarkers(area) {
-	    for (var i = 0; i < markers.length; i++) {
-	        var marker = markers[i];
-	        var markerArea1 = marker.get("area1") || '';
-	        if (markerArea1 === area) {
-	            marker.setVisible(true);
-	        } else {
-	            marker.setVisible(false);
-	        }
-	    }
-	}
+	Search();
+	function fitMapBounds(markers) {
+	    var bounds = new google.maps.LatLngBounds();
+	    
+	    var visibleMarkers = markers.filter(function (marker) {
+	        return marker.getVisible();
+	    });
 
+	    for (var i = 0; i < visibleMarkers.length; i++) {
+	        bounds.extend(visibleMarkers[i].getPosition());
+	    }
+
+	    map.fitBounds(bounds);
+	}
 </script>
-</main>
 </body>
 </html>

@@ -239,15 +239,20 @@ param_title = param_title == null ? "" : param_title;
 		        	// alert(response.message + ":" + (result == 1)); // 서버의 응답 메시지 출력
 		        }
 		    });
-			
+			var mode="";
+			if(fun == "del"){
+				mode = "삭제"
+			}else {
+				mode = "등록"
+			}
 			if(result == 0) {
-				alert("리뷰가 등록되었습니다.");
+				alert("리뷰가 "+mode+"되었습니다.");
 				location.reload();
 			} else if(result == 1) {
-				alert("리뷰를 등록할수 없습니다.");
+				alert("리뷰를 "+mode+"할수 없습니다.");
 				return false;
 			} else {
-				alert("리뷰 등록중 오류가 발생했습니다.");
+				alert("리뷰 "+mode+"중 오류가 발생했습니다.");
 				return false;
 			}
 			// DB등록

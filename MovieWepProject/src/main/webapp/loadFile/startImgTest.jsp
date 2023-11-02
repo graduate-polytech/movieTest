@@ -92,6 +92,22 @@ param_title = param_title == null ? "" : param_title;
 
 	
 	if (reviewList.size() > 0) {
+		if(reviewList.get(0).getUserid()!=session_userid){
+			%>
+			<div class="showListDiv">
+				<jsp:include page="reviewBox_final.jsp">
+					<jsp:param name="param_no" value="-1" />
+					<jsp:param name="param_docid" value="<%=param_docid%>" />
+					<jsp:param name="param_title" value="<%=param_title%>" />
+					<jsp:param name="param_userid" value="<%=session_userid%>" />
+					<jsp:param name="param_score" value="0" />
+					<jsp:param name="param_review" value="" />
+					<jsp:param name="param_date" value="" />
+					<jsp:param name="param_type" value="<%=param_type%>" />
+				</jsp:include>
+			</div>
+			<%
+		}
 		for (Data_Review getData : reviewList) {
 
 			String title = "";

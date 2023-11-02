@@ -16,7 +16,7 @@
 	height: 10%; /* 테이블과 같은 높이로 설정 */
 	margin: 5px auto; /* 가운데 정렬 및 위아래 여백 조절 */
 	font-size: 14px;
-	color: gray;
+	color: white;
 }
 </style>
 <html>

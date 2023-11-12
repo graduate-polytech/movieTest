@@ -34,11 +34,10 @@
 	height: 500px;
 	overflow-y: auto;
 	overflow-x: auto;
+	table-layout:fixed;
 }
 
 .table-container thead {
-	position: sticky;
-	top: 0; /* 머리글을 상단에 고정 */
 	background-color: #f5f5f5; /* 머리글 배경색 설정 */
 }
 
@@ -52,6 +51,7 @@ table {
 }
 
 thead {
+width: 100%;
 	background-color: #f5f5f5; /* 헤더의 배경색 설정 (원하는 색상으로 변경 가능) */
 }
 
@@ -61,6 +61,7 @@ th {
 }
 
 tbody {
+width: 100%;
 	background-color: #ffffff; /* 본문의 배경색 설정 (원하는 색상으로 변경 가능) */
 }
 
@@ -84,6 +85,7 @@ td {
 </style>
 </head>
 <body>
+	<main>
 	<!-- 모달 창 정의 -->
 	<div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="staticBackdropLabel"
 		aria-hidden="false"
@@ -171,7 +173,7 @@ td {
 			<jsp:include page="loadFile/menuBar.jsp" />
 		</div>
 	</header>
-	<body_main>
+	
 	<%
 	DAO_CinemaDB cinemaData = new DAO_CinemaDB();
 	ArrayList<Data_Cinema> cinemaList = cinemaData.getAllCinemaData();
@@ -237,7 +239,7 @@ td {
 			</table>
 		</div>
 	</div>
-	</body_main>
+	</main>
 	<footer>
 		<div id="bottom">
 			<jsp:include page="loadFile/bottom.jsp" />

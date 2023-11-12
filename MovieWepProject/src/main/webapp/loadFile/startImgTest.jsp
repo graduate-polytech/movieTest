@@ -92,7 +92,7 @@ param_title = param_title == null ? "" : param_title;
 
 	
 	if (reviewList.size() > 0) {
-		if(reviewList.get(0).getUserid()!=session_userid){
+		if(!reviewList.get(0).getUserid().equals(session_userid)){
 			%>
 			<div class="showListDiv">
 				<jsp:include page="reviewBox_final.jsp">
